@@ -6,6 +6,7 @@
   <title>Video Collection - Hakimabad</title>  <link rel="icon" type="image/x-icon" href="./assets/images/Logo.ico">
   
   <meta name="description" content="Watch Hakimabad Mahfil video recordings from YouTube">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval'; frame-src https: youtube.com www.youtube.com www.youtube-nocookie.com player.vimeo.com;">
   <script src="./assets/vendor/tailwindcss.js"></script>
   <script src="./assets/vendor/vue.global.prod.js"></script>
   <script src="./data/video-data.js"></script>
@@ -43,7 +44,7 @@
             <svg class="nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
             Home
           </a>
-          <div class="mega-menu-trigger nav-item">
+          <div class="mega-menu-trigger nav-item" :class="{ 'active': megaMenuOpen }">
             <a href="#" class="nav-link" @click.prevent="toggleMegaMenu" :class="{ 'active-page': megaMenuOpen }">
               Explore <span class="arrow">&#x25BC;</span>
             </a>
@@ -188,7 +189,7 @@
               <!-- Video Player -->
               <div v-if="currentVideo" class="bg-white rounded-2xl border border-gray-100 shadow-md overflow-hidden mb-6">
                 <div class="aspect-video bg-black relative flex items-center justify-center bg-gray-900">
-                  <iframe v-if="!isFileProtocol" :src="embedUrl(currentVideo)" class="w-full h-full" frameborder="0" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe>
+                  <iframe v-if="!isFileProtocol" :src="embedUrl(currentVideo)" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" class="w-full h-full"></iframe>
                   <div v-else class="text-center p-6">
                     <svg class="w-16 h-16 mx-auto mb-4 text-white/50" fill="currentColor" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
                     <p class="text-white text-lg font-medium mb-1">Open in YouTube to watch</p>
@@ -529,7 +530,11 @@
           return 'https://www.youtube-nocookie.com/embed/' + v.id + '?rel=0&enablejsapi=1';
         },
         isFileProtocol() {
-          return window.location.protocol === 'file:';
+          // Allow embedding on GitHub Pages and localhost/HTTP servers
+          const protocol = window.location.protocol;
+          const hostname = window.location.hostname;
+          // Block only file:// protocol
+          return protocol === 'file:';
         }
       },
       mounted() {
