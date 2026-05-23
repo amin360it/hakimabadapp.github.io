@@ -44,7 +44,7 @@
             <svg class="nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
             Home
           </a>
-          <div class="mega-menu-trigger nav-item">
+          <div class="mega-menu-trigger nav-item" :class="{ 'active': megaMenuOpen }">
             <a href="#" class="nav-link" @click.prevent="toggleMegaMenu" :class="{ 'active-page': megaMenuOpen }">
               Explore <span class="arrow">&#x25BC;</span>
             </a>
