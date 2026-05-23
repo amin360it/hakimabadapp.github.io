@@ -68,7 +68,13 @@ const app = Vue.createApp({
       activeTab: 'all',
 
       // Search
-      searchQuery: ''
+      searchQuery: '',
+
+      // Index page sections
+      recentAudio: [],
+      recentVideos: [],
+      recentBooks: [],
+      pathBooks: []
     };
   },
 
@@ -103,6 +109,7 @@ const app = Vue.createApp({
       await this.loadMediaLocal();
       await this.loadPlaylistsData();
       await this.loadLinksData();
+      this.loadIndexData();
       this.isLoading = false;
 
       // Initialize audio element
@@ -394,6 +401,32 @@ const app = Vue.createApp({
     // Switch audio source
     switchAudioSource(source) {
       this.audioSource = source;
+    },
+
+    // Index page sections data
+    loadIndexData() {
+      // Recent audio (gdrive tracks)
+      if (window.audioData && window.audioData.gdriveTracks) {
+        this.recentAudio = window.audioData.gdriveTracks.slice(0, 5)
+      } else if (this.audioData.gdrive.length) {
+        this.recentAudio = this.audioData.gdrive.slice(0, 5)
+      }
+      // Recent videos
+      if (window.videoData && window.videoData.channels) {
+        const all = []
+        window.videoData.channels.forEach(c => {
+          if (c.videos) c.videos.forEach(v => all.push({ ...v, channelName: c.name }))
+        })
+        this.recentVideos = all.sort((a, b) => b.id.localeCompare(a.id)).slice(0, 5)
+      }
+      // Recent books (E-Books category)
+      if (window.booksData && window.booksData.categories) {
+        const eb = window.booksData.categories.find(c => c.name === 'E-Books')
+        if (eb && eb.books) this.recentBooks = eb.books.slice(0, 5)
+        // The Path books
+        const tp = window.booksData.categories.find(c => c.name === 'The Path')
+        if (tp && tp.books) this.pathBooks = tp.books.filter(b => b.url).slice(0, 6)
+      }
     },
 
     // Play YouTube video

@@ -219,6 +219,7 @@
     </main>
 
     <div class="audio-player" :class="{ active: currentTrack }">
+      <div v-if="playError" class="px-4 py-2 bg-red-500/20 text-red-300 text-xs text-center border-b border-white/10">{{ playError }}</div>
       <div class="audio-player-track">
         <div class="audio-player-title">{{ currentTrack ? currentTrack.title : 'No track selected' }}</div>
         <div class="audio-player-progress" ref="progressBar" @click="seekAudio">
@@ -389,6 +390,7 @@
     </div>
   </div>
 
+  <script src="./data/audio-catalog.js"></script>
   <script>
     const app = Vue.createApp({
       data() {
@@ -409,7 +411,8 @@
           volume: 0.7,
           progressPercent: 0,
           showPlaylistPanel: false,
-          audioElement: null
+          audioElement: null,
+          playError: ''
         }
       },
       computed: {
@@ -454,15 +457,22 @@
             this.duration = this.audioElement.duration;
           });
           this.audioElement.addEventListener('error', (e) => {
-            console.error('Audio error:', e.target.error ? e.target.error.code : 'unknown', 'URL:', this.audioElement.src);
+            const code = e.target.error ? e.target.error.code : 'unknown';
+            console.error('Audio error:', code, 'URL:', this.audioElement.src);
+            if (code === 4) this.playError = 'Audio format not supported or blocked. Try opening in HTTP server.';
+            else this.playError = 'Playback failed (code ' + code + '). Check browser console.';
           });
-          this.audioElement.play().then(() => { this.isPlaying = true; }).catch(e => { console.log('Play error:', e); });
+          this.playError = '';
+          this.audioElement.play().then(() => { this.isPlaying = true; }).catch(e => {
+            console.log('Play error:', e);
+            this.playError = 'Browser blocked playback. Click anywhere on page first.';
+          });
         },
         resolveUrl(url) {
           if (!url) return url;
-          if (url.includes('drive.google.com') || url.includes('docs.google.com')) {
-            const match = url.match(/[?&]id=([^&]+)/);
-            if (match) return 'https://drive.google.com/uc?export=download&confirm=t&id=' + match[1];
+          const match = url.match(/[?&]id=([^&]+)/);
+          if (match && (url.includes('drive.google.com') || url.includes('docs.google.com'))) {
+            return 'https://docs.google.com/uc?export=open&confirm=t&id=' + match[1];
           }
           return url;
         },
@@ -496,7 +506,11 @@
         }
       },
       mounted() {
-        fetch('./data/audio-catalog.json').then(r => r.json()).then(d => { this.catalog = d; }).catch(e => { console.log('Catalog load error:', e); });
+        if (window.__AUDIO_CATALOG) {
+          this.catalog = window.__AUDIO_CATALOG;
+        } else {
+          fetch('./data/audio-catalog.json').then(r => r.json()).then(d => { this.catalog = d; }).catch(e => { console.log('Catalog load error:', e); });
+        }
         document.addEventListener('click', (e) => {
           if (!e.target.closest('.mega-menu-trigger') && !e.target.closest('.mega-dropdown')) { if (this.megaMenuOpen) this.closeMegaMenu(); }
         });

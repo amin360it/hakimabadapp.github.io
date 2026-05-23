@@ -397,6 +397,7 @@
     </div>
   </div>
 
+  <script src="./data/video-catalog.js"></script>
   <script>
     const app = Vue.createApp({
       data() {
@@ -471,7 +472,11 @@
         }
       },
       mounted() {
-        fetch('./data/video-catalog.json').then(r => r.json()).then(d => { this.catalog = d; }).catch(e => { console.log('Video catalog error:', e); });
+        if (window.__VIDEO_CATALOG) {
+          this.catalog = window.__VIDEO_CATALOG;
+        } else {
+          fetch('./data/video-catalog.json').then(r => r.json()).then(d => { this.catalog = d; }).catch(e => { console.log('Video catalog error:', e); });
+        }
         document.addEventListener('click', (e) => {
           if (!e.target.closest('.mega-menu-trigger') && !e.target.closest('.mega-dropdown')) { if (this.megaMenuOpen) this.closeMegaMenu(); }
         });

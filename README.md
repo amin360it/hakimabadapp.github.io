@@ -1,226 +1,138 @@
-# Hakimabad - Khanka-e-Mozaddedia
+# Hakimabad Website
 
-[![Live Site](https://img.shields.io/badge/Live-Site-green?style=for-the-badge&logo=github)](https://hakimabadapp.github.io/)
-[![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
+Hakimabad Islamic Spiritual Center — Khanka-e-Mozaddedia website.
 
-> **Islamic Spiritual Center** - Following the Tarika-e-Khas Mojaddedia
-
-A modern, mobile-first web application for Hakimabad Islamic Spiritual Center, providing access to spiritual teachings, audio lectures, video content, books, and community events.
-
-## 🌟 Features
-
-### Core Offerings
-- **📖 Spiritual Path** - Comprehensive guidance on Tarika-e-Khas Mojaddedia
-- **🎵 Audio Library** - Extensive collection of Islamic lectures and recitations
-- **📺 Video Content** - Curated video playlists and YouTube integration
-- **📚 Books & Resources** - Digital library of Islamic literature
-- **👥 Leadership** - Information about spiritual guides and scholars
-- **📅 Events** - Upcoming programs, mahfils, and community gatherings
-- **🌳 Lineage (Shejra)** - Interactive spiritual lineage visualization
-
-### Technical Highlights
-- ✅ **Mobile-First Design** - Optimized for all screen sizes
-- ✅ **Modern UI/UX** - Clean aesthetics with Islamic geometric patterns
-- ✅ **Green & Gold Theme** - Professional color scheme reflecting Islamic heritage
-- ✅ **Vue.js Powered** - Reactive components with Vue 3
-- ✅ **Tailwind CSS** - Utility-first styling for rapid development
-- ✅ **Responsive Navigation** - Desktop mega-menu + mobile slide menu + bottom nav
-- ✅ **YouTube Integration** - Embedded video player with fallback support
-- ✅ **PWA Ready** - Progressive Web App capabilities for app-like experience
-
-## 🚀 Quick Start
-
-### Local Development
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/hakimabadapp/hakimabadapp.github.io.git
-   cd hakimabadapp.github.io
-   ```
-
-2. **Start a local server** (required for YouTube embeds and proper resource loading)
-   ```bash
-   # Using Python 3
-   python3 -m http.server 8000
-   
-   # Or using Python 2
-   python -m SimpleHTTPServer 8000
-   
-   # Or using Node.js (if http-server is installed)
-   npx http-server -p 8000
-   ```
-
-3. **Open in browser**
-   ```
-   http://localhost:8000
-   ```
-
-> ⚠️ **Important**: Always use an HTTP server instead of opening files directly (`file://` protocol). YouTube embeds and some features require proper HTTP headers.
-
-## 📁 Project Structure
+## Structure
 
 ```
-hakimabadapp.github.io/
-├── index.html              # Home page with hero and main sections
-├── path.html               # Spiritual path guidance
-├── audio-*.html            # Audio library pages
-├── video.html              # Video gallery
-├── video-playlist.html     # Video playlists
-├── books.html              # Book library
-├── events.html             # Events calendar
-├── bio/                    # Biographies of spiritual leaders
-│   ├── mmrashid.html
-│   ├── msakhter.html
-│   └── abhakim.html
+hakimabad-website/
+├── index.html                  # Home page
+├── about.html                  # About the center
+├── events.html                 # Events calendar + Mahfil schedule tab
+├── path.html                   # The Path program
+├── tarika.html                 # Spiritual Lineage
+├── contact.html                # Contact form
+│
+├── audio-playlist.html         # Audio catalog + player
+├── audio-website.html          # Website audio
+├── audio-gdrive.html           # GDrive audio
+├── video.html                  # YouTube videos
+├── video-playlist.html         # Video playlists
+├── playlists.html              # Custom playlists
+├── gdrive-media.html           # GDrive browser
+├── links.html                  # Important links
+├── books.html                  # Online library
+├── blog.html                   # Blog
+├── qa.html                     # Q&A
+│
+├── bio/
+│   ├── abhakim.html            # Hakim Abdul Hakim bio
+│   ├── mmrashid.html           # Mamunur Rashid bio
+│   └── msakhter.html           # M S Akhter bio
+│
 ├── css/
-│   └── styles.css          # Custom styles
+│   └── styles.css              # Tailwind + custom styles
+│
 ├── js/
-│   └── app.js              # Main application logic
-├── data/                   # JSON data files
-│   ├── audio-*.json
-│   ├── video-*.json
-│   ├── books.json
-│   └── events-data.js
+│   ├── app.js                  # Global Vue 3 app
+│   └── components/             # Vue components
+│
+├── data/                       # JSON data + JS bundles
+│   ├── audio-catalog.js        # Audio catalog (282 tracks)
+│   ├── audio-catalog.json
+│   ├── video-catalog.js        # Video playlists
+│   ├── video-catalog.json
+│   ├── mahfils-data.js         # Mahfil schedule (23 entries)
+│   ├── mahfils.md              # Bangla mahfil source
+│   ├── audio-data.js           # Audio from website & GDrive
+│   ├── video-data.js           # YouTube videos (60+)
+│   ├── gdrive-data.js          # GDrive folder/file listing
+│   ├── links-data.js           # Link categories
+│   ├── books-data.js           # Book categories
+│   ├── events-data.js          # Events
+│   ├── audio-playlist-data.js  # Playlist metadata
+│   ├── playlists.json          # Playlist definitions
+│   ├── youtube.json            # YouTube data
+│   ├── gdrive.json             # GDrive metadata
+│   ├── books.json              # Book metadata
+│   └── ... (more JSON source files)
+│
 ├── assets/
-│   ├── images/             # Static images
-│   ├── fonts/              # Custom fonts
-│   └── vendor/             # Third-party libraries (Vue, Tailwind)
-└── media/                  # Media resources
-    ├── audios/
-    └── books/
+│   ├── vendor/                 # Local CDN copies
+│   │   ├── vue.global.prod.js
+│   │   ├── tailwindcss.js
+│   │   └── google-fonts.css
+│   ├── fonts/                  # Google Font woff2 files
+│   └── images/                 # Logo, icons, photos
+│
+├── database/                   # SQL for future backend
+│   ├── database.sql            # Full schema
+│   └── current_data.sql        # Seed data
+│
+├── media/
+│   ├── audios/                 # Local MP3 files
+│   └── books/                  # The Path PDFs
+│
+└── scripts/                    # Build & fetch tools
+    ├── build-data-js.js        # Generate JS data files
+    ├── fetch-gdrive-public.js  # Fetch GDrive listings
+    ├── build-gdrive-data.js    # Build GDrive JSON
+    ├── sync-all.js             # Sync all data
+    ├── generate-sql.js         # Generate SQL from JSON
+    ├── clean-data.js           # Clean/validate data
+    └── ... (30+ scripts)
 ```
 
-## 🛠️ Technologies Used
+## Features
 
-| Technology | Purpose |
-|------------|---------|
-| [Vue.js 3](https://vuejs.org/) | Reactive frontend framework |
-| [Tailwind CSS](https://tailwindcss.com/) | Utility-first CSS framework |
-| [Google Fonts](https://fonts.google.com/) | Amiri, Inter, Noto Sans Bengali, Playfair Display |
-| [YouTube API](https://developers.google.com/youtube) | Video embedding |
-| [Babel](https://babeljs.io/) | ES6+ JavaScript transpilation |
+- **Offline-first**: All dependencies (Vue 3, Tailwind, Google Fonts) downloaded locally
+- **File:// compatible**: No fetch() calls in production pages; data loaded via `<script src>`
+- **Mega dropdown** navigation under "Media" with Audio/Video/Books/Links
+- **Mobile-first**: Fixed header, slide-in menu, bottom tab nav
+- **Audio player**: Built-in player with prev/next, volume, playlist sidebar, progress bar
+- **Google Drive audio**: Resolved via `docs.google.com/uc?export=open&confirm=t&id=` for reliable streaming from `file://`
+- **Video browser**: Multi-channel, year filter, search, pagination, playlist sidebar
+- **YouTube fallback**: Detects file:// protocol — shows "Watch on YouTube" button instead of broken embed
+- **GDrive media**: Browse public GDrive folders, filter by category
+- **Index page rows**: Horizontal scrolling sections for Audio, YouTube, Books, The Path
+- **Events page**: Calendar/List/Mahfil Schedule views with Bangla date-to-ISO conversion
+- **Database-ready**: Full SQL schema + current data for future dynamic backend
 
-## 🎨 Design System
+## Quick start
 
-### Color Palette
-```css
-Primary Green:      #0D5C3D
-Primary Dark:       #073D28
-Secondary Gold:     #C9A227
-Gold Light:         #E5C76B
-Cream:              #FFFEF8
-Cream Alt:          #F5F5E8
+Open any `.html` file directly in a browser. No server needed.
+
+To rebuild data files:
+```bash
+cd scripts
+npm install
+node fetch-gdrive-public.js <folder-id>
+node build-gdrive-data.js
+node build-data-js.js
 ```
 
-### Typography
-- **Arabic/Islamic**: Amiri
-- **English Body**: Inter
-- **Bengali**: Noto Sans Bengali
-- **Headings**: Playfair Display
+## Contact
 
-## 📱 Pages Overview
+- **Website**: [hakimabad.com](https://hakimabad.com) · [mamunurrashid.org](https://mamunurrashid.org)
+- **Email**: [info@hakimabad.com](mailto:info@hakimabad.com)
+- **Dev Emails**: [hakimabadapp@gmail.com](mailto:hakimabadapp@gmail.com) · [amin360it@gmail.com](mailto:amin360it@gmail.com)
+- **YouTube**: [mahfil live](https://youtube.com/@mahfillive) · [hakimabad dot com](https://youtube.com/@hakimabaddotcom)
+- **Facebook**: [Page](https://www.facebook.com/hakimabad1989/) · [Group](https://www.facebook.com/groups/1495794747101462/)
+- **Google Drive Audio**: [Audio Archive](https://drive.google.com/drive/folders/12yPt9wY2H0aEr2wRTM8bWBGgtddspysv)
+- **Google Drive Books**: [Books & Materials](https://drive.google.com/drive/folders/1LmnqgT3uwPhPwhmbdKXps5CX_smb2KZ7)
 
-| Page | Description |
-|------|-------------|
-| `index.html` | Landing page with hero, welcome, quick links |
-| `path.html` | Detailed spiritual path information |
-| `audio-playlist.html` | Audio lecture playlists |
-| `audio-gdrive.html` | Google Drive audio integration |
-| `video.html` | Video gallery with YouTube embeds |
-| `video-playlist.html` | Curated video playlists |
-| `books.html` | Digital book library |
-| `events.html` | Upcoming events and mahfils |
-| `bio/*.html` | Biographies of spiritual leaders |
-| `contact.html` | Contact information and form |
+### Addresses
 
-## 🔧 Configuration
+**Bangladesh**: Hakimabad Khanka-e-Mozaddedia, Hakimabad, Bhuigar, Narayangonj, Bangladesh
+- Phone: 01711233670, 01726288280
 
-### Tailwind Config
-Custom colors and fonts are configured in `index.html`:
+**Cambodia**: N. R. No.-5, Village-Andoung Chrey, Commune-Andoung Fanay, District-Rorlibhiar, Kompong Chhnang, Kingdom of Cambodia
+- Phone: +85512495461
 
-```javascript
-tailwind.config = {
-  theme: {
-    extend: {
-      colors: {
-        primary: '#0D5C3D',
-        'primary-dark': '#073D28',
-        secondary: '#C9A227',
-        // ...
-      },
-      fontFamily: {
-        amiri: ['Amiri', 'serif'],
-        inter: ['Inter', 'sans-serif'],
-        // ...
-      }
-    }
-  }
-}
-```
+### Google Maps
 
-## 🐛 Troubleshooting
-
-### YouTube Embed Issues
-**Problem**: "Embedded player requires an HTTP server"
-
-**Solution**: 
-- Never open HTML files directly via `file://` protocol
-- Always use a local development server:
-  ```bash
-  python3 -m http.server 8000
-  ```
-
-### Styles Not Loading
-**Check**: 
-- Ensure you're running from the project root
-- Verify all paths are relative (`./css/styles.css`)
-
-### Vue Components Not Rendering
-**Check**:
-- Browser console for errors
-- Vue CDN is loading correctly
-- `[v-cloak]` CSS rule is present
-
-## 📝 TODO
-
-Current development priorities:
-- [ ] Remove backdrop blur behind Bismillah in hero section
-- [ ] Final verification of all pages for styling consistency
-- [ ] Test active page highlighting across all navigation elements
-- [ ] Optimize images for better performance
-
-See `TODOs.txt` for detailed task list.
-
-## 🤝 Contributing
-
-Contributions are welcome! Please follow these steps:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 📞 Contact
-
-**Hakimabad - Khanka-e-Mozaddedia**
-
-- 🌐 Website: [hakimabadapp.github.io](https://hakimabadapp.github.io/)
-- 📧 Email: [Contact Form](https://hakimabadapp.github.io/contact.html)
-- 📺 YouTube: [Subscribe](https://youtube.com/@hakimabad)
-
-## 🙏 Acknowledgments
-
-- Spiritual guidance from Hazrat Mohammad Mamunur Rashid
-- Built with ❤️ for the Hakimabad community
-- Inspired by Islamic art and geometric patterns
+https://maps.app.goo.gl/XztCAaZKNrE6kZ587
 
 ---
 
-**بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ**
-
-*In the name of Allah, the Most Gracious, the Most Merciful*
+© 2026 Hakimabad Khanka-e-Mozaddedia. All rights reserved.

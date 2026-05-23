@@ -337,8 +337,9 @@ INSERT INTO audio_tracks (source_id, category_id, external_id, title, full_title
 INSERT INTO audio_tracks (source_id, category_id, external_id, title, full_title, url, size_display, size_bytes, date_code, subfolder, download_url, mime_type) VALUES (2, 9, '1hMP8qhdAofwc5kGjK3I2ME8P9I5RS_AC', '147.Monthly Mahfil Dec  Hakimabad 2010.mp3 Final Update', '147.Monthly Mahfil Dec  Hakimabad 2010.mp3 Final Update.mp3', 'https://drive.google.com/uc?export=download&id=1hMP8qhdAofwc5kGjK3I2ME8P9I5RS_AC', '47.4 MB', '47', '2025-05', 'Abbahujur''s1', NULL, NULL);
 
 -- ============================================================================
--- 5. YOUTUBE VIDEOS (45 from mahfil live + 15 from hakimabad dot com)
+-- 5. YOUTUBE VIDEOS
 -- ============================================================================
+-- 45 from mahfil live + 15 from hakimabad dot com
 INSERT INTO videos (video_id, channel_id, title, thumbnail_url, published_at) VALUES ('_wKeOM7nGTw', 'UCXuFIrgi5aYbAm3gVNl5-3A', '', 'https://img.youtube.com/vi/_wKeOM7nGTw/maxresdefault.jpg', '2025-01-01T00:00:00Z');
 INSERT INTO videos (video_id, channel_id, title, thumbnail_url, published_at) VALUES ('-0W8x0aveKs', 'UCXuFIrgi5aYbAm3gVNl5-3A', '', 'https://img.youtube.com/vi/-0W8x0aveKs/maxresdefault.jpg', '2025-01-01T00:00:00Z');
 INSERT INTO videos (video_id, channel_id, title, thumbnail_url, published_at) VALUES ('0zCqvMcKxQU', 'UCXuFIrgi5aYbAm3gVNl5-3A', '', 'https://img.youtube.com/vi/0zCqvMcKxQU/maxresdefault.jpg', '2025-01-01T00:00:00Z');
@@ -559,7 +560,7 @@ INSERT INTO gdrive_files (file_id, folder_id, name, mime_type, size_display, siz
 INSERT INTO gdrive_files (file_id, folder_id, name, mime_type, size_display, size_bytes, modified_at, category, download_url, thumbnail_url, subfolder) VALUES ('1E2MLYYT5jhdepALVjVaWhAQl6kZOR8n3', '1LmnqgT3uwPhPwhmbdKXps5CX_smb2KZ7', '21. e-book MUKASHIFATE AYNIA-I.pdf', 'application/pdf', '1.1 MB', '1147855', '2024-06-24T15:30:53.314Z', 'pdf', 'https://drive.google.com/uc?export=download&id=1E2MLYYT5jhdepALVjVaWhAQl6kZOR8n3', NULL, 'E-Books');
 
 -- ============================================================================
--- 5. EVENTS
+-- 8. EVENTS
 -- ============================================================================
 INSERT INTO events (title, description, event_date, event_time, location, is_upcoming) VALUES ('Hakimabad Annual Mahfil 2026', 'Annual spiritual gathering featuring Islamic lectures, Quran recitation, dhikr sessions, and special prayers. Scholars from around the country will attend and deliver discourses on Tasawwuf, spiritual purification, and following the Sunnah.', '2026-12-05', '09:00', 'Hakimabad Khanka-e-Mozaddedia, Boro Kallyanpur, Mirpur, Dhaka', true);
 INSERT INTO events (title, description, event_date, event_time, location, is_upcoming) VALUES ('Eid-e-Miladunnabi Mahfil 2026', 'Special gathering celebrating the birth of the Prophet Muhammad (SAW) with nasheed, salawat, and spiritual discourses on the life and character of the Prophet.', '2026-10-15', '19:00', 'Hakimabad Khanka-e-Mozaddedia, Boro Kallyanpur, Mirpur, Dhaka', true);
@@ -573,8 +574,28 @@ INSERT INTO events (title, description, event_date, event_time, location, is_upc
 INSERT INTO events (title, description, event_date, event_time, location, is_upcoming) VALUES ('Monthly Mahfil - February 2013', 'Regular monthly mahfil held at Hakimabad with Quran recitation, dhikr, and spiritual discourse.', '2013-02-15', '14:00', 'Hakimabad Khanka-e-Mozaddedia, Boro Kallyanpur, Mirpur, Dhaka', false);
 
 -- ============================================================================
--- 6. QURAN TRANSLATION
+-- 9. QURAN TRANSLATION (stored as media file)
 -- ============================================================================
 INSERT INTO media_files (media_type, title, file_path, language, description) VALUES ('pdf', 'Quran Arabic-Bangla Translation', './media/books/Quran_Arabic_Bangla_Translation.pdf', 'Arabic-Bangla', 'Quran with Arabic text and Bangla translation');
+
+-- ============================================================================
+-- 10. FAQ / Q&A
+-- ============================================================================
+-- No FAQ data available yet.
+-- Expected fields: question, answer, category, display_order, is_published
+
+-- ============================================================================
+-- 11. BLOG POSTS
+-- ============================================================================
+-- No blog posts available yet.
+-- Expected fields: title, slug, excerpt, content, author, cover_image, tags, is_published, published_at
+
+-- ============================================================================
+-- 12. PLAYLIST VIDEO ASSIGNMENTS
+-- ============================================================================
+-- No playlist-video assignments available yet.
+-- Expected fields: playlist_id, video_id, position
+-- Use: SELECT playlist_id, name FROM playlists; to get playlist IDs
+-- Use: SELECT video_id, title FROM videos; to get video IDs
 
 COMMIT;

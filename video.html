@@ -188,7 +188,15 @@
               <!-- Video Player -->
               <div v-if="currentVideo" class="bg-white rounded-2xl border border-gray-100 shadow-md overflow-hidden mb-6">
                 <div class="aspect-video bg-black relative flex items-center justify-center bg-gray-900">
-                  <iframe :src="embedUrl(currentVideo)" class="w-full h-full" frameborder="0" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe>
+                  <iframe v-if="canUsePlayerApi()" :src="embedUrl(currentVideo)" class="w-full h-full" frameborder="0" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe>
+                  <div v-else class="flex flex-col items-center justify-center text-white p-6 text-center">
+                    <svg class="w-16 h-16 mb-4 opacity-50" fill="currentColor" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+                    <p class="text-sm text-white/60 mb-3">YouTube embed unavailable from local file</p>
+                    <a :href="'https://www.youtube.com/watch?v=' + currentVideo.id" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 bg-secondary text-primary-dark font-medium rounded-xl hover:bg-secondary-light transition">
+                      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+                      Watch on YouTube
+                    </a>
+                  </div>
                 </div>
                 <div class="p-4 flex justify-between items-start">
                   <div class="min-w-0 flex-1">

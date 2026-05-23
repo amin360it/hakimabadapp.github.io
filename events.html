@@ -9,6 +9,7 @@
   <script src="./assets/vendor/tailwindcss.js"></script>
   <script src="./assets/vendor/vue.global.prod.js"></script>
   <script src="./data/events-data.js"></script>
+  <script src="./data/mahfils-data.js"></script>
   <link rel="stylesheet" href="./css/styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <script>
@@ -175,6 +176,10 @@
               <svg class="w-4 h-4 inline mr-1" fill="currentColor" viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
               List View
             </button>
+            <button class="px-5 py-2.5 rounded-xl text-sm font-medium transition-all" :class="viewMode==='schedule'?'bg-primary text-white shadow-md':'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'" @click="viewMode='schedule'">
+              <svg class="w-4 h-4 inline mr-1" fill="currentColor" viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0-4h16v2H4zm0 8h16v2H4zm0 4h10v2H4zm13 0h3v2h-3zm-3 0h1v2h-1z"/></svg>
+              Mahfil Schedule
+            </button>
           </div>
 
           <!-- Category Filter -->
@@ -258,6 +263,39 @@
             </div>
           </div>
 
+          <!-- Mahfil Schedule View -->
+          <div v-if="viewMode==='schedule'">
+            <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+              <div class="p-4 md:p-6 bg-gradient-to-r from-primary/5 to-secondary/5 border-b border-gray-100">
+                <h3 class="text-lg font-amiri font-bold text-primary flex items-center gap-2">
+                  <svg class="w-5 h-5 text-secondary" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>
+                  হাকিমাবাদ খানকা মোজাদ্দেদিয়া তরিকার মাহফিলের সময় সূচী
+                </h3>
+                <p class="text-xs text-gray-500 mt-1">{{ mahfilSchedule.length }} টি মাহফিল</p>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                  <thead>
+                    <tr class="bg-gray-50 border-b border-gray-100">
+                      <th class="text-left px-4 py-3 font-semibold text-gray-700 text-xs uppercase tracking-wider">তারিখ</th>
+                      <th class="text-left px-4 py-3 font-semibold text-gray-700 text-xs uppercase tracking-wider">বার</th>
+                      <th class="text-left px-4 py-3 font-semibold text-gray-700 text-xs uppercase tracking-wider">স্থান</th>
+                      <th class="text-left px-4 py-3 font-semibold text-gray-700 text-xs uppercase tracking-wider">সময়</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="(m, i) in mahfilSchedule" :key="i" class="border-b border-gray-50 hover:bg-primary/5 transition">
+                      <td class="px-4 py-3 font-medium text-gray-800 whitespace-nowrap">{{ m.date }}</td>
+                      <td class="px-4 py-3 text-gray-600">{{ m.day }}</td>
+                      <td class="px-4 py-3 text-gray-700">{{ m.location }}</td>
+                      <td class="px-4 py-3 text-gray-600 whitespace-nowrap">{{ m.time }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
           <!-- List View -->
           <div v-if="viewMode==='list'" class="space-y-4">
             <div v-if="filteredEvents.length===0" class="text-center py-16 text-gray-400">
@@ -283,11 +321,12 @@
                   <div class="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-xs text-gray-500">
                     <span class="flex items-center gap-1">
                       <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
-                      {{ formatTime(ev.date, ev.time) }}{{ ev.endDate ? ' — ' + formatTime(ev.endDate, ev.endTime) : '' }}
+                      <template v-if="ev.isMahfil">{{ ev.time }}</template>
+                      <template v-else>{{ formatTime(ev.date, ev.time) }}{{ ev.endDate ? ' — ' + formatTime(ev.endDate, ev.endTime) : '' }}</template>
                     </span>
                     <span class="flex items-center gap-1">
                       <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                      {{ ev.location }}
+                      {{ ev.isMahfil ? ev.location.split('—')[0] || ev.location : ev.location }}
                     </span>
                     <span class="px-2 py-0.5 rounded-full" :class="eventCategoryBadge(ev.category)">{{ ev.category }}</span>
                   </div>
@@ -319,8 +358,14 @@
               <svg class="w-5 h-5 text-primary shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
               <div>
                 <div class="text-xs text-gray-500 font-medium">Date & Time</div>
-                <div class="text-sm font-medium text-gray-800">{{ formatDateFull(selectedEvent.date) }}</div>
-                <div class="text-sm text-gray-600">{{ selectedEvent.time ? formatTime12(selectedEvent.time) : 'All day' }} {{ selectedEvent.endDate ? '— ' + formatDateFull(selectedEvent.endDate) + ' ' + (selectedEvent.endTime ? formatTime12(selectedEvent.endTime) : '') : '' }}</div>
+                <template v-if="selectedEvent.isMahfil">
+                  <div class="text-sm font-medium text-gray-800">{{ selectedEvent.date }}</div>
+                  <div class="text-sm text-gray-600">{{ selectedEvent.time }}</div>
+                </template>
+                <template v-else>
+                  <div class="text-sm font-medium text-gray-800">{{ formatDateFull(selectedEvent.date) }}</div>
+                  <div class="text-sm text-gray-600">{{ selectedEvent.time ? formatTime12(selectedEvent.time) : 'All day' }} {{ selectedEvent.endDate ? '— ' + formatDateFull(selectedEvent.endDate) + ' ' + (selectedEvent.endTime ? formatTime12(selectedEvent.endTime) : '') : '' }}</div>
+                </template>
               </div>
             </div>
             <div class="flex items-start gap-3 p-3 rounded-xl bg-gray-50">
@@ -490,6 +535,7 @@
           megaMenuOpen: false,
           moreSheetOpen: false,
           events: [],
+          mahfilSchedule: [],
           viewMode: 'calendar',
           categoryFilter: 'all',
           searchQuery: '',
@@ -626,6 +672,28 @@
       mounted() {
         if (window.eventsData) {
           this.events = window.eventsData
+        }
+        if (window.__MAHFIL_SCHEDULE) {
+          this.mahfilSchedule = window.__MAHFIL_SCHEDULE
+          const b2e = s => s.replace(/[০-৯]/g, d => '০১২৩৪৫৬৭৮৯'.indexOf(d))
+          const pad2 = n => String(n).padStart(2, '0')
+          window.__MAHFIL_SCHEDULE.forEach(m => {
+            const parts = b2e(m.date).split('/')
+            const day = pad2(parts[0]), month = pad2(parts[1])
+            const yy = parts[2], yyyy = yy.length <= 2 ? '20' + pad2(yy) : yy
+            const isoDate = yyyy + '-' + month + '-' + day
+            this.events.push({
+              id: 'mahfil-' + this.events.length,
+              title: 'মাহফিল — ' + (m.location.split('—')[0] || m.location).trim(),
+              description: m.location + (m.day ? ' (' + m.day + ')' : ''),
+              date: isoDate,
+              time: m.time,
+              location: m.location,
+              category: 'মাহফিল',
+              isUpcoming: true,
+              isMahfil: true
+            })
+          })
         }
         document.addEventListener('click', (e) => {
           if (!e.target.closest('.mega-menu-trigger') && !e.target.closest('.mega-dropdown')) {
