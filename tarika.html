@@ -1,0 +1,394 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tarika-e-Khas Mojaddedia - Hakimabad</title>
+  <link rel="icon" type="image/x-icon" href="./assets/images/Logo.ico">
+  <meta name="description" content="The spiritual lineage of 36 saints from Prophet Muhammad (SAW)">
+  <script src="./assets/vendor/tailwindcss.js"></script>
+  <script src="./assets/vendor/vue.global.prod.js"></script>
+  <link rel="stylesheet" href="./css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0D5C3D',
+            'primary-dark': '#073D28',
+            secondary: '#C9A227',
+            'secondary-light': '#E5C76B',
+            cream: '#FFFEF8',
+            'cream-alt': '#F5F5E8'
+          },
+          fontFamily: {
+            amiri: ['Amiri', 'serif'],
+            inter: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-cream font-inter">
+  <div id="app" v-cloak>
+    <header class="site-header fixed top-0 left-0 right-0 z-[9999]">
+      <div class="header-inner">
+        <button @click="toggleMobileMenu" class="mobile-menu-btn" aria-label="Menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+        <a href="index.html" class="header-logo">
+          <img src="./assets/images/logo.png" alt="Hakimabad">
+          <div class="header-logo-text">
+            <span class="header-logo-title">Hakimabad</span>
+            <span class="header-logo-subtitle">Khankay-e-Mozaddedia</span>
+          </div>
+        </a>
+        <nav class="desktop-nav">
+          <a href="index.html" class="nav-link">
+            <svg class="nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            Home
+          </a>
+          <div class="mega-menu-trigger nav-item">
+            <a href="#" class="nav-link" @click.prevent="toggleMegaMenu" :class="{ 'active-page': megaMenuOpen }">
+              Explore <span class="arrow">&#x25BC;</span>
+            </a>
+            <div class="mega-dropdown" :class="{ show: megaMenuOpen }" @click.stop>
+              <div class="mega-dropdown-inner">
+                <div class="mega-dropdown-col">
+                  <h4 class="mega-dropdown-category">About</h4>
+                  <ul class="mega-dropdown-links">
+                    <li><a href="about.html">Khanka-e-Mozaddedia</a></li>
+                    <li><a href="about.html#hakim">Hakim Abdul Hakim</a></li>
+                    <li><a href="about.html#rashid">Mohammad Mamunur Rashid</a></li>
+                    <li><a href="tarika.html">Spiritual Lineage</a></li>
+                  </ul>
+                </div>
+                <div class="mega-dropdown-col">
+                  <h4 class="mega-dropdown-category">Media Hub</h4>
+                  <ul class="mega-dropdown-links">
+                    <li><a href="audio-playlist.html">Audio Playlist</a></li>
+                    <li><a href="audio-website.html">Website Audio</a></li>
+                    <li><a href="audio-gdrive.html">GDrive Audio</a></li>
+                    <li><a href="video.html">All Videos</a></li>
+                    <li><a href="playlists.html">Playlists</a></li>
+                  </ul>
+                </div>
+                <div class="mega-dropdown-col">
+                  <h4 class="mega-dropdown-category">Library</h4>
+                  <ul class="mega-dropdown-links">
+                    <li><a href="books.html">Books</a></li>
+                    <li><a href="path.html">The Path PDFs</a></li>
+                    <li><a href="gdrive-media.html">GDrive Media</a></li>
+                    <li><a href="links.html">Important Links</a></li>
+                  </ul>
+                </div>
+                <div class="mega-dropdown-col">
+                  <h4 class="mega-dropdown-category">Community</h4>
+                  <ul class="mega-dropdown-links">
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="qa.html">Q&A</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a href="events.html" class="nav-link">Events</a>
+          <a href="path.html" class="nav-link">The Path</a>
+          <a href="tarika.html" class="nav-link active-page">Tarika</a>
+          <a href="contact.html" class="nav-link">Contact</a>
+        </nav>
+        <a href="audio-playlist.html" class="audio-icon-btn">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+        </a>
+      </div>
+    </header>
+
+    <div class="mobile-overlay" :class="{ active: mobileMenuOpen }" @click="closeMobileMenu"></div>
+    <div class="mobile-menu" :class="{ active: mobileMenuOpen }">
+      <div class="mobile-menu-header">
+        <a href="index.html" class="header-logo" @click="closeMobileMenu">
+          <img src="./assets/images/logo.png" alt="Hakimabad">
+          <div class="header-logo-text">
+            <span class="header-logo-title">Hakimabad</span>
+            <span class="header-logo-subtitle">Khankay-e-Mozaddedia</span>
+          </div>
+        </a>
+        <button @click="closeMobileMenu" class="mobile-menu-close">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <nav class="mobile-menu-nav">
+        <a href="index.html" class="mobile-nav-link" @click="closeMobileMenu">
+          <svg class="mobile-nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+          Home
+        </a>
+        <div class="mobile-nav-section-header">About</div>
+        <a href="about.html" class="mobile-nav-link" @click="closeMobileMenu">Khanka-e-Mozaddedia</a>
+        <a href="about.html#hakim" class="mobile-nav-link mobile-nav-sub-link" @click="closeMobileMenu">Hakim Abdul Hakim</a>
+        <a href="about.html#rashid" class="mobile-nav-link mobile-nav-sub-link" @click="closeMobileMenu">Mohammad Mamunur Rashid</a>
+        <a href="tarika.html" class="mobile-nav-link active-page" @click="closeMobileMenu">Spiritual Lineage</a>
+        <div class="mobile-nav-section-header">Media Hub</div>
+        <a href="audio-playlist.html" class="mobile-nav-link" @click="closeMobileMenu">
+          <svg class="mobile-nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+          Audio Playlist
+        </a>
+        <a href="audio-website.html" class="mobile-nav-link mobile-nav-sub-link" @click="closeMobileMenu">Website Audio</a>
+        <a href="audio-gdrive.html" class="mobile-nav-link mobile-nav-sub-link" @click="closeMobileMenu">GDrive Audio</a>
+        <a href="video.html" class="mobile-nav-link" @click="closeMobileMenu">
+          <svg class="mobile-nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+          All Videos
+        </a>
+        <a href="playlists.html" class="mobile-nav-link mobile-nav-sub-link" @click="closeMobileMenu">Playlists</a>
+        <div class="mobile-nav-section-header">Library</div>
+        <a href="books.html" class="mobile-nav-link" @click="closeMobileMenu">
+          <svg class="mobile-nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+          Books
+        </a>
+        <a href="path.html" class="mobile-nav-link" @click="closeMobileMenu">The Path PDFs</a>
+        <a href="gdrive-media.html" class="mobile-nav-link mobile-nav-sub-link" @click="closeMobileMenu">GDrive Media</a>
+        <a href="links.html" class="mobile-nav-link" @click="closeMobileMenu">Important Links</a>
+        <div class="mobile-nav-section-header">Community</div>
+        <a href="events.html" class="mobile-nav-link" @click="closeMobileMenu">
+          <svg class="mobile-nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
+          Events
+        </a>
+        <a href="blog.html" class="mobile-nav-link" @click="closeMobileMenu">Blog</a>
+        <a href="qa.html" class="mobile-nav-link" @click="closeMobileMenu">Q&A</a>
+        <a href="contact.html" class="mobile-nav-link" @click="closeMobileMenu">
+          <svg class="mobile-nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          Contact
+        </a>
+      </nav>
+      <div class="mobile-menu-footer">
+        <p class="mobile-menu-footer-text">Hakimabad Khanka-e-Mozaddedia</p>
+      </div>
+    </div>
+
+    <main class="page-main">
+      <section class="relative py-14 md:py-18 px-4 bg-gradient-to-br from-[#0F4C3A] via-[#1A7A5E] to-[#2A8F6B]">
+        <div class="max-w-5xl mx-auto text-center">
+          <div class="inline-block px-4 py-1.5 bg-white/15 backdrop-blur-sm rounded-full text-white/80 text-sm font-medium mb-4 border border-white/10">Spiritual Lineage</div>
+          <h1 class="text-4xl md:text-5xl font-amiri font-bold text-white mb-3">Tarika-e-Khas Mojaddedia</h1>
+          <p class="text-white/80 text-lg">The sacred chain of 36 saints from Prophet Muhammad (SAW)</p>
+        </div>
+      </section>
+
+      <section class="py-8 md:py-12 px-4">
+        <div class="max-w-4xl mx-auto">
+          <div class="space-y-3">
+            <div v-for="saint in lineage" :key="saint.order"
+                 :class="['rounded-xl border shadow-sm p-4 md:p-5 transition hover:shadow-md flex items-start gap-4',
+                          'bg-gradient-to-br from-primary to-[#1A7A5E] text-white border-primary/20',
+                          saint.featured ? 'shadow-lg ring-2 ring-secondary/30' : '']">
+              <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/20 text-white flex items-center justify-center font-bold text-sm md:text-base shrink-0">
+                {{ saint.order }}
+              </div>
+                <div class="flex-1 min-w-0">
+                  <p v-if="saint.line1" class="text-sm md:text-base text-white/80 font-amiri">{{ saint.line1 }}</p>
+                  <p v-if="saint.line2" class="text-sm md:text-base text-white/70 mt-1.5">{{ saint.line2 }}</p>
+                  <h3 class="text-lg md:text-xl font-bold text-white font-amiri mt-1.5 leading-snug">{{ saint.line3 }}</h3>
+                  <p v-if="saint.line4" class="text-sm md:text-base text-white/75 mt-1.5">{{ saint.line4 }}</p>
+                  <p v-if="saint.line5" class="text-sm md:text-base text-white/75 mt-1">{{ saint.line5 }}</p>
+                  <p v-if="saint.line6" class="text-sm md:text-base text-white/75 mt-1">{{ saint.line6 }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <div class="footer-brand-logo">
+              <img src="./assets/images/logo.png" alt="Hakimabad">
+              <span class="footer-brand-name">Hakimabad</span>
+            </div>
+            <p class="footer-brand-tagline">Khanka-e-Mozaddedia</p>
+            <p class="footer-brand-desc">Islamic Spiritual Center — Following the Tarika-e-Khas Mojaddedia. Serving seekers in Bangladesh and worldwide.</p>
+          </div>
+          <div>
+            <h4 class="footer-col-title">Quick Links</h4>
+            <ul class="footer-links">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="tarika.html">Spiritual Lineage</a></li>
+              <li><a href="path.html">The Path</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="footer-col-title">Media</h4>
+            <ul class="footer-links">
+              <li><a href="audio-playlist.html">Audio Playlist</a></li>
+              <li><a href="video.html">Videos</a></li>
+              <li><a href="books.html">Books</a></li>
+              <li><a href="playlists.html">Playlists</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="footer-col-title">Connect</h4>
+            <ul class="footer-links">
+              <li><a href="events.html">Events</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="qa.html">Q&A</a></li>
+            </ul>
+            <div class="footer-social">
+              <a href="https://youtube.com/@mahfillive" target="_blank" class="footer-social-link youtube" aria-label="YouTube">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+              </a>
+              <a href="https://facebook.com" target="_blank" class="footer-social-link facebook" aria-label="Facebook">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p class="footer-copyright">&copy; 2026 Hakimabad Khanka-e-Mozaddedia. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <nav class="bottom-nav">
+      <div class="bottom-nav-inner">
+        <a href="index.html" class="bottom-nav-item">
+          <svg class="bottom-nav-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+          <span>Home</span>
+        </a>
+        <a href="audio-playlist.html" class="bottom-nav-item">
+          <svg class="bottom-nav-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+          <span>Audio</span>
+        </a>
+        <a href="video.html" class="bottom-nav-item">
+          <svg class="bottom-nav-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+          <span>Video</span>
+        </a>
+        <a href="books.html" class="bottom-nav-item">
+          <svg class="bottom-nav-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+          <span>Books</span>
+        </a>
+        <a href="#" class="bottom-nav-item" @click.prevent="moreSheetOpen = true">
+          <svg class="bottom-nav-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+          <span>More</span>
+        </a>
+      </div>
+    </nav>
+
+    <div class="more-sheet-overlay" :class="{ active: moreSheetOpen }" @click="moreSheetOpen = false"></div>
+    <div class="more-sheet" :class="{ active: moreSheetOpen }">
+      <div class="more-sheet-header">
+        <span class="more-sheet-title">More</span>
+        <button @click="moreSheetOpen = false" class="more-sheet-close">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <nav class="more-sheet-nav">
+        <a href="events.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
+          Events
+        </a>
+        <a href="path.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          The Path
+        </a>
+        <a href="tarika.html" class="more-sheet-link active-page" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          Tarika
+        </a>
+        <a href="blog.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M19 14v3h3v2h-3v3h-2v-3h-3v-2h3v-3h2zm-7-9l-7 7h4v6h6v-6h4l-7-7z"/></svg>
+          Blog
+        </a>
+        <a href="qa.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M21 6h-2v2h-2V6h-2V4h2V2h2v2h2v2zm-10 3c0-1.66 1.34-3 3-3s3 1.34 3 3c0 2-3 5.37-3 5.37S11 11 11 9z"/></svg>
+          Q&A
+        </a>
+        <a href="contact.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          Contact
+        </a>
+        <a href="links.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+          Important Links
+        </a>
+        <a href="gdrive-media.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg>
+          GDrive Media
+        </a>
+      </nav>
+    </div>
+
+    <div class="h-16 md:h-0"></div>
+  </div>
+
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          mobileMenuOpen: false,
+          megaMenuOpen: false,
+          moreSheetOpen: false,
+          lineage: [
+            { order: 1, line1: "Ilahi Bahurmate", line2: "Shafiul Mujnibin Rahmatullil Alamin", line3: "Hazrat Muhammad Mustafa Ahmad Mujtaba", line4: "Sallallahu Alaihi wa Sallam." },
+            { order: 2, line1: "Ilahi Bahurmate", line2: "Sahabi-e-Rasulullah Amirul Muminin", line3: "Hazrat Abu Bakr Siddiq", line4: "Radiyallahu Anhu" },
+            { order: 3, line1: "Ilahi Bahurmate", line2: "Sahabi-e-Rasulullah", line3: "Hazrat Salman Farsi", line4: "Radiyallahu Anhu" },
+            { order: 4, line1: "Ilahi Bahurmate", line3: "Hazrat Imam Qasim Ibn Muhammad Ibn Abu Bakr Siddiq", line4: "Rahmatullahi Alaihi" },
+            { order: 5, line1: "Ilahi Bahurmate", line3: "Hazrat Imam Ja'far Sadiq", line4: "Rahmatullahi Alaihi" },
+            { order: 6, line1: "Ilahi Bahurmate", line3: "Hazrat Khawaja Bayejid Bostami", line4: "Rahmatullahi Alaihi" },
+            { order: 7, line1: "Ilahi Bahurmate", line3: "Hazrat Khawaja Abul Hasan Kherqani", line4: "Rahmatullahi Alaihi" },
+            { order: 8, line1: "Ilahi Bahurmate", line3: "Hazrat Khawaja Abu Ali Farmedi", line4: "Rahmatullahi Alaihi" },
+            { order: 9, line1: "Ilahi Bahurmate", line3: "Hazrat Khawaja Abu Yusuf Hamadani", line4: "Rahmatullahi Alaihi" },
+            { order: 10, line1: "Ilahi Bahurmate", line3: "Hazrat Khawaja Abdul Khaleq Gajdawani", line4: "Rahmatullahi Alaihi" },
+            { order: 11, line1: "Ilahi Bahurmate", line3: "Hazrat Khawaja Aref Reogari", line4: "Rahmatullahi Alaihi" },
+            { order: 12, line1: "Ilahi Bahurmate", line3: "Hazrat Khawaja Mahmud Fagnabi", line4: "Rahmatullahi Alaihi" },
+            { order: 13, line1: "Ilahi Bahurmate", line3: "Hazrat Khawaja Azizane Ali Rametini", line4: "Rahmatullahi Alaihi" },
+            { order: 14, line1: "Ilahi Bahurmate", line3: "Hazrat Khawaja Baba Sammasi", line4: "Rahmatullahi Alaihi" },
+            { order: 15, line1: "Ilahi Bahurmate", line3: "Hazrat Khawaja Syed Amir Kulal", line4: "Rahmatullahi Alaihi" },
+            { order: 16, line1: "Ilahi Bahurmate", line2: "Hazrat Khawaja Khajegane Pir Pirane Imamuttarikat", line3: "Khawaja Bahauddin Muhammad Naqshband", line4: "Rahmatullahi Alaihi" },
+            { order: 17, line1: "Ilahi Bahurmate", line3: "Hazrat Alauddin Attar", line4: "Rahmatullahi Alaihi" },
+            { order: 18, line1: "Ilahi Bahurmate", line3: "Hazrat Maulana Yaqub Charkhi", line4: "Rahmatullahi Alaihi" },
+            { order: 19, line1: "Ilahi Bahurmate", line3: "Hazrat Khawaja Ubaydullah Ahrar", line4: "Rahmatullahi Alaihi" },
+            { order: 20, line1: "Ilahi Bahurmate", line3: "Hazrat Maulana Jaheed", line4: "Rahmatullahi Alaihi" },
+            { order: 21, line1: "Ilahi Bahurmate", line3: "Hazrat Khawaja Darbesh Muhammad", line4: "Rahmatullahi Alaihi" },
+            { order: 22, line1: "Ilahi Bahurmate", line3: "Hazrat Khawaja Khajegi Amkangi", line4: "Rahmatullahi Alaihi" },
+            { order: 23, line1: "Ilahi Bahurmate", line3: "Hazrat Khawaja Baqibillah", line4: "Rahmatullahi Alaihi" },
+            { order: 24, line1: "Ilahi Bahurmate", line2: "Hazrat Imame Rabbani Mujaddid-e-Alfe Sani Imamush Shariat, Tarikat, Hakikat and Marefat", line3: "Shaikh Ahmed Faruqi Serhindi", line4: "Rahmatullahi Alaihi" },
+            { order: 25, line1: "Ilahi Bahurmate", line3: "Hazrat Khawaja Muhammad Masum", line4: "Rahmatullahi Alaihi" },
+            { order: 26, line1: "Ilahi Bahurmate", line3: "Hazrat Sultanul Awlia Shaykh Shaifuddin", line4: "Rahmatullahi Alaihi" },
+            { order: 27, line1: "Ilahi Bahurmate", line3: "Hazrat Sayedus Saadat Nur Muhammad Badayuni", line4: "Rahmatullahi Alaihi" },
+            { order: 28, line1: "Ilahi Bahurmate", line2: "Hazrat Qayemuttarikat Ahmadia Sunane Nabubia Shamsuddin Habibullah", line3: "Mirza Jane Janane Mazhare Shahid", line4: "Rahmatullahi Alaihi" },
+            { order: 29, line1: "Ilahi Bahurmate", line2: "Mujaddede Miate Salase Ashar Nayebe Hazrat Khairul Bashar Khalifa Khuda Mahruja Shariate Mustafa", line3: "Hazrat Shah Gulam Ali Ahmadi", line4: "Rahmatullahi Alaihi" },
+            { order: 30, line1: "Ilahi Bahurmate", line3: "Hazrat Shah Syed Ahmadi", line4: "Rahmatullahi Alaihi" },
+            { order: 31, line1: "Ilahi Bahurmate", line3: "Hazrat Shah Ahmed Sayeed Ahmadi", line4: "Rahmatullahi Alaihi" },
+            { order: 32, line1: "Ilahi Bahurmate", line2: "Imamul Awlia, Sayedul Atkia, Sayidina, Wasilatina, Fiddarayen,", line3: "Hazrat Shah Muhammad Ershad Hossain Ahmadi", line4: "Rahmatullahi Alaihi" },
+            { order: 33, line1: "Ilahi Bahurmate", line2: "Hazrat Shah Sufi Shayekhena Wasilatina, Fiddarayen Wa Imamu Millati Waddin", line3: "Hazrat Maulana Hazi Riasat Ali Khan Shahjahanpuri", line4: "Rahmatullahi Alaihi" },
+            { order: 34, line1: "Ilahi Bahurmate", line3: "Hazrat Bar Fakire Ahmad Esrar Ali Orfe Amin Uddin Shaheb", line4: "Rahmatullahi Alaihi" },
+            { order: 35, line1: "Ilahi Bahurmate Shayekhena Wasilatina", line3: "Imamul Awlia Hazrat Hakim Abdul Hakim", line4: "Rahmatullahi Alaihi" },
+            { order: 36, featured: true, line1: "Ilahi Bahurmate Shayekhena Wasilatina", line3: "Hazrat Mohammad Mamunur Rashid", line4: "Rahmatullahi Alaihi —", line5: "Shaheb Hanfil, Qadria, Chistia, Naqshbandia and Mujaddedia", line6: "Rahmat Farmay Muhabbate Marefate Daria-e-Kamaliate Isrer Batune Nasibe Atakun, Amin." },
+            { order: 37, line1: "Current Spiritual Leadership, Representative & Speaker", line2: "Imamul Awlia Hazrat Mohammad Shamim Akhter (মাদ্দাজিল্লুহুল আলিয়াহ)", line3: "— Shaheb Hanfil, Qadria, Chistia, Naqshbandia and Mujaddedia", line4: "Hakimabad Khanka-e-Mozaddedia" }
+          ]
+        }
+      },
+      methods: {
+        toggleMobileMenu() { this.mobileMenuOpen = !this.mobileMenuOpen; },
+        closeMobileMenu() { this.mobileMenuOpen = false; },
+        toggleMegaMenu() { this.megaMenuOpen = !this.megaMenuOpen; },
+        closeMegaMenu() { this.megaMenuOpen = false; }
+      },
+      mounted() {
+        document.addEventListener('click', (e) => {
+          if (!e.target.closest('.mega-menu-trigger') && !e.target.closest('.mega-dropdown')) {
+            if (this.megaMenuOpen) this.closeMegaMenu();
+          }
+        });
+      }
+    });
+    app.mount('#app');
+  </script>
+</body>
+</html>

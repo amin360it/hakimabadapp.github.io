@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hakimabad - Khanka-e-Mozaddedia</title>
+  <link rel="icon" type="image/x-icon" href="./assets/images/Logo.ico">
+  <meta name="description" content="Hakimabad Islamic Spiritual Center - Following the Tarika-e-Khas Mojaddedia">
+  <script src="./assets/vendor/tailwindcss.js"></script>
+  <script src="./assets/vendor/vue.global.prod.js"></script>
+  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Bengali:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0D5C3D',
+            'primary-dark': '#073D28',
+            secondary: '#C9A227',
+            'secondary-light': '#E5C76B',
+            cream: '#FFFEF8',
+            'cream-alt': '#F5F5E8'
+          },
+          fontFamily: {
+            amiri: ['Amiri', 'serif'],
+            inter: ['Inter', 'sans-serif'],
+            noto: ['Noto Sans Bengali', 'sans-serif'],
+            playfair: ['Playfair Display', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    [v-cloak] { display: none !important; }
+    .islamic-pattern {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath d='M50 0L61 35L100 35L68 57L79 91L50 70L21 91L32 57L0 35L39 35Z' fill='%23ffffff' opacity='0.04'/%3E%3C/svg%3E");
+    }
+    .shejra-marquee {
+      animation: scrollShejra 60s linear infinite;
+    }
+    @keyframes scrollShejra {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-up {
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+    .animate-delay-1 { animation-delay: 0.2s; opacity: 0; }
+    .animate-delay-2 { animation-delay: 0.4s; opacity: 0; }
+    .animate-delay-3 { animation-delay: 0.6s; opacity: 0; }
+    .animate-delay-4 { animation-delay: 0.8s; opacity: 0; }
+    .gold-border {
+      border-image: linear-gradient(to right, #C9A227, #E5C76B, #C9A227) 1;
+    }
+    .section-divider {
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(to right, #C9A227, #E5C76B);
+      margin: 1rem auto;
+      border-radius: 2px;
+    }
+    .verse-card {
+      background: linear-gradient(135deg, rgba(13,92,61,0.05), rgba(13,92,61,0.02));
+      border: 1px solid rgba(13,92,61,0.1);
+    }
+    .glow-gold {
+      text-shadow: 0 0 40px rgba(201,162,39,0.3), 0 0 80px rgba(201,162,39,0.1);
+    }
+  </style>
+</head>
+<body class="bg-cream font-inter">
+  <div id="app" v-cloak>
+    <header class="site-header fixed top-0 left-0 right-0 z-[9999]">
+      <div class="header-inner">
+        <button @click="toggleMobileMenu" class="mobile-menu-btn" aria-label="Menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+        <a href="index.html" class="header-logo">
+          <img src="./assets/images/logo.png" alt="Hakimabad">
+          <div class="header-logo-text">
+            <span class="header-logo-title">Hakimabad</span>
+            <span class="header-logo-subtitle">Khankay-e-Mozaddedia</span>
+          </div>
+        </a>
+        <nav class="desktop-nav">
+          <a href="index.html" class="nav-link active-page">
+            <svg class="nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            Home
+          </a>
+          <div class="mega-menu-trigger nav-item">
+            <a href="#" class="nav-link" @click.prevent="toggleMegaMenu" :class="{ 'active-page': megaMenuOpen }">
+              Explore <span class="arrow">&#x25BC;</span>
+            </a>
+            <div class="mega-dropdown" :class="{ show: megaMenuOpen }" @click.stop>
+              <div class="mega-dropdown-inner">
+                <div class="mega-dropdown-col">
+                  <h4 class="mega-dropdown-category">About</h4>
+                  <ul class="mega-dropdown-links">
+                    <li><a href="about.html">Khanka-e-Mozaddedia</a></li>
+                    <li><a href="about.html#hakim">Hakim Abdul Hakim</a></li>
+                    <li><a href="about.html#rashid">Mohammad Mamunur Rashid</a></li>
+                    <li><a href="tarika.html">Spiritual Lineage</a></li>
+                  </ul>
+                </div>
+                <div class="mega-dropdown-col">
+                  <h4 class="mega-dropdown-category">Media Hub</h4>
+                  <ul class="mega-dropdown-links">
+                    <li><a href="audio-playlist.html">Audio Playlist</a></li>
+                    <li><a href="audio-website.html">Website Audio</a></li>
+                    <li><a href="audio-gdrive.html">GDrive Audio</a></li>
+                    <li><a href="video.html">All Videos</a></li>
+                    <li><a href="playlists.html">Playlists</a></li>
+                  </ul>
+                </div>
+                <div class="mega-dropdown-col">
+                  <h4 class="mega-dropdown-category">Library</h4>
+                  <ul class="mega-dropdown-links">
+                    <li><a href="books.html">Books</a></li>
+                    <li><a href="path.html">The Path PDFs</a></li>
+                    <li><a href="gdrive-media.html">GDrive Media</a></li>
+                    <li><a href="links.html">Important Links</a></li>
+                  </ul>
+                </div>
+                <div class="mega-dropdown-col">
+                  <h4 class="mega-dropdown-category">Community</h4>
+                  <ul class="mega-dropdown-links">
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="qa.html">Q&A</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a href="events.html" class="nav-link">Events</a>
+          <a href="path.html" class="nav-link">The Path</a>
+          <a href="tarika.html" class="nav-link">Tarika</a>
+          <a href="contact.html" class="nav-link">Contact</a>
+        </nav>
+        <a href="audio-playlist.html" class="audio-icon-btn">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+        </a>
+      </div>
+    </header>
+
+    <div class="mobile-overlay" :class="{ active: mobileMenuOpen }" @click="closeMobileMenu"></div>
+    <div class="mobile-menu" :class="{ active: mobileMenuOpen }">
+      <div class="mobile-menu-header">
+        <a href="index.html" class="header-logo" @click="closeMobileMenu">
+          <img src="./assets/images/logo.png" alt="Hakimabad">
+          <div class="header-logo-text">
+            <span class="header-logo-title">Hakimabad</span>
+            <span class="header-logo-subtitle">Khankay-e-Mozaddedia</span>
+          </div>
+        </a>
+        <button @click="closeMobileMenu" class="mobile-menu-close">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <nav class="mobile-menu-nav">
+        <a href="index.html" class="mobile-nav-link active-page" @click="closeMobileMenu">
+          <svg class="mobile-nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+          Home
+        </a>
+        <div class="mobile-nav-section-header">About</div>
+        <a href="about.html" class="mobile-nav-link" @click="closeMobileMenu">Khanka-e-Mozaddedia</a>
+        <a href="about.html#hakim" class="mobile-nav-link mobile-nav-sub-link" @click="closeMobileMenu">Hakim Abdul Hakim</a>
+        <a href="about.html#rashid" class="mobile-nav-link mobile-nav-sub-link" @click="closeMobileMenu">Mohammad Mamunur Rashid</a>
+        <a href="tarika.html" class="mobile-nav-link" @click="closeMobileMenu">Spiritual Lineage</a>
+        <div class="mobile-nav-section-header">Media Hub</div>
+        <a href="audio-playlist.html" class="mobile-nav-link" @click="closeMobileMenu">
+          <svg class="mobile-nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+          Audio Playlist
+        </a>
+        <a href="audio-website.html" class="mobile-nav-link mobile-nav-sub-link" @click="closeMobileMenu">Website Audio</a>
+        <a href="audio-gdrive.html" class="mobile-nav-link mobile-nav-sub-link" @click="closeMobileMenu">GDrive Audio</a>
+        <a href="video.html" class="mobile-nav-link" @click="closeMobileMenu">
+          <svg class="mobile-nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+          All Videos
+        </a>
+        <a href="playlists.html" class="mobile-nav-link mobile-nav-sub-link" @click="closeMobileMenu">Playlists</a>
+        <div class="mobile-nav-section-header">Library</div>
+        <a href="books.html" class="mobile-nav-link" @click="closeMobileMenu">
+          <svg class="mobile-nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+          Books
+        </a>
+        <a href="path.html" class="mobile-nav-link" @click="closeMobileMenu">The Path PDFs</a>
+        <a href="gdrive-media.html" class="mobile-nav-link mobile-nav-sub-link" @click="closeMobileMenu">GDrive Media</a>
+        <a href="links.html" class="mobile-nav-link" @click="closeMobileMenu">Important Links</a>
+        <div class="mobile-nav-section-header">Community</div>
+        <a href="events.html" class="mobile-nav-link" @click="closeMobileMenu">
+          <svg class="mobile-nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
+          Events
+        </a>
+        <a href="blog.html" class="mobile-nav-link" @click="closeMobileMenu">Blog</a>
+        <a href="qa.html" class="mobile-nav-link" @click="closeMobileMenu">Q&A</a>
+        <a href="contact.html" class="mobile-nav-link" @click="closeMobileMenu">
+          <svg class="mobile-nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          Contact
+        </a>
+      </nav>
+      <div class="mobile-menu-footer">
+        <p class="mobile-menu-footer-text">Hakimabad Khanka-e-Mozaddedia</p>
+      </div>
+    </div>
+
+    <main class="page-main">
+      <!-- Hero Section -->
+      <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#072D1E] via-[#0D5C3D] to-[#1A7A5E]">
+        <div class="absolute inset-0 islamic-pattern"></div>
+        <div class="absolute inset-0 opacity-[0.06]">
+          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="geometric" width="120" height="120" patternUnits="userSpaceOnUse">
+                <polygon points="60,0 120,60 60,120 0,60" fill="none" stroke="white" stroke-width="0.5"></polygon>
+                <polygon points="60,20 100,60 60,100 20,60" fill="none" stroke="white" stroke-width="0.3"></polygon>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#geometric)"></rect>
+          </svg>
+        </div>
+        <div class="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-black/30 to-transparent"></div>
+        <div class="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#072D1E] to-transparent"></div>
+        <div class="relative z-10 text-center px-4 max-w-5xl mx-auto py-20">
+          <div class="animate-fade-up animate-delay-1 mb-6 -mx-4 max-w-none">
+            <img src="./assets/images/header-gradient.svg" alt="" class="w-full h-8 md:h-10 opacity-40">
+          </div>
+          <div class="animate-fade-up animate-delay-1 mb-6">
+            <img src="./assets/images/bismillah gradient.webp" alt="Bismillah" class="w-25 h-auto mx-auto">
+          </div>
+          <div class="animate-fade-up animate-delay-2">
+            <div class="inline-block bg-black/20 backdrop-blur-sm rounded-2xl border border-white/10 px-6 py-6 my-4 max-w-2xl">
+              <p class="text-white/50 text-sm font-amiri italic leading-relaxed">"ربنا آتنا في الدنيا حسنة وفي الآخرة حسنة وقنا عذاب النار"</p>
+              <p class="text-white/30 text-xs mt-1">- Quran 2:201</p>
+            </div>
+          </div>
+          <div class="animate-fade-up animate-delay-4 mt-8 max-w-4xl mx-auto">
+            <div class="bg-black/20 backdrop-blur-sm rounded-2xl border border-white/10 overflow-hidden p-4">
+              <div class="text-secondary-light text-[14px] font-semibold mb-2 tracking-[0.15em] uppercase opacity-60 font-inter">Shejra-e-Tarikah-e-Khas Mujaddedia</div>
+              <div class="overflow-hidden relative">
+                <div class="whitespace-nowrap shejra-marquee text-white text-xl font-amiri">
+                  <span class="mx-4">✦ (1) Ilahi Bahurmate Shafiul Mujnibin Rahmatullil Alamin Hazrat Muhammad Mustafa Ahmad Mujtaba Sallallahu Alaihi Wa Sallam ✦</span>
+                  <span class="mx-4">✦ (2) Ilahi Bahurmate Amirul Muminin Hazrat Abu Bakr Siddiq (Radiyallahu Anhu) ✦</span>
+                  <span class="mx-4">✦ (3) Ilahi Bahurmate Sahabi-e-Rasulullah Hazrat Salman Farsi (Radiyallahu Anhu) ✦</span>
+                  <span class="mx-4">✦ (4) Ilahi Bahurmate Hazrat Imam Qasim Ibn Muhammad Ibn Abu Bakr Siddiq (Rahmatullahi Alaihi) ✦</span>
+                  <span class="mx-4">✦ (5) Ilahi Bahurmate Imam Jafar Sadiq (Rahmatullahi Alaihi) ✦</span>
+                  <span class="mx-4">✦ (6) Ilahi Bahurmate Hazrat Khawaja Bayezid Bostami (Rahmatullahi Alaihi) ✦</span>
+                  <span class="mx-4">✦ (7) Ilahi Bahurmate Hazrat Khawaja Abul Hasan Kherkani (Rahmatullahi Alaihi) ✦</span>
+                  <span class="mx-4">✦ (8) Ilahi Bahurmate Hazrat Khawaja Abu Ali Farmedi (Rahmatullahi Alaihi) ✦</span>
+                  <span class="mx-4">✦ (9) Ilahi Bahurmate Hazrat Khawaja Abu Yusuf Hamadani (Rahmatullahi Alaihi) ✦</span>
+                  <span class="mx-4">✦ (10) Ilahi Bahurmate Hazrat Khawaja Abdul Khaleq Gajdawani (Rahmatullahi Alaihi) ✦</span>
+                  <span class="mx-4">✦ (11) Ilahi Bahurmate Hazrat Khawaja Aref Reogari (Rahmatullahi Alaihi) ✦</span>
+                  <span class="mx-4">✦ (12) Ilahi Bahurmate Hazrat Khawaja Mahmud Fagnabi (Rahmatullahi Alaihi) ✦</span>
+                  <span class="mx-4">✦ (13) Ilahi Bahurmate Hazrat Khawaja Azizane Ali Rametini (Rahmatullahi Alaihi) ✦</span>
+                  <span class="mx-4">✦ (14) Ilahi Bahurmate Hazrat Khawaja Baba Sammasi (Rahmatullahi Alaihi) ✦</span>
+                  <span class="mx-4">✦ (15) Ilahi Bahurmate Hazrat Khawaja Syed Amir Kulal (Rahmatullahi Alaihi) ✦</span>
+                  <span class="mx-4">✦ (16) Ilahi Bahurmate Hazrat Khawaja Khajegane Pir-e-Pir Imamuttariqat Khawaja Bahauddin Muhammad Naqshband (Rahmatullahi Alaihi) ✦</span>
+                  <span class="mx-4">✦ (17) Ilahi Bahurmate Hazrat Alauddin Attar (Rahmatullahi Alaihi) ✦</span>
+                  <span class="mx-4">✦ (18) Ilahi Bahurmate Hazrat Maulana Yaqub Charkhi (Rahmatullahi Alaihi) ✦</span>
+                  <span class="mx-4">✦ (19) Ilahi Bahurmate Hazrat Khawaja Ubaydullah Ahrar (Rahmatullahi Alaihi) ✦</span>
+                  <span class="mx-4">✦ (20) Ilahi Bahurmate Hazrat Maulana Jahed (Rahmatullahi Alaihi) ✦</span>
+                  <span class="mx-4">✦ (21) Ilahi Bahurmate Hazrat Khawaja Darwesh Muhammad (Rahmatullahi Alaihi) ✦</span>
+                  <span class="mx-4">✦ (22) Ilahi Bahurmate Hazrat Khawaja Khajegi Amkangi (Rahmatullahi Alaihi) ✦</span>
+                  <span class="mx-4">✦ (23) Ilahi Bahurmate Hazrat Khawaja Baqibillah (Rahmatullahi Alaihi) ✦</span>
+                  <span class="mx-4">✦ (24) Ilahi Bahurmate Hazrat Imame Rabbani Mujaddide Alfe Sani Imamush Shariat, Tariqat, Haqiqat wa Ma'rifat Shaykh Ahmad Faruqi Serhindi (Rahmatullahi Alaihi) ✦</span>
+                  <span class="mx-4">✦ (25) Ilahi Bahurmate Hazrat Khawaja Muhammad Masum (Rahmatullahi Alaihi) ✦</span>
+                  <span class="mx-4">✦ (26) Ilahi Bahurmate Hazrat Sultanul Awlia Shaykh Shaifuddin (Rahmatullahi Alaihi) ✦</span>
+                  <span class="mx-4">✦ (27) Ilahi Bahurmate Hazrat Sayedus Saadat Nur Muhammad Badayuni (Rahmatullahi Alaihi) ✦</span>
+                  <span class="mx-4">✦ (28) Ilahi Bahurmate Hazrat Qaemuttariqat Ahmadiya Sunane Nabubiya Shamsuddin Habibullah Mirza Jane Jane Mazhare Shaheed (Rahmatullahi Alaihi) ✦</span>
+                  <span class="mx-4">✦ (29) Ilahi Bahurmate Mujaddide Miate Salse Ashar Nayebe Hazrat Khairul Bashar Khalifa Khuda Mahruza Shariyate Mustafa Hazrat Shah Golam Ali Ahmadi (Rahmatullahi Alaihi) ✦</span>
+                  <span class="mx-4">✦ (30) Ilahi Bahurmate Hazrat Shah Syed Ahmadi (Rahmatullahi Alaihi) ✦</span>
+                  <span class="mx-4">✦ (31) Ilahi Bahurmate Hazrat Shah Ahmad Sayeed Ahmadi (Rahmatullahi Alaihi) ✦</span>
+                  <span class="mx-4">✦ (32) Ilahi Bahurmate Imam-ul-Awlia, Sayedul Atqiya, Sayedina, Wasilatina, Fiddarayen Hazrat Shah Muhammad Ershad Hossain Ahmadi (Rahmatullahi Alaihi) ✦</span>
+                  <span class="mx-4">✦ (33) Ilahi Bahurmate Hazrat Shah Sufi Shaykhena Wasilatina, Fiddarayen wa Imamu Millati Waddin Hazrat Maulana Haji Riasat Ali Khan Shahjahanpuri (Rahmatullahi Alaihi) ✦</span>
+                  <span class="mx-4">✦ (34) Ilahi Bahurmate Hazrat Bar Faqire Ahmad Esrar Ali Orfe Amin Uddin Saheb (Rahmatullahi Alaihi) ✦</span>
+                  <span class="mx-4">✦ (35) Ilahi Bahurmate Imam-ul-Awlia Hazrat Hakim Abdul Hakim (Rahmatullahi Alaihi) ✦</span>
+                  <span class="mx-4">✦ (36) Ilahi Bahurmate Hazrat Muhammad Mamunur Rashid (Rahmatullahi Alaihi) Saheb Hanfil, Qadria, Chistia, Naqshbandia wa Mujaddedia ✦</span>
+                </div>
+              </div>
+              <a href="tarika.html" class="inline-block mt-3 text-secondary-light/80 hover:text-secondary-light text-xs transition font-inter">View Complete Lineage →</a>
+            </div>
+          </div>
+          <div class="animate-fade-up animate-delay-2 mt-10">
+            <div class="inline-flex items-center gap-2 px-5 py-2 bg-black/20 backdrop-blur-md rounded-full text-secondary-light text-sm font-medium mb-6 border border-white/10 tracking-wide">
+              <span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+              This website is under development
+            </div>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-amiri font-bold text-white leading-tight mb-4">Hakimabad</h1>
+            <p class="text-xl md:text-2xl lg:text-3xl text-secondary-light font-amiri font-bold italic mb-3 glow-gold">Khanka-e-Mozaddedia</p>
+            <p class="text-lg md:text-xl text-white/60 font-inter max-w-2xl mx-auto leading-relaxed mb-8">
+              <span class="text-white/80">"A school of mystical thought propounded by <span class="text-secondary-light font-medium">Hazrat Mojaddede Alfe Sani</span> (rh.)"</span>
+              <br>- Following the path of truth through <span class="text-secondary-light">knowledge</span>, <span class="text-secondary-light">practice</span>, and <span class="text-secondary-light">sincerity</span>.
+            </p>
+            <div class="flex flex-wrap gap-4 justify-center">
+              <a href="audio-playlist.html" class="group inline-flex items-center gap-3 px-8 py-4 bg-secondary text-primary-dark font-bold rounded-xl hover:bg-secondary-light transition-all shadow-2xl shadow-black/30">
+                <svg class="w-6 h-6 group-hover:scale-110 transition" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                🎵 Listen to Mahfil
+              </a>
+              <a href="path.html" class="group inline-flex items-center gap-3 px-8 py-4 bg-white/10 backdrop-blur-md text-white font-semibold rounded-xl hover:bg-white/20 transition-all border border-white/20">
+                📖 Read The Path
+              </a>
+              <a href="video.html" class="group inline-flex items-center gap-3 px-8 py-4 bg-white/[0.07] backdrop-blur-md text-white/90 font-semibold rounded-xl hover:bg-white/15 transition-all border border-white/10">
+                🎬 Watch Videos
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Stats Section -->
+      <section class="relative -mt-12 z-20 px-4 max-w-5xl mx-auto">
+        <div class="grid grid-cols-3 gap-4 md:gap-8">
+          <div class="bg-white/90 backdrop-blur-md rounded-2xl p-5 md:p-8 text-center shadow-xl shadow-black/5 border border-white/60 animate-fade-up animate-delay-1">
+            <div class="text-3xl md:text-5xl font-bold text-primary font-amiri">51+</div>
+            <div class="text-xs md:text-sm text-gray-500 font-inter mt-1 md:mt-2 font-medium tracking-wide uppercase">Videos</div>
+          </div>
+          <div class="bg-white/90 backdrop-blur-md rounded-2xl p-5 md:p-8 text-center shadow-xl shadow-black/5 border border-white/60 animate-fade-up animate-delay-2">
+            <div class="text-3xl md:text-5xl font-bold text-primary font-amiri">274+</div>
+            <div class="text-xs md:text-sm text-gray-500 font-inter mt-1 md:mt-2 font-medium tracking-wide uppercase">Audio Tracks</div>
+          </div>
+          <div class="bg-white/90 backdrop-blur-md rounded-2xl p-5 md:p-8 text-center shadow-xl shadow-black/5 border border-white/60 animate-fade-up animate-delay-3">
+            <div class="text-3xl md:text-5xl font-bold text-primary font-amiri">60+</div>
+            <div class="text-xs md:text-sm text-gray-500 font-inter mt-1 md:mt-2 font-medium tracking-wide uppercase">Books</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Welcome Section -->
+      <section class="py-16 md:py-24 px-4 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-[0.02] pointer-events-none" style="background-image: radial-gradient(circle at 25% 25%, #0D5C3D 1px, transparent 1px); background-size: 30px 30px;"></div>
+        <div class="max-w-5xl mx-auto relative">
+          <div class="text-center mb-12 md:mb-16">
+            <span class="inline-block px-4 py-1.5 bg-primary/5 rounded-full text-primary text-xs font-semibold tracking-wider uppercase mb-4 font-inter">About</span>
+            <h2 class="text-3xl md:text-5xl font-amiri font-bold text-primary">Welcome to Hakimabad</h2>
+            <div class="section-divider"></div>
+            <p class="text-gray-500 max-w-2xl mx-auto font-inter text-base">Khanka-e-Mozaddedia — A spiritual sanctuary following the path of the righteous predecessors</p>
+          </div>
+          <div class="grid md:grid-cols-2 gap-6 md:gap-8">
+            <div class="bg-white rounded-2xl p-6 md:p-8 shadow-lg shadow-black/5 border border-gray-100 hover:shadow-xl transition">
+              <div class="flex items-center gap-4 mb-5">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center text-white shadow-lg shadow-primary/20 shrink-0">
+                  <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                </div>
+                <h3 class="text-xl font-semibold text-primary font-amiri">Tarika-e-Khas Mojaddedia</h3>
+              </div>
+              <p class="text-gray-700 leading-relaxed mb-4 font-inter">A school of mystical thought propounded by <strong>Hazrat Mojaddede Alfe Sani</strong> (rh.). This spiritual path has been transmitted through an unbroken chain of 35+ saints from <strong>Prophet Muhammad</strong> (SAW) to the present day.</p>
+              <p class="text-gray-700 leading-relaxed font-inter">Hakimabad is dedicated to spreading the light of Islamic knowledge and helping seekers find the path to Allah through proper understanding, sincere practice, and spiritual purification.</p>
+            </div>
+            <div class="bg-white rounded-2xl p-6 md:p-8 shadow-lg shadow-black/5 border border-gray-100 hover:shadow-xl transition">
+              <div class="flex items-center gap-4 mb-5">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-secondary to-secondary-light flex items-center justify-center text-primary-dark shadow-lg shadow-secondary/20 shrink-0">
+                  <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M4 6H2v14h2V6zm16-4H8v2h12V2zm0 4H8v2h12V6zm0 4H8v2h12v-2zM4 18v-6h2v6H4zm16 0h-2v-6h2v6z"/></svg>
+                </div>
+                <h3 class="text-xl font-semibold text-primary font-amiri">Three Elements of Faith</h3>
+              </div>
+              <div class="grid gap-4">
+                <div class="bg-gradient-to-r from-primary/[0.04] to-transparent rounded-xl p-4 flex items-center gap-4 border border-primary/5">
+                  <span class="text-3xl font-amiri text-primary w-12 text-center shrink-0">علم</span>
+                  <div>
+                    <strong class="text-primary font-amiri">Elm</strong>
+                    <p class="text-sm text-gray-600 font-inter">Knowledge is light — Seek knowledge from cradle to grave</p>
+                  </div>
+                </div>
+                <div class="bg-gradient-to-r from-primary/[0.04] to-transparent rounded-xl p-4 flex items-center gap-4 border border-primary/5">
+                  <span class="text-3xl font-amiri text-primary w-12 text-center shrink-0">عمل</span>
+                  <div>
+                    <strong class="text-primary font-amiri">Amol</strong>
+                    <p class="text-sm text-gray-600 font-inter">Practice — Act upon your knowledge with devotion</p>
+                  </div>
+                </div>
+                <div class="bg-gradient-to-r from-primary/[0.04] to-transparent rounded-xl p-4 flex items-center gap-4 border border-primary/5">
+                  <span class="text-3xl font-amiri text-primary w-12 text-center shrink-0">اخلاص</span>
+                  <div>
+                    <strong class="text-primary font-amiri">Ekhlas</strong>
+                    <p class="text-sm text-gray-600 font-inter">Sincerity — Purify your intention for Allah alone</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- The Path Section -->
+      <section class="py-16 md:py-24 px-4 bg-gradient-to-b from-white/80 to-white/40 relative overflow-hidden">
+        <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
+        <div class="max-w-5xl mx-auto relative">
+          <div class="text-center mb-12 md:mb-16">
+            <span class="inline-block px-4 py-1.5 bg-secondary/10 rounded-full text-secondary text-xs font-semibold tracking-wider uppercase mb-4 font-inter">Library</span>
+            <h2 class="text-3xl md:text-5xl font-amiri font-bold text-primary">The Path</h2>
+            <div class="section-divider"></div>
+            <p class="text-gray-500 max-w-2xl mx-auto font-inter text-base">The straight path — the way of those whom Allah has blessed</p>
+          </div>
+          <div class="grid md:grid-cols-3 gap-6 md:gap-8">
+            <a href="path.html" class="group bg-white rounded-2xl p-6 md:p-8 text-center hover:shadow-xl hover:-translate-y-1 transition-all border border-gray-100 no-underline relative overflow-hidden">
+              <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-primary-dark transform origin-left scale-x-0 group-hover:scale-x-100 transition"></div>
+              <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center group-hover:scale-110 transition">
+                <span class="text-3xl">📖</span>
+              </div>
+              <h3 class="text-xl font-amiri font-bold text-primary mb-3">Read The Path</h3>
+              <p class="text-gray-600 text-sm leading-relaxed font-inter">Explore the complete English PDF with full text content. Available in 40+ languages.</p>
+              <span class="inline-flex items-center gap-1 mt-4 text-secondary font-semibold text-sm group-hover:gap-2 transition">Open Reader →</span>
+            </a>
+            <a href="path.html" class="group bg-white rounded-2xl p-6 md:p-8 text-center hover:shadow-xl hover:-translate-y-1 transition-all border border-gray-100 no-underline relative overflow-hidden">
+              <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-secondary to-secondary-light transform origin-left scale-x-0 group-hover:scale-x-100 transition"></div>
+              <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-secondary/10 to-secondary/5 flex items-center justify-center group-hover:scale-110 transition">
+                <span class="text-3xl">🌍</span>
+              </div>
+              <h3 class="text-xl font-amiri font-bold text-primary mb-3">40+ Languages</h3>
+              <p class="text-gray-600 text-sm leading-relaxed font-inter">The Path PDF reader in English, Arabic, Bangla, Urdu, Korean, Mandarin Chinese, and more.</p>
+              <span class="inline-flex items-center gap-1 mt-4 text-secondary font-semibold text-sm group-hover:gap-2 transition">Choose Language →</span>
+            </a>
+            <a href="tarika.html" class="group bg-white rounded-2xl p-6 md:p-8 text-center hover:shadow-xl hover:-translate-y-1 transition-all border border-gray-100 no-underline relative overflow-hidden">
+              <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-primary-dark transform origin-left scale-x-0 group-hover:scale-x-100 transition"></div>
+              <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center group-hover:scale-110 transition">
+                <span class="text-3xl">🌿</span>
+              </div>
+              <h3 class="text-xl font-amiri font-bold text-primary mb-3">Spiritual Lineage</h3>
+              <p class="text-gray-600 text-sm leading-relaxed font-inter">Shejra-e-Tarikah-e-Khas Mujaddedia — tracing back 37 saints to Prophet Muhammad (SAW).</p>
+              <span class="inline-flex items-center gap-1 mt-4 text-secondary font-semibold text-sm group-hover:gap-2 transition">View Lineage →</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Islamic Wisdom Section -->
+      <section class="py-16 md:py-24 px-4 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-[0.015] pointer-events-none" style="background-image: radial-gradient(circle at 75% 25%, #C9A227 1px, transparent 1px); background-size: 40px 40px;"></div>
+        <div class="max-w-4xl mx-auto relative">
+          <div class="text-center mb-12 md:mb-16">
+            <span class="inline-block px-4 py-1.5 bg-primary/5 rounded-full text-primary text-xs font-semibold tracking-wider uppercase mb-4 font-inter">Teachings</span>
+            <h2 class="text-3xl md:text-5xl font-amiri font-bold text-primary">Islamic Wisdom</h2>
+            <div class="section-divider"></div>
+          </div>
+          <div class="grid md:grid-cols-2 gap-6 md:gap-8">
+            <div class="relative bg-gradient-to-br from-primary/[0.04] to-primary/[0.02] rounded-2xl p-7 md:p-9 border border-primary/10 hover:shadow-lg transition">
+              <div class="absolute top-5 right-6 text-primary/10 text-7xl font-serif leading-none select-none" aria-hidden="true">"</div>
+              <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-5 relative">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+              </div>
+              <p class="text-gray-700 leading-relaxed text-lg font-amiri relative">Only the travellers in the path of truth are able to reach the right destination. The greatest of all assets — satisfaction of Allah — is achieved through this path.</p>
+              <p class="text-primary font-semibold mt-5 text-sm font-inter flex items-center gap-2"><span class="w-6 h-px bg-primary/30"></span>Islamic Teachings</p>
+            </div>
+            <div class="relative bg-gradient-to-br from-secondary/[0.06] to-secondary/[0.03] rounded-2xl p-7 md:p-9 border border-secondary/10 hover:shadow-lg transition">
+              <div class="absolute top-5 right-6 text-secondary/10 text-7xl font-serif leading-none select-none" aria-hidden="true">"</div>
+              <div class="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary mb-5 relative">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+              </div>
+              <p class="text-gray-700 leading-relaxed text-lg font-amiri relative">Education is compulsory for each muslim man and woman. <strong>Elm</strong> (Knowledge) is the light while ignorance is darkness.</p>
+              <p class="text-primary font-semibold mt-5 text-sm font-inter flex items-center gap-2"><span class="w-6 h-px bg-primary/30"></span>Ebne Ma-aza</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Media Sections Wrapper -->
+      <div class="bg-gradient-to-b from-white/80 to-white/40 relative">
+        <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
+
+        <!-- Recent Mahfil Audio Section -->
+        <section class="py-16 md:py-24 px-4">
+          <div class="max-w-5xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10 md:mb-14">
+              <div>
+                <span class="inline-block px-4 py-1.5 bg-primary/5 rounded-full text-primary text-xs font-semibold tracking-wider uppercase mb-3 font-inter">Media</span>
+                <h2 class="text-3xl md:text-4xl font-amiri font-bold text-primary">Recent Mahfil Audio</h2>
+                <p class="text-gray-500 text-sm mt-1 font-inter">Latest spiritual discourses and recordings</p>
+              </div>
+              <a href="audio-playlist.html" class="inline-flex items-center gap-2 text-secondary hover:text-secondary-light font-semibold text-sm no-underline transition group">
+                <span>View All</span>
+                <span class="group-hover:translate-x-1 transition inline-block">→</span>
+              </a>
+            </div>
+            <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-8 md:p-12 text-center border border-dashed border-gray-200">
+              <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-primary/5 flex items-center justify-center">
+                <svg class="w-8 h-8 text-primary/40" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+              </div>
+              <p class="text-gray-400 font-inter text-sm">Audio tracks will appear here once loaded from the playlist.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Latest Videos Section -->
+        <section class="py-16 md:py-24 px-4">
+          <div class="max-w-5xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10 md:mb-14">
+              <div>
+                <span class="inline-block px-4 py-1.5 bg-primary/5 rounded-full text-primary text-xs font-semibold tracking-wider uppercase mb-3 font-inter">Watch</span>
+                <h2 class="text-3xl md:text-4xl font-amiri font-bold text-primary">Latest Videos</h2>
+                <p class="text-gray-500 text-sm mt-1 font-inter">Recent mahfil recordings and lectures</p>
+              </div>
+              <a href="video.html" class="inline-flex items-center gap-2 text-secondary hover:text-secondary-light font-semibold text-sm no-underline transition group">
+                <span>View All</span>
+                <span class="group-hover:translate-x-1 transition inline-block">→</span>
+              </a>
+            </div>
+            <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-8 md:p-12 text-center border border-dashed border-gray-200">
+              <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-primary/5 flex items-center justify-center">
+                <svg class="w-8 h-8 text-primary/40" fill="currentColor" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+              </div>
+              <p class="text-gray-400 font-inter text-sm">Video content will appear here once loaded from the library.</p>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Leadership Section -->
+      <section class="py-16 md:py-24 px-4 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-[0.02] pointer-events-none" style="background-image: radial-gradient(circle at 50% 50%, #0D5C3D 1px, transparent 1px); background-size: 35px 35px;"></div>
+        <div class="max-w-4xl mx-auto relative">
+          <div class="text-center mb-12 md:mb-16">
+            <span class="inline-block px-4 py-1.5 bg-primary/5 rounded-full text-primary text-xs font-semibold tracking-wider uppercase mb-4 font-inter">Guides</span>
+            <h2 class="text-3xl md:text-5xl font-amiri font-bold text-primary">Leadership</h2>
+            <div class="section-divider"></div>
+            <p class="text-gray-500 max-w-2xl mx-auto font-inter text-base">Guiding the community through knowledge and spiritual excellence</p>
+          </div>
+          <div class="grid md:grid-cols-2 gap-6 md:gap-8">
+            <div class="bg-white rounded-2xl p-6 md:p-8 shadow-lg shadow-black/5 border border-gray-100 hover:shadow-xl transition">
+              <div class="flex items-center gap-4 mb-5">
+                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-dark to-primary flex items-center justify-center text-white shadow-lg shrink-0">
+                  <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                </div>
+                <div>
+                  <h3 class="text-xl font-semibold text-primary font-amiri">Hakim Abdul Hakim</h3>
+                  <p class="text-xs text-gray-400 font-inter tracking-wide uppercase">Founder</p>
+                </div>
+              </div>
+              <p class="text-gray-700 leading-relaxed font-inter">Founder and spiritual leader of Hakimabad, carrying the legacy of multiple Sufi orders including Qadria, Chistia, Naqshbandia and Mujaddedia.</p>
+            </div>
+            <div class="bg-white rounded-2xl p-6 md:p-8 shadow-lg shadow-black/5 border border-gray-100 hover:shadow-xl transition">
+              <div class="flex items-center gap-4 mb-5">
+                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-secondary to-secondary-light flex items-center justify-center text-primary-dark shadow-lg shrink-0">
+                  <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M9 11.5l-3 3 3 3M15 5.5l-3 3 3 3M9 5.5l6 6-6 6"></path></svg>
+                </div>
+                <div>
+                  <h3 class="text-xl font-semibold text-primary font-amiri">Mohammad Mamunur Rashid</h3>
+                  <p class="text-xs text-gray-400 font-inter tracking-wide uppercase">Speaker &amp; Representative</p>
+                </div>
+              </div>
+              <p class="text-gray-700 leading-relaxed font-inter">Representative and speaker at Hakimabad mahfils, delivering inspiring lectures on Islamic teachings and spirituality.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Upcoming Events Section -->
+      <section class="py-16 md:py-24 px-4 bg-gradient-to-b from-white/80 to-white/40 relative overflow-hidden">
+        <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
+        <div class="max-w-4xl mx-auto relative">
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10 md:mb-14">
+            <div>
+              <span class="inline-block px-4 py-1.5 bg-secondary/10 rounded-full text-secondary text-xs font-semibold tracking-wider uppercase mb-3 font-inter">Community</span>
+              <h2 class="text-3xl md:text-4xl font-amiri font-bold text-primary">Upcoming Events</h2>
+              <p class="text-gray-500 text-sm mt-1 font-inter">Mahfil gatherings and spiritual programs</p>
+            </div>
+            <a href="events.html" class="inline-flex items-center gap-2 text-secondary hover:text-secondary-light font-semibold text-sm no-underline transition group">
+              <span>View All</span>
+              <span class="group-hover:translate-x-1 transition inline-block">→</span>
+            </a>
+          </div>
+          <div class="bg-white rounded-2xl p-6 md:p-8 shadow-lg shadow-black/5 border border-gray-100 hover:shadow-xl transition">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-gray-100">
+              <div class="flex items-center gap-4">
+                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-secondary/20 to-secondary/10 flex items-center justify-center shrink-0 border border-secondary/20">
+                  <svg class="w-8 h-8 text-secondary" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
+                </div>
+                <div>
+                  <h3 class="text-xl font-semibold text-primary font-amiri">Hakimabad Annual Mahfil</h3>
+                  <div class="flex items-center gap-2 mt-1">
+                    <span class="text-gray-500 text-sm font-inter">December 6th, 2024</span>
+                    <span class="w-1 h-1 rounded-full bg-gray-300"></span>
+                    <span class="inline-block bg-secondary/15 text-secondary-dark px-3 py-0.5 rounded-full font-semibold text-xs border border-secondary/20">Upcoming</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="text-gray-700 mt-5 leading-relaxed font-inter">Annual gathering featuring Islamic lectures, spiritual discourses, and dhikr sessions. Join us for this blessed event inshallah.</p>
+            <div class="flex flex-wrap gap-3 mt-5">
+              <a href="https://www.youtube.com/@mahfillive" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 bg-red-600 text-white text-sm rounded-xl hover:bg-red-700 transition no-underline font-medium shadow-lg shadow-red-600/20">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+                Watch on YouTube
+              </a>
+              <a href="events.html" class="inline-flex items-center gap-2 px-5 py-2.5 bg-gray-100 text-gray-700 text-sm rounded-xl hover:bg-gray-200 transition no-underline font-medium">
+                Event Details
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- YouTube Channels Section -->
+      <section class="py-16 md:py-24 px-4 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-[0.015] pointer-events-none" style="background-image: radial-gradient(circle at 25% 75%, #C9A227 1px, transparent 1px); background-size: 40px 40px;"></div>
+        <div class="max-w-4xl mx-auto relative">
+          <div class="text-center mb-12 md:mb-16">
+            <span class="inline-block px-4 py-1.5 bg-red-50 text-red-600 text-xs font-semibold tracking-wider uppercase mb-4 font-inter rounded-full">Subscribe</span>
+            <h2 class="text-3xl md:text-5xl font-amiri font-bold text-primary">YouTube Channels</h2>
+            <div class="section-divider"></div>
+            <p class="text-gray-500 max-w-2xl mx-auto font-inter text-base">Subscribe to follow live mahfil broadcasts and recordings</p>
+          </div>
+          <div class="grid md:grid-cols-2 gap-6 md:gap-8">
+            <div class="group bg-gradient-to-br from-primary to-primary-dark rounded-2xl p-6 md:p-8 text-white hover:shadow-2xl hover:shadow-primary/20 transition-all hover:-translate-y-0.5 relative overflow-hidden">
+              <div class="absolute -top-8 -right-8 w-24 h-24 bg-white/5 rounded-full pointer-events-none"></div>
+              <div class="flex items-center gap-4 mb-4">
+                <div class="w-14 h-14 rounded-2xl bg-white/15 flex items-center justify-center group-hover:scale-110 transition shrink-0">
+                  <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+                </div>
+                <div>
+                  <h3 class="font-bold font-amiri text-xl">mahfil live</h3>
+                  <p class="text-white/70 text-sm font-inter">50+ Hakimabad Mahfil videos</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-3">
+                <a href="https://www.youtube.com/channel/UCXuFIrgi5aYbAm3gVNl5-3A" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 bg-red-600 text-white text-sm rounded-xl hover:bg-red-700 transition shadow-lg font-inter font-medium">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M10 18l6-6-6-6v12z"/></svg>
+                  Subscribe
+                </a>
+                <a href="video.html" class="inline-flex items-center gap-1 px-4 py-2.5 bg-white/10 text-white/80 text-sm rounded-xl hover:bg-white/20 transition font-inter">Browse Videos</a>
+              </div>
+            </div>
+            <div class="group bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 md:p-8 text-white hover:shadow-2xl hover:shadow-black/20 transition-all hover:-translate-y-0.5 relative overflow-hidden">
+              <div class="absolute -top-8 -right-8 w-24 h-24 bg-white/5 rounded-full pointer-events-none"></div>
+              <div class="flex items-center gap-4 mb-4">
+                <div class="w-14 h-14 rounded-2xl bg-white/15 flex items-center justify-center group-hover:scale-110 transition shrink-0">
+                  <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+                </div>
+                <div>
+                  <h3 class="font-bold font-amiri text-xl">hakimabad dot com</h3>
+                  <p class="text-white/70 text-sm font-inter">8 recorded lectures &amp; talks</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-3">
+                <a href="https://www.youtube.com/channel/UC34wiyCiKwn3gxFRMaut1Ww" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 bg-red-600 text-white text-sm rounded-xl hover:bg-red-700 transition shadow-lg font-inter font-medium">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M10 18l6-6-6-6v12z"/></svg>
+                  Subscribe
+                </a>
+                <a href="video.html" class="inline-flex items-center gap-1 px-4 py-2.5 bg-white/10 text-white/80 text-sm rounded-xl hover:bg-white/20 transition font-inter">Browse Videos</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <div class="footer-brand-logo">
+              <img src="./assets/images/logo.png" alt="Hakimabad">
+              <span class="footer-brand-name">Hakimabad</span>
+            </div>
+            <p class="footer-brand-tagline">Khanka-e-Mozaddedia</p>
+            <p class="footer-brand-desc">Islamic Spiritual Center — Following the Tarika-e-Khas Mojaddedia. Serving seekers in Bangladesh and worldwide.</p>
+          </div>
+          <div>
+            <h4 class="footer-col-title">Quick Links</h4>
+            <ul class="footer-links">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="tarika.html">Spiritual Lineage</a></li>
+              <li><a href="path.html">The Path</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="footer-col-title">Media</h4>
+            <ul class="footer-links">
+              <li><a href="audio-playlist.html">Audio Playlist</a></li>
+              <li><a href="video.html">Videos</a></li>
+              <li><a href="books.html">Books</a></li>
+              <li><a href="playlists.html">Playlists</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="footer-col-title">Connect</h4>
+            <ul class="footer-links">
+              <li><a href="events.html">Events</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="qa.html">Q&A</a></li>
+            </ul>
+            <div class="footer-social">
+              <a href="https://youtube.com/@mahfillive" target="_blank" class="footer-social-link youtube" aria-label="YouTube">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+              </a>
+              <a href="https://facebook.com" target="_blank" class="footer-social-link facebook" aria-label="Facebook">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p class="footer-copyright">&copy; 2026 Hakimabad Khanka-e-Mozaddedia. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <nav class="bottom-nav">
+      <div class="bottom-nav-inner">
+        <a href="index.html" class="bottom-nav-item active">
+          <svg class="bottom-nav-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+          <span>Home</span>
+        </a>
+        <a href="audio-playlist.html" class="bottom-nav-item">
+          <svg class="bottom-nav-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+          <span>Audio</span>
+        </a>
+        <a href="video.html" class="bottom-nav-item">
+          <svg class="bottom-nav-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+          <span>Video</span>
+        </a>
+        <a href="books.html" class="bottom-nav-item">
+          <svg class="bottom-nav-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+          <span>Books</span>
+        </a>
+        <a href="#" class="bottom-nav-item" @click.prevent="moreSheetOpen = true">
+          <svg class="bottom-nav-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+          <span>More</span>
+        </a>
+      </div>
+    </nav>
+
+    <div class="more-sheet-overlay" :class="{ active: moreSheetOpen }" @click="moreSheetOpen = false"></div>
+    <div class="more-sheet" :class="{ active: moreSheetOpen }">
+      <div class="more-sheet-header">
+        <span class="more-sheet-title">More</span>
+        <button @click="moreSheetOpen = false" class="more-sheet-close">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <nav class="more-sheet-nav">
+        <a href="events.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
+          Events
+        </a>
+        <a href="path.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          The Path
+        </a>
+        <a href="tarika.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          Tarika
+        </a>
+        <a href="blog.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M19 14v3h3v2h-3v3h-2v-3h-3v-2h3v-3h2zm-7-9l-7 7h4v6h6v-6h4l-7-7z"/></svg>
+          Blog
+        </a>
+        <a href="qa.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M21 6h-2v2h-2V6h-2V4h2V2h2v2h2v2zm-10 3c0-1.66 1.34-3 3-3s3 1.34 3 3c0 2-3 5.37-3 5.37S11 11 11 9z"/></svg>
+          Q&A
+        </a>
+        <a href="contact.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          Contact
+        </a>
+        <a href="links.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+          Important Links
+        </a>
+        <a href="gdrive-media.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg>
+          GDrive Media
+        </a>
+      </nav>
+    </div>
+
+    <div class="h-16 md:h-0"></div>
+  </div>
+
+  <script src="./data/audio-data.js"></script>
+  <script src="./data/video-data.js"></script>
+  <script src="./data/gdrive-data.js"></script>
+  <script src="./data/links-data.js"></script>
+  <script src="./data/books-data.js"></script>
+  <script src="./js/app.js"></script>
+
+</body>
+</html>

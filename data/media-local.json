@@ -1,0 +1,16 @@
+{
+  "audios": [
+    { "id": "local-1", "title": "Garopahar Mahfil 2009", "url": "./media/audios/103.garopahar mahfil 2009.mp3", "size": "1.4 MB", "category": "Mahfil" },
+    { "id": "local-2", "title": "Jiyotpukur Kanka Rangpur 2009", "url": "./media/audios/104.jiyotpukur kanka rongpur 2009.mp3", "size": "1.8 MB", "category": "Mahfil" },
+    { "id": "local-3", "title": "Hakimabad Monthly Mahfil April 2009", "url": "./media/audios/108.hakimabad monthly mahfil april 2009.mp3", "size": "3.5 MB", "category": "Mahfil" },
+    { "id": "local-4", "title": "Narinda Maktubat Mahfil 2012", "url": "./media/audios/Narinda Maktubat Mahfil 2012.mp3", "size": "4.2 MB", "category": "Maktubat" }
+  ],
+  "pdfs": [
+    { "id": "pdf-1", "title": "The Path - Bangla", "url": "./media/books/The_Path/mini-book/The Path - Bangla.pdf", "language": "Bangla" },
+    { "id": "pdf-2", "title": "The Path - Arabic", "url": "./media/books/The_Path/mini-book/The Path - Arabic.pdf", "language": "Arabic" },
+    { "id": "pdf-3", "title": "The Path - Urdu", "url": "./media/books/The_Path/mini-book/The Path - Urdu.pdf", "language": "Urdu" },
+    { "id": "pdf-4", "title": "The Path - English", "url": "./media/books/The_Path/pdf-A4/The Path - english.pdf", "language": "English" },
+    { "id": "pdf-5", "title": "The Path - Chinese", "url": "./media/books/The_Path/pdf-A4/The Path - chiness.pdf", "language": "Chinese" },
+    { "id": "pdf-6", "title": "The Path - Korean", "url": "./media/books/The_Path/pdf-A4/The Path - korean.pdf", "language": "Korean" }
+  ]
+}

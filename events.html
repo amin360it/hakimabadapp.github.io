@@ -1,0 +1,640 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events - Hakimabad</title>  <link rel="icon" type="image/x-icon" href="./assets/images/Logo.ico">
+  
+  <meta name="description" content="Hakimabad events calendar — upcoming mahfils, gatherings, and spiritual programs">
+  <script src="./assets/vendor/tailwindcss.js"></script>
+  <script src="./assets/vendor/vue.global.prod.js"></script>
+  <script src="./data/events-data.js"></script>
+  <link rel="stylesheet" href="./css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: { extend: { colors: { primary: '#0D5C3D', 'primary-dark': '#073D28', secondary: '#C9A227', 'secondary-light': '#E5C76B', cream: '#FFFEF8' }, fontFamily: { amiri: ['Amiri', 'serif'], inter: ['Inter', 'sans-serif'] } } }
+    }
+  </script>
+</head>
+<body class="bg-cream font-inter">
+  <div id="app" v-cloak>
+    <header class="site-header fixed top-0 left-0 right-0 z-[9999]">
+      <div class="header-inner">
+        <button @click="toggleMobileMenu" class="mobile-menu-btn" aria-label="Menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+        <a href="index.html" class="header-logo">
+          <img src="./assets/images/logo.png" alt="Hakimabad">
+          <div class="header-logo-text">
+            <span class="header-logo-title">Hakimabad</span>
+            <span class="header-logo-subtitle">Khankay-e-Mozaddedia</span>
+          </div>
+        </a>
+        <nav class="desktop-nav">
+          <a href="index.html" class="nav-link">
+            <svg class="nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            Home
+          </a>
+          <div class="mega-menu-trigger nav-item">
+            <a href="#" class="nav-link" @click.prevent="toggleMegaMenu" :class="{ 'active-page': megaMenuOpen }">
+              Explore <span class="arrow">&#x25BC;</span>
+            </a>
+            <div class="mega-dropdown" :class="{ show: megaMenuOpen }" @click.stop>
+              <div class="mega-dropdown-inner">
+                <div class="mega-dropdown-col">
+                  <h4 class="mega-dropdown-category">About</h4>
+                  <ul class="mega-dropdown-links">
+                    <li><a href="about.html">Khanka-e-Mozaddedia</a></li>
+                    <li><a href="about.html#hakim">Hakim Abdul Hakim</a></li>
+                    <li><a href="about.html#rashid">Mohammad Mamunur Rashid</a></li>
+                    <li><a href="tarika.html">Spiritual Lineage</a></li>
+                  </ul>
+                </div>
+                <div class="mega-dropdown-col">
+                  <h4 class="mega-dropdown-category">Media Hub</h4>
+                  <ul class="mega-dropdown-links">
+                    <li><a href="audio-playlist.html">Audio Playlist</a></li>
+                    <li><a href="audio-website.html">Website Audio</a></li>
+                    <li><a href="audio-gdrive.html">GDrive Audio</a></li>
+                    <li><a href="video.html">All Videos</a></li>
+                    <li><a href="playlists.html">Playlists</a></li>
+                  </ul>
+                </div>
+                <div class="mega-dropdown-col">
+                  <h4 class="mega-dropdown-category">Library</h4>
+                  <ul class="mega-dropdown-links">
+                    <li><a href="books.html">Books</a></li>
+                    <li><a href="path.html">The Path PDFs</a></li>
+                    <li><a href="gdrive-media.html">GDrive Media</a></li>
+                    <li><a href="links.html">Important Links</a></li>
+                  </ul>
+                </div>
+                <div class="mega-dropdown-col">
+                  <h4 class="mega-dropdown-category">Community</h4>
+                  <ul class="mega-dropdown-links">
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="qa.html">Q&A</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a href="events.html" class="nav-link active-page">Events</a>
+          <a href="path.html" class="nav-link">The Path</a>
+          <a href="tarika.html" class="nav-link">Tarika</a>
+          <a href="contact.html" class="nav-link">Contact</a>
+        </nav>
+        <a href="audio-playlist.html" class="audio-icon-btn">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+        </a>
+      </div>
+    </header>
+
+    <div class="mobile-overlay" :class="{ active: mobileMenuOpen }" @click="closeMobileMenu"></div>
+    <div class="mobile-menu" :class="{ active: mobileMenuOpen }">
+      <div class="mobile-menu-header">
+        <a href="index.html" class="header-logo" @click="closeMobileMenu">
+          <img src="./assets/images/logo.png" alt="Hakimabad">
+          <div class="header-logo-text">
+            <span class="header-logo-title">Hakimabad</span>
+            <span class="header-logo-subtitle">Khankay-e-Mozaddedia</span>
+          </div>
+        </a>
+        <button @click="closeMobileMenu" class="mobile-menu-close">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <nav class="mobile-menu-nav">
+        <a href="index.html" class="mobile-nav-link" @click="closeMobileMenu">
+          <svg class="mobile-nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+          Home
+        </a>
+        <div class="mobile-nav-section-header">About</div>
+        <a href="about.html" class="mobile-nav-link" @click="closeMobileMenu">Khanka-e-Mozaddedia</a>
+        <a href="about.html#hakim" class="mobile-nav-link mobile-nav-sub-link" @click="closeMobileMenu">Hakim Abdul Hakim</a>
+        <a href="about.html#rashid" class="mobile-nav-link mobile-nav-sub-link" @click="closeMobileMenu">Mohammad Mamunur Rashid</a>
+        <a href="tarika.html" class="mobile-nav-link" @click="closeMobileMenu">Spiritual Lineage</a>
+        <div class="mobile-nav-section-header">Media Hub</div>
+        <a href="audio-playlist.html" class="mobile-nav-link" @click="closeMobileMenu">
+          <svg class="mobile-nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+          Audio Playlist
+        </a>
+        <a href="audio-website.html" class="mobile-nav-link mobile-nav-sub-link" @click="closeMobileMenu">Website Audio</a>
+        <a href="audio-gdrive.html" class="mobile-nav-link mobile-nav-sub-link" @click="closeMobileMenu">GDrive Audio</a>
+        <a href="video.html" class="mobile-nav-link" @click="closeMobileMenu">
+          <svg class="mobile-nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+          All Videos
+        </a>
+        <a href="playlists.html" class="mobile-nav-link mobile-nav-sub-link" @click="closeMobileMenu">Playlists</a>
+        <div class="mobile-nav-section-header">Library</div>
+        <a href="books.html" class="mobile-nav-link" @click="closeMobileMenu">
+          <svg class="mobile-nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+          Books
+        </a>
+        <a href="path.html" class="mobile-nav-link" @click="closeMobileMenu">The Path PDFs</a>
+        <a href="gdrive-media.html" class="mobile-nav-link mobile-nav-sub-link" @click="closeMobileMenu">GDrive Media</a>
+        <a href="links.html" class="mobile-nav-link" @click="closeMobileMenu">Important Links</a>
+        <div class="mobile-nav-section-header">Community</div>
+        <a href="events.html" class="mobile-nav-link active-page" @click="closeMobileMenu">
+          <svg class="mobile-nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
+          Events
+        </a>
+        <a href="blog.html" class="mobile-nav-link" @click="closeMobileMenu">Blog</a>
+        <a href="qa.html" class="mobile-nav-link" @click="closeMobileMenu">Q&A</a>
+        <a href="contact.html" class="mobile-nav-link" @click="closeMobileMenu">
+          <svg class="mobile-nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          Contact
+        </a>
+      </nav>
+      <div class="mobile-menu-footer">
+        <p class="mobile-menu-footer-text">Hakimabad Khanka-e-Mozaddedia</p>
+      </div>
+    </div>
+
+    <main class="page-main">
+      <section class="relative py-14 md:py-18 px-4 bg-gradient-to-br from-[#0F4C3A] via-[#1A7A5E] to-[#2A8F6B]">
+        <div class="max-w-5xl mx-auto text-center">
+          <div class="inline-block px-4 py-1.5 bg-white/15 backdrop-blur-sm rounded-full text-white/80 text-sm font-medium mb-4 border border-white/10">Events</div>
+          <h1 class="text-4xl md:text-5xl font-amiri font-bold text-white mb-3">Events & Programs</h1>
+          <p class="text-white/80 text-lg">{{ events.length }} events — {{ upcomingCount }} upcoming</p>
+        </div>
+      </section>
+
+      <section class="py-8 md:py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+          <!-- Filter Tabs -->
+          <div class="flex flex-wrap gap-2 mb-6">
+            <button class="px-5 py-2.5 rounded-xl text-sm font-medium transition-all" :class="viewMode==='calendar'?'bg-primary text-white shadow-md':'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'" @click="viewMode='calendar'">
+              <svg class="w-4 h-4 inline mr-1" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
+              Calendar
+            </button>
+            <button class="px-5 py-2.5 rounded-xl text-sm font-medium transition-all" :class="viewMode==='list'?'bg-primary text-white shadow-md':'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'" @click="viewMode='list'">
+              <svg class="w-4 h-4 inline mr-1" fill="currentColor" viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
+              List View
+            </button>
+          </div>
+
+          <!-- Category Filter -->
+          <div class="flex flex-wrap gap-2 mb-6">
+            <button class="px-4 py-2 rounded-xl text-xs font-medium transition" :class="categoryFilter==='all'?'bg-primary text-white':'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'" @click="categoryFilter='all'">All ({{ filteredEvents.length }})</button>
+            <button v-for="cat in categories" :key="cat" class="px-4 py-2 rounded-xl text-xs font-medium transition" :class="categoryFilter===cat?'bg-primary text-white':'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'" @click="categoryFilter=cat">{{ cat }} ({{ categoryCount(cat) }})</button>
+          </div>
+
+          <!-- Search -->
+          <div class="mb-6">
+            <div class="relative max-w-md">
+              <svg class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" fill="currentColor" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+              <input type="text" v-model="searchQuery" placeholder="Search events..." class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition bg-white text-sm">
+            </div>
+          </div>
+
+          <!-- Calendar View -->
+          <div v-if="viewMode==='calendar'">
+            <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+              <!-- Calendar Header -->
+              <div class="flex items-center justify-between p-4 md:p-6 bg-gradient-to-r from-primary to-[#1A7A5E] text-white">
+                <button @click="prevMonth" class="w-10 h-10 rounded-xl bg-white/15 hover:bg-white/25 flex items-center justify-center transition">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+                </button>
+                <h2 class="text-xl md:text-2xl font-amiri font-bold">{{ monthName }} {{ calendarYear }}</h2>
+                <button @click="nextMonth" class="w-10 h-10 rounded-xl bg-white/15 hover:bg-white/25 flex items-center justify-center transition">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+                </button>
+              </div>
+              <!-- Calendar Grid -->
+              <div class="p-4 md:p-6">
+                <div class="grid grid-cols-7 gap-1 mb-2">
+                  <div v-for="d in dayNames" :key="d" class="text-center text-xs font-semibold text-gray-500 py-2">{{ d }}</div>
+                </div>
+                <div class="grid grid-cols-7 gap-1">
+                  <div v-for="(day, i) in calendarDays" :key="i"
+                       class="min-h-[60px] md:min-h-[80px] p-1.5 rounded-lg border transition cursor-pointer relative"
+                       :class="dayClass(day)"
+                       @click="selectDay(day)">
+                    <span class="text-sm font-medium" :class="day.isToday ? 'bg-secondary text-primary-dark w-7 h-7 rounded-full flex items-center justify-center' : ''">{{ day.day }}</span>
+                    <div v-if="day.events.length" class="mt-1 flex flex-wrap gap-0.5">
+                      <span v-for="(ev, ei) in day.events.slice(0,3)" :key="ei"
+                            class="w-1.5 h-1.5 rounded-full inline-block"
+                            :class="eventColor(ev.category)"></span>
+                      <span v-if="day.events.length > 3" class="text-[9px] text-gray-400 font-medium">+{{ day.events.length - 3 }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Selected Day Events -->
+            <div v-if="selectedDay" class="mt-6">
+              <h3 class="text-lg font-semibold text-primary font-amiri mb-4 flex items-center gap-2">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>
+                Events on {{ formatDate(selectedDay.date) }}
+              </h3>
+              <div v-if="selectedDay.events.length===0" class="text-center py-8 text-gray-400">
+                <p>No events on this day</p>
+              </div>
+              <div v-else class="space-y-4">
+                <div v-for="ev in selectedDay.events" :key="ev.id" class="event-card" @click="selectedEvent=ev">
+                  <div class="flex items-start gap-3">
+                    <div class="w-10 h-10 rounded-xl shrink-0 flex items-center justify-center" :class="eventIconBg(ev.category)">
+                      <svg class="w-5 h-5" :class="eventIconColor(ev.category)" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <div class="flex items-start justify-between gap-2">
+                        <h4 class="font-semibold text-gray-800 text-sm font-inter">{{ ev.title }}</h4>
+                        <span class="shrink-0 text-xs px-2 py-0.5 rounded-full font-medium" :class="ev.isUpcoming ? 'bg-green-50 text-green-700' : 'bg-gray-100 text-gray-500'">{{ ev.isUpcoming ? 'Upcoming' : 'Past' }}</span>
+                      </div>
+                      <p class="text-xs text-gray-500 mt-1 flex items-center gap-1">
+                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                        {{ formatTime(ev.date, ev.time) }}{{ ev.endDate ? ' — ' + formatTime(ev.endDate, ev.endTime) : '' }}
+                      </p>
+                      <span class="text-xs px-2 py-0.5 rounded-full inline-block mt-1" :class="eventCategoryBadge(ev.category)">{{ ev.category }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- List View -->
+          <div v-if="viewMode==='list'" class="space-y-4">
+            <div v-if="filteredEvents.length===0" class="text-center py-16 text-gray-400">
+              <svg class="w-16 h-16 mx-auto mb-4 opacity-30" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
+              <p class="text-lg font-medium">No events found</p>
+              <p class="text-sm mt-1">Try a different search or category</p>
+            </div>
+            <div v-for="ev in filteredEvents" :key="ev.id" class="event-card" @click="selectedEvent=ev">
+              <div class="flex items-start gap-4">
+                <!-- Date Badge -->
+                <div class="shrink-0 w-14 text-center">
+                  <div class="text-xs font-medium text-primary/70 uppercase">{{ monthAbbr(ev.date) }}</div>
+                  <div class="text-2xl font-bold text-primary font-amiri">{{ dayNum(ev.date) }}</div>
+                  <div class="text-xs text-gray-500">{{ yearNum(ev.date) }}</div>
+                </div>
+                <!-- Content -->
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-start justify-between gap-2">
+                    <h3 class="text-base font-semibold text-gray-800 font-inter">{{ ev.title }}</h3>
+                    <span class="shrink-0 text-xs px-2 py-0.5 rounded-full font-medium" :class="ev.isUpcoming ? 'bg-green-50 text-green-700' : 'bg-gray-100 text-gray-500'">{{ ev.isUpcoming ? 'Upcoming' : 'Past' }}</span>
+                  </div>
+                  <p class="text-sm text-gray-600 mt-1 line-clamp-2">{{ ev.description }}</p>
+                  <div class="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-xs text-gray-500">
+                    <span class="flex items-center gap-1">
+                      <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                      {{ formatTime(ev.date, ev.time) }}{{ ev.endDate ? ' — ' + formatTime(ev.endDate, ev.endTime) : '' }}
+                    </span>
+                    <span class="flex items-center gap-1">
+                      <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                      {{ ev.location }}
+                    </span>
+                    <span class="px-2 py-0.5 rounded-full" :class="eventCategoryBadge(ev.category)">{{ ev.category }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Event Detail Modal -->
+    <div v-if="selectedEvent" class="fixed inset-0 bg-black/60 z-[99999] backdrop-blur-sm flex items-start justify-center overflow-y-auto py-10 px-4" @click.self="selectedEvent=null">
+      <div class="bg-white rounded-2xl max-w-2xl w-full shadow-2xl overflow-hidden animate-fadeIn">
+        <div class="bg-gradient-to-r from-primary to-[#1A7A5E] p-6 text-white">
+          <div class="flex items-start justify-between">
+            <div>
+              <span class="text-xs px-3 py-1 rounded-full bg-white/20 font-medium" :class="selectedEvent.isUpcoming ? 'bg-green-500/30' : 'bg-white/20'">{{ selectedEvent.isUpcoming ? 'Upcoming' : 'Past Event' }}</span>
+              <h2 class="text-xl md:text-2xl font-amiri font-bold mt-2">{{ selectedEvent.title }}</h2>
+            </div>
+            <button @click="selectedEvent=null" class="w-8 h-8 rounded-full bg-white/15 hover:bg-white/30 flex items-center justify-center shrink-0 transition">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="p-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div class="flex items-start gap-3 p-3 rounded-xl bg-gray-50">
+              <svg class="w-5 h-5 text-primary shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
+              <div>
+                <div class="text-xs text-gray-500 font-medium">Date & Time</div>
+                <div class="text-sm font-medium text-gray-800">{{ formatDateFull(selectedEvent.date) }}</div>
+                <div class="text-sm text-gray-600">{{ selectedEvent.time ? formatTime12(selectedEvent.time) : 'All day' }} {{ selectedEvent.endDate ? '— ' + formatDateFull(selectedEvent.endDate) + ' ' + (selectedEvent.endTime ? formatTime12(selectedEvent.endTime) : '') : '' }}</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-3 p-3 rounded-xl bg-gray-50">
+              <svg class="w-5 h-5 text-primary shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+              <div>
+                <div class="text-xs text-gray-500 font-medium">Location</div>
+                <div class="text-sm font-medium text-gray-800">{{ selectedEvent.location }}</div>
+                <a v-if="selectedEvent.googleMapUrl" :href="selectedEvent.googleMapUrl" target="_blank" class="text-xs text-primary hover:underline inline-flex items-center gap-1 mt-1">
+                  <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                  Open in Google Maps
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-6">
+            <div class="text-xs text-gray-500 font-medium mb-1">Category</div>
+            <span class="px-3 py-1 rounded-full text-xs font-medium" :class="eventCategoryBadge(selectedEvent.category)">{{ selectedEvent.category }}</span>
+          </div>
+
+          <div class="mb-6">
+            <div class="text-xs text-gray-500 font-medium mb-1">Details</div>
+            <p class="text-sm text-gray-700 leading-relaxed">{{ selectedEvent.description }}</p>
+          </div>
+
+          <div v-if="selectedEvent.links && selectedEvent.links.length > 0" class="flex flex-wrap gap-2">
+            <a v-for="(link, li) in selectedEvent.links" :key="li" :href="link.url" target="_blank"
+               class="inline-flex items-center gap-2 px-4 py-2 text-sm rounded-xl transition no-underline"
+               :class="link.icon==='youtube' ? 'bg-red-600 text-white hover:bg-red-700' : 'bg-blue-600 text-white hover:bg-blue-700'">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M21 3H3v18h18V3zM9 17V7l10 5-10 5z"/></svg>
+              {{ link.label }}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <div class="footer-brand-logo">
+              <img src="./assets/images/logo.png" alt="Hakimabad">
+              <span class="footer-brand-name">Hakimabad</span>
+            </div>
+            <p class="footer-brand-tagline">Khanka-e-Mozaddedia</p>
+            <p class="footer-brand-desc">Islamic Spiritual Center — Following the Tarika-e-Khas Mojaddedia. Serving seekers in Bangladesh and worldwide.</p>
+          </div>
+          <div>
+            <h4 class="footer-col-title">Quick Links</h4>
+            <ul class="footer-links">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="tarika.html">Spiritual Lineage</a></li>
+              <li><a href="path.html">The Path</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="footer-col-title">Media</h4>
+            <ul class="footer-links">
+              <li><a href="audio-playlist.html">Audio Playlist</a></li>
+              <li><a href="video.html">Videos</a></li>
+              <li><a href="books.html">Books</a></li>
+              <li><a href="playlists.html">Playlists</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="footer-col-title">Connect</h4>
+            <ul class="footer-links">
+              <li><a href="events.html">Events</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="qa.html">Q&A</a></li>
+            </ul>
+            <div class="footer-social">
+              <a href="https://youtube.com/@mahfillive" target="_blank" class="footer-social-link youtube" aria-label="YouTube">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+              </a>
+              <a href="https://facebook.com" target="_blank" class="footer-social-link facebook" aria-label="Facebook">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p class="footer-copyright">&copy; 2026 Hakimabad Khanka-e-Mozaddedia. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <nav class="bottom-nav">
+      <div class="bottom-nav-inner">
+        <a href="index.html" class="bottom-nav-item">
+          <svg class="bottom-nav-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+          <span>Home</span>
+        </a>
+        <a href="audio-playlist.html" class="bottom-nav-item">
+          <svg class="bottom-nav-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+          <span>Audio</span>
+        </a>
+        <a href="video.html" class="bottom-nav-item">
+          <svg class="bottom-nav-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+          <span>Video</span>
+        </a>
+        <a href="books.html" class="bottom-nav-item">
+          <svg class="bottom-nav-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+          <span>Books</span>
+        </a>
+        <a href="#" class="bottom-nav-item" @click.prevent="moreSheetOpen = true">
+          <svg class="bottom-nav-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+          <span>More</span>
+        </a>
+      </div>
+    </nav>
+
+    <div class="more-sheet-overlay" :class="{ active: moreSheetOpen }" @click="moreSheetOpen = false"></div>
+    <div class="more-sheet" :class="{ active: moreSheetOpen }">
+      <div class="more-sheet-header">
+        <span class="more-sheet-title">More</span>
+        <button @click="moreSheetOpen = false" class="more-sheet-close">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <nav class="more-sheet-nav">
+        <a href="events.html" class="more-sheet-link active-page" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
+          Events
+        </a>
+        <a href="path.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          The Path
+        </a>
+        <a href="tarika.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          Tarika
+        </a>
+        <a href="blog.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M19 14v3h3v2h-3v3h-2v-3h-3v-2h3v-3h2zm-7-9l-7 7h4v6h6v-6h4l-7-7z"/></svg>
+          Blog
+        </a>
+        <a href="qa.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M21 6h-2v2h-2V6h-2V4h2V2h2v2h2v2zm-10 3c0-1.66 1.34-3 3-3s3 1.34 3 3c0 2-3 5.37-3 5.37S11 11 11 9z"/></svg>
+          Q&A
+        </a>
+        <a href="contact.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          Contact
+        </a>
+        <a href="links.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+          Important Links
+        </a>
+        <a href="gdrive-media.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg>
+          GDrive Media
+        </a>
+      </nav>
+    </div>
+
+    <div class="h-16 md:h-0"></div>
+  </div>
+
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          mobileMenuOpen: false,
+          megaMenuOpen: false,
+          moreSheetOpen: false,
+          events: [],
+          viewMode: 'calendar',
+          categoryFilter: 'all',
+          searchQuery: '',
+          currentMonth: new Date().getMonth(),
+          currentYear: new Date().getFullYear(),
+          selectedDay: null,
+          selectedEvent: null,
+          dayNames: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+        }
+      },
+      computed: {
+        categories() {
+          return [...new Set(this.events.map(e => e.category))].sort()
+        },
+        filteredEvents() {
+          let list = this.events.slice().sort((a, b) => a.date.localeCompare(b.date))
+          if (this.categoryFilter !== 'all') {
+            list = list.filter(e => e.category === this.categoryFilter)
+          }
+          if (this.searchQuery) {
+            const q = this.searchQuery.toLowerCase()
+            list = list.filter(e => e.title.toLowerCase().includes(q) || e.description.toLowerCase().includes(q) || e.location.toLowerCase().includes(q))
+          }
+          return list
+        },
+        upcomingCount() {
+          return this.events.filter(e => e.isUpcoming).length
+        },
+        monthName() {
+          const names = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+          return names[this.currentMonth]
+        },
+        calendarYear() {
+          return this.currentYear
+        },
+        calendarDays() {
+          const firstDay = new Date(this.currentYear, this.currentMonth, 1).getDay()
+          const daysInMonth = new Date(this.currentYear, this.currentMonth + 1, 0).getDate()
+          const today = new Date()
+          const days = []
+          for (let i = 0; i < firstDay; i++) {
+            days.push({ day: '', date: null, events: [], isToday: false, isOtherMonth: true })
+          }
+          for (let d = 1; d <= daysInMonth; d++) {
+            const dateStr = this.currentYear + '-' + String(this.currentMonth + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0')
+            const isToday = today.getFullYear() === this.currentYear && today.getMonth() === this.currentMonth && today.getDate() === d
+            const dayEvents = this.events.filter(e => {
+              return e.date === dateStr || (e.date <= dateStr && e.endDate >= dateStr)
+            })
+            days.push({ day: d, date: dateStr, events: dayEvents, isToday: isToday, isOtherMonth: false })
+          }
+          return days
+        }
+      },
+      methods: {
+        toggleMobileMenu() { this.mobileMenuOpen = !this.mobileMenuOpen },
+        closeMobileMenu() { this.mobileMenuOpen = false },
+        toggleMegaMenu() { this.megaMenuOpen = !this.megaMenuOpen },
+        closeMegaMenu() { this.megaMenuOpen = false },
+        prevMonth() {
+          if (this.currentMonth === 0) { this.currentMonth = 11; this.currentYear-- }
+          else { this.currentMonth-- }
+          this.selectedDay = null
+        },
+        nextMonth() {
+          if (this.currentMonth === 11) { this.currentMonth = 0; this.currentYear++ }
+          else { this.currentMonth++ }
+          this.selectedDay = null
+        },
+        selectDay(day) {
+          if (!day.date) return
+          this.selectedDay = day
+          this.selectedEvent = null
+        },
+        dayClass(day) {
+          if (day.isOtherMonth) return 'bg-gray-50 text-gray-300 cursor-default'
+          if (day.events.length > 0) return 'bg-primary/5 hover:bg-primary/10 border-primary/20'
+          return 'hover:bg-gray-50 border-gray-100'
+        },
+        eventColor(cat) {
+          const colors = { 'Annual Mahfil': 'bg-red-500', 'Monthly Mahfil': 'bg-blue-500', 'Celebration': 'bg-amber-500', 'Maktubat': 'bg-purple-500' }
+          return colors[cat] || 'bg-gray-500'
+        },
+        eventCategoryBadge(cat) {
+          const badges = { 'Annual Mahfil': 'bg-red-50 text-red-700', 'Monthly Mahfil': 'bg-blue-50 text-blue-700', 'Celebration': 'bg-amber-50 text-amber-700', 'Maktubat': 'bg-purple-50 text-purple-700' }
+          return badges[cat] || 'bg-gray-50 text-gray-700'
+        },
+        eventIconBg(cat) {
+          const bgs = { 'Annual Mahfil': 'bg-red-100', 'Monthly Mahfil': 'bg-blue-100', 'Celebration': 'bg-amber-100', 'Maktubat': 'bg-purple-100' }
+          return bgs[cat] || 'bg-gray-100'
+        },
+        eventIconColor(cat) {
+          const colors = { 'Annual Mahfil': 'text-red-600', 'Monthly Mahfil': 'text-blue-600', 'Celebration': 'text-amber-600', 'Maktubat': 'text-purple-600' }
+          return colors[cat] || 'text-gray-600'
+        },
+        categoryCount(cat) {
+          return this.events.filter(e => e.category === cat).length
+        },
+        formatDate(dateStr) {
+          if (!dateStr) return ''
+          const d = new Date(dateStr + 'T12:00:00')
+          return d.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+        },
+        formatDateFull(dateStr) {
+          if (!dateStr) return ''
+          const d = new Date(dateStr + 'T12:00:00')
+          return d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })
+        },
+        formatTime(dateStr, timeStr) {
+          if (!timeStr) return ''
+          return this.formatTime12(timeStr)
+        },
+        formatTime12(timeStr) {
+          if (!timeStr) return ''
+          const [h, m] = timeStr.split(':').map(Number)
+          const ampm = h >= 12 ? 'PM' : 'AM'
+          const h12 = h % 12 || 12
+          return h12 + ':' + String(m).padStart(2, '0') + ' ' + ampm
+        },
+        monthAbbr(dateStr) {
+          if (!dateStr) return ''
+          const d = new Date(dateStr + 'T12:00:00')
+          return d.toLocaleDateString('en-US', { month: 'short' })
+        },
+        dayNum(dateStr) {
+          if (!dateStr) return ''
+          return new Date(dateStr + 'T12:00:00').getDate()
+        },
+        yearNum(dateStr) {
+          if (!dateStr) return ''
+          return new Date(dateStr + 'T12:00:00').getFullYear()
+        }
+      },
+      mounted() {
+        if (window.eventsData) {
+          this.events = window.eventsData
+        }
+        document.addEventListener('click', (e) => {
+          if (!e.target.closest('.mega-menu-trigger') && !e.target.closest('.mega-dropdown')) {
+            if (this.megaMenuOpen) this.closeMegaMenu()
+          }
+        })
+      }
+    })
+    app.mount('#app')
+  </script>
+</body>
+</html>

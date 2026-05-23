@@ -1,0 +1,34 @@
+{
+  "customPlaylists": [
+    {
+      "id": "annual-2025",
+      "name": "Annual Mahfil 2025",
+      "description": "Videos from the Annual Mahfil 2025 event — spiritual discourses and gatherings",
+      "videoIds": ["1iFq_7Y7x1k","7XXdvvCLVZg","8fVGDFvHxvQ","cdOtNmUOFMA","gpu3jig2Vfg","zYHdMGmN6cA"]
+    },
+    {
+      "id": "miladunnabi-2025",
+      "name": "Miladunnabi 2025",
+      "description": "Miladunnabi celebrations and special lectures from September 2025",
+      "videoIds": ["pRrPJnJM9N8","wqBqa-67CiU","x85pDWS8Efs","M4wn_sQcrtE"]
+    },
+    {
+      "id": "maktubat",
+      "name": "Maktubat Mahfil",
+      "description": "Lectures on Maktubat Sharif by Imam Rabbani — spiritual teachings and guidance",
+      "videoIds": ["4urMQrnY7x4","5DoPCoWJsc4","Fq9s2IrEYqk","L5FAya-U4e8","o8wHIXmq6wE","1j_EzMboIsI","Jv9wMRexrAA","kG2nljjwoo8","t_73nKdEZEQ"]
+    },
+    {
+      "id": "sufism",
+      "name": "Sufism & Tassawuf",
+      "description": "Lectures on Sufism, spiritual purification, and the Mujaddedia path",
+      "videoIds": ["8O2WnL3DpOI","iMIlu6ChJa8","VLDvChmjLp4","5mT_vGLJdzM"]
+    },
+    {
+      "id": "annual-archive",
+      "name": "Annual Mahfil Archive",
+      "description": "Collection of annual mahfil recordings from 2021 through 2024",
+      "videoIds": ["_wKeOM7nGTw","-0W8x0aveKs","2CHVCeX8RNs","wZzaum1FKcE","CmfMdQZRPF0","-xCk6PsFxJQ","yuq0eMVUvu0","YYvDdwOMjxA","dfsGzFiClmg","eB5KxNSV-yI","ppWPao4BRc4","s8Vrbo2JMw8"]
+    }
+  ]
+}

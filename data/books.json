@@ -1,0 +1,90 @@
+{
+  "categories": [
+    {
+      "name": "E-Books",
+      "description": "Bengali Islamic e-books from the Hakimabad library",
+      "icon": "📚",
+      "books": [
+        { "title": "Mukashifate Aynia", "author": "", "url": "https://drive.google.com/uc?export=download&id=1E2MLYYT5jhdepALVjVaWhAQl6kZOR8n3", "language": "Bangla", "type": "pdf" },
+        { "title": "Ma'arif-e-Ladunnia", "author": "", "url": "https://drive.google.com/uc?export=download&id=1EPgKFUchBhDaY-pRo01e8CJ2iXHrjHLJ", "language": "Bangla", "type": "pdf" },
+        { "title": "Mabda wa Ma'ad", "author": "", "url": "https://drive.google.com/uc?export=download&id=1EXjAU1idSUc-t_-6CVnk3BZDCjsAnAoe", "language": "Bangla", "type": "pdf" },
+        { "title": "Maktubate Masumia - Part 1", "author": "", "url": "https://drive.google.com/uc?export=download&id=1EfA-53P7NtKSgQWtiXp_La0qzwv-5Zgi", "language": "Bangla", "type": "pdf" },
+        { "title": "Maktubate Masumia - Part 2", "author": "", "url": "https://drive.google.com/uc?export=download&id=1EfDBQa23WrFp8tTqzh5AbWP7wmHYV6Tk", "language": "Bangla", "type": "pdf" },
+        { "title": "Noor-e-Serhind", "author": "", "url": "https://drive.google.com/uc?export=download&id=1EheL8N1yHwN4YJzV4zdjEzKGfLJUp2xp", "language": "Bangla", "type": "pdf" },
+        { "title": "Naksha-e-Nakshaband", "author": "", "url": "https://drive.google.com/uc?export=download&id=1EmFKau51c8N3N9Ftp2atDke7B-cLI4xE", "language": "Bangla", "type": "pdf" },
+        { "title": "Bayanul Baki", "author": "", "url": "https://drive.google.com/uc?export=download&id=1EnMEhOvGX0RwjNcn6BCgQytlQvWtx0Vu", "language": "Bangla", "type": "pdf" },
+        { "title": "Zilan Surjer Hath Sani", "author": "", "url": "https://drive.google.com/uc?export=download&id=1EoPCu9o0W2cjX9PbkvKPbnzlNEQuuXvm", "language": "Bangla", "type": "pdf" },
+        { "title": "Cherage Chisty", "author": "", "url": "https://drive.google.com/uc?export=download&id=1EuEKNSn2teJ4vyBbJxfmundDwLTM3vVo", "language": "Bangla", "type": "pdf" },
+        { "title": "Kaliyarer Kutub", "author": "", "url": "https://drive.google.com/uc?export=download&id=1Ex1pF1hI2DI5tJTMjpRQqiadbnXIYD8B", "language": "Bangla", "type": "pdf" },
+        { "title": "Protham Paribar", "author": "", "url": "https://drive.google.com/uc?export=download&id=1Ez0cwVhWpAVRdEjozhjyFJmVM3-lSGHe", "language": "Bangla", "type": "pdf" },
+        { "title": "Mohapremik Musa", "author": "", "url": "https://drive.google.com/uc?export=download&id=1F2m5QGhMgTsgmZRL9VKyx4ohJQ6uSEIf", "language": "Bangla", "type": "pdf" },
+        { "title": "Tumito Morshed Mohan", "author": "", "url": "https://drive.google.com/uc?export=download&id=1FA6L_wxaN9fXRkvo77v53KlV3g-6-45p", "language": "Bangla", "type": "pdf" },
+        { "title": "Nabi Nandinee", "author": "", "url": "https://drive.google.com/uc?export=download&id=1JJaxVW8s4_Mrc3QE1Gj2hwZfeg5rnd5B", "language": "Bangla", "type": "pdf" },
+        { "title": "Soondar Etebritta", "author": "", "url": "https://drive.google.com/uc?export=download&id=1FAj2Nyc-njLvcFJEsHcOIOQ4XYdGAHsE", "language": "Bangla", "type": "pdf" },
+        { "title": "Forater Teer", "author": "", "url": "https://drive.google.com/uc?export=download&id=1FDyp1ki7Z_DpMbncu1mGtfXQtzATnke4", "language": "Bangla", "type": "pdf" },
+        { "title": "Pita Ibrahim", "author": "", "url": "https://drive.google.com/uc?export=download&id=1FEOFN99uVTl602Jvr0AZprHEV6AyKaki", "language": "Bangla", "type": "pdf" },
+        { "title": "Abar Asben Tini", "author": "", "url": "https://drive.google.com/uc?export=download&id=1FEb0aKcochVhGcC8AsFnYWRKt4GNQPRJ", "language": "Bangla", "type": "pdf" },
+        { "title": "Moha Plaboner Kahini", "author": "", "url": "https://drive.google.com/uc?export=download&id=1FImdzcEIiq95lP8Jgb1ezwMgp1Aq3Doi", "language": "Bangla", "type": "pdf" },
+        { "title": "Dujon Badshah Jara Nobee Chhilen", "author": "", "url": "https://drive.google.com/uc?export=download&id=1FIu-j606D93LLIGA1ujutgCOC-yOJRZI", "language": "Bangla", "type": "pdf" },
+        { "title": "Ki Hoessilo Abadhayder", "author": "", "url": "https://drive.google.com/uc?export=download&id=1FMh6mXb_qdGQF2_aYtMJK_M7lTgnCt7G", "language": "Bangla", "type": "pdf" },
+        { "title": "Namazer Niyam", "author": "", "url": "https://drive.google.com/uc?export=download&id=1FOodinFRow8-psSisB8gptL6der8xTHz", "language": "Bangla", "type": "pdf" },
+        { "title": "Ramjan Mash", "author": "", "url": "https://drive.google.com/uc?export=download&id=1FPQMoq5uqx-9mwQNwfqLgHNFE0ZoqJDq", "language": "Bangla", "type": "pdf" },
+        { "title": "Islami Bishwas", "author": "", "url": "https://drive.google.com/uc?export=download&id=1FQuEPtEYs-MTjTyMcjb5nzrwU1Fp8uEl", "language": "Bangla", "type": "pdf" },
+        { "title": "Path Parichiti", "author": "", "url": "https://drive.google.com/uc?export=download&id=1FSeWM8WCrctXmZdpcoEpis9mNzx16sWJ", "language": "Bangla", "type": "pdf" },
+        { "title": "Urdo Path Parichiti", "author": "", "url": "https://drive.google.com/uc?export=download&id=1Kir0fREbzw94MjO6xWaQRCNrcLGs6JjJ", "language": "Urdu", "type": "pdf" },
+        { "title": "Sonar Shikal", "author": "", "url": "https://drive.google.com/uc?export=download&id=1FV4KG1HjgU8NPS2HpKqve6_pMbvNYkWc", "language": "Bangla", "type": "pdf" },
+        { "title": "Bishasher Brishti Chinnah", "author": "", "url": "https://drive.google.com/uc?export=download&id=1Kzq7llLo5B6-Q0ORIt56g9OCzK1sHF88", "language": "Bangla", "type": "pdf" },
+        { "title": "Maqamate Mazhari - Part 1", "author": "Shah Abdul Aziz Dehlavi", "url": "https://drive.google.com/uc?export=download&id=1L0Co_L1s9YoC9Y-_IRmyyvjueQBguHIP", "language": "Bangla", "type": "pdf" },
+        { "title": "Maqamate Mazhari - Part 2", "author": "Shah Abdul Aziz Dehlavi", "url": "https://drive.google.com/uc?export=download&id=1LElMHogYh0ulilS0JeVLmzsjmlk0zuL8", "language": "Bangla", "type": "pdf" },
+        { "title": "Mohammad Mamunur Rashider Kabbya Sangkalan", "author": "Mohammad Mamunur Rashid", "url": "https://drive.google.com/uc?export=download&id=1LGmPEJX1Bu1HAmLHngaK9iu47H-Ui8X9", "language": "Bangla", "type": "pdf" },
+        { "title": "Allahr Zikir", "author": "", "url": "https://drive.google.com/uc?export=download&id=1LHHKfZCfcRxUfxjnaCHpM8JXVh837xgK", "language": "Bangla", "type": "pdf" },
+        { "title": "Jananider Jibankatha", "author": "", "url": "https://drive.google.com/uc?export=download&id=1FpffJ7Ds9xkhAnOY25U7yT-Ii3ajWUaz", "language": "Bangla", "type": "pdf" },
+        { "title": "Agni O Uddaner Sangbad", "author": "", "url": "https://drive.google.com/uc?export=download&id=1FsrmpbNjcKY8bw4kUgo4c7cC4f-SThf9", "language": "Bangla", "type": "pdf" },
+        { "title": "Hazratul Qudus - Part 1", "author": "", "url": "https://drive.google.com/uc?export=download&id=1FtYzDnlh_Zc-HJMw8SKJi2qxJf2Ao3D5", "language": "Bangla", "type": "pdf" },
+        { "title": "Hazratul Qudus - Part 2", "author": "", "url": "https://drive.google.com/uc?export=download&id=1G7nN8cQyk21tLCnYobUqyVHM3PwVDK61", "language": "Bangla", "type": "pdf" },
+        { "title": "Quran O Tajbid Shikkha", "author": "", "url": "https://drive.google.com/uc?export=download&id=1G8s1Wly4WsZydtV2ktIoPm27meRy7VUk", "language": "Bangla", "type": "pdf" },
+        { "title": "Siddiksrestha", "author": "", "url": "https://drive.google.com/uc?export=download&id=1GG-SRJChJC6RmhsQ7TFiyj99cqJoCSnV", "language": "Bangla", "type": "pdf" }
+      ]
+    },
+    {
+      "name": "Tafsir",
+      "description": "Quranic exegesis and commentary",
+      "icon": "📖",
+      "books": [
+        { "title": "Tafsir-e-Mazhari Part 1", "author": "Shah Abdul Aziz Dehlavi", "url": "https://drive.google.com/uc?export=download&id=PLACEHOLDER", "language": "Urdu", "type": "pdf", "note": "Coming soon" },
+        { "title": "Tafsir-e-Mazhari Part 2", "author": "Shah Abdul Aziz Dehlavi", "url": "https://drive.google.com/uc?export=download&id=PLACEHOLDER", "language": "Urdu", "type": "pdf", "note": "Coming soon" }
+      ]
+    },
+    {
+      "name": "Seerah & Biography",
+      "description": "Life of Prophet Muhammad (SAW) and notable figures",
+      "icon": "🌙",
+      "books": [
+        { "title": "Madarejun Nabuyat Part 1", "author": "", "url": "https://drive.google.com/uc?export=download&id=PLACEHOLDER", "language": "Urdu", "type": "pdf", "note": "Coming soon" },
+        { "title": "Madarejun Nabuyat Part 2", "author": "", "url": "https://drive.google.com/uc?export=download&id=PLACEHOLDER", "language": "Urdu", "type": "pdf", "note": "Coming soon" }
+      ]
+    },
+    {
+      "name": "Tasawwuf & Spirituality",
+      "description": "Books on Islamic spirituality and Sufism",
+      "icon": "💎",
+      "books": [
+        { "title": "Maktubat Sharif", "author": "Imam Rabbani", "url": "https://drive.google.com/uc?export=download&id=PLACEHOLDER", "language": "Urdu", "type": "pdf", "note": "Coming soon" },
+        { "title": "Maqamate Mazhari", "author": "Shah Abdul Aziz Dehlavi", "url": "https://drive.google.com/uc?export=download&id=1L0Co_L1s9YoC9Y-_IRmyyvjueQBguHIP", "language": "Bangla", "type": "pdf" }
+      ]
+    },
+    {
+      "name": "The Path",
+      "description": "The Path book in multiple languages",
+      "icon": "🕊️",
+      "books": [
+        { "title": "The Path - Bangla", "author": "", "url": "./media/books/The_Path/mini-book/The Path - Bangla.pdf", "language": "Bangla", "type": "pdf" },
+        { "title": "The Path - Arabic", "author": "", "url": "./media/books/The_Path/mini-book/The Path - Arabic.pdf", "language": "Arabic", "type": "pdf" },
+        { "title": "The Path - Urdu", "author": "", "url": "./media/books/The_Path/mini-book/The Path - Urdu.pdf", "language": "Urdu", "type": "pdf" },
+        { "title": "The Path - English", "author": "", "url": "./media/books/The_Path/pdf-A4/The Path - english.pdf", "language": "English", "type": "pdf" },
+        { "title": "The Path - Korean", "author": "", "url": "./media/books/The_Path/pdf-A4/The Path - korean.pdf", "language": "Korean", "type": "pdf" },
+        { "title": "The Path - Chinese", "author": "", "url": "./media/books/The_Path/pdf-A4/The Path - chiness.pdf", "language": "Chinese", "type": "pdf" }
+      ]
+    }
+  ]
+}

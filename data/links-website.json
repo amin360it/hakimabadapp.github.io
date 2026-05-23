@@ -1,0 +1,24 @@
+{
+  "categories": [
+    {
+      "name": "Islamic Resources",
+      "description": "Important Islamic websites and resources",
+      "links": [
+        { "title": "The Path - Official Site", "url": "https://hakimabad.com", "description": "Hakimabad Islamic Spiritual Center" },
+        { "title": "Al-Quran (Tanzil)", "url": "https://tanzil.net", "description": "Quran text with translations" },
+        { "title": "Sunnah.com", "url": "https://sunnah.com", "description": "Hadith collections" },
+        { "title": "Al-Maktaba al-Islamiya", "url": "https://al-maktaba.org", "description": "Islamic books library" }
+      ]
+    },
+    {
+      "name": "Lectures & Media",
+      "description": "Islamic lectures and multimedia",
+      "links": [
+        { "title": "YouTube - mahfil live", "url": "https://www.youtube.com/@mahfillive", "description": "Mahfil recordings and lectures" },
+        { "title": "YouTube - hakimabad dot com", "url": "https://www.youtube.com/@hakimabaddotcom", "description": "Official Hakimabad channel" },
+        { "title": "Google Drive - Audio", "url": "https://drive.google.com/drive/folders/12yPt9wY2H0aEr2wRTM8bWBGgtddspysv", "description": "Full audio archive" },
+        { "title": "Google Drive - Books", "url": "https://drive.google.com/drive/folders/1LmnqgT3uwPhPwhmbdKXps5CX_smb2KZ7", "description": "The Path books and materials" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,489 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Playlist - Hakimabad</title>
+  <link rel="icon" type="image/x-icon" href="./assets/images/Logo.ico">
+  <meta name="description" content="Watch Hakimabad video playlists — Mahfil, Maktubat, Miladunnabi and more">
+  <script src="./assets/vendor/tailwindcss.js"></script>
+  <script src="./assets/vendor/vue.global.prod.js"></script>
+  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { primary: '#0D5C3D', 'primary-dark': '#073D28', secondary: '#C9A227', 'secondary-light': '#E5C76B', cream: '#FFFEF8' },
+          fontFamily: { amiri: ['Amiri', 'serif'], inter: ['Inter', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-cream font-inter">
+  <div id="app" v-cloak>
+    <header class="site-header fixed top-0 left-0 right-0 z-[9999]">
+      <div class="header-inner">
+        <button @click="toggleMobileMenu" class="mobile-menu-btn" aria-label="Menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+        <a href="index.html" class="header-logo">
+          <img src="./assets/images/logo.png" alt="Hakimabad">
+          <div class="header-logo-text">
+            <span class="header-logo-title">Hakimabad</span>
+            <span class="header-logo-subtitle">Khankay-e-Mozaddedia</span>
+          </div>
+        </a>
+        <nav class="desktop-nav">
+          <a href="index.html" class="nav-link">
+            <svg class="nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            Home
+          </a>
+          <div class="mega-menu-trigger nav-item">
+            <a href="#" class="nav-link" @click.prevent="toggleMegaMenu" :class="{ 'active-page': megaMenuOpen }">
+              Explore <span class="arrow">&#x25BC;</span>
+            </a>
+            <div class="mega-dropdown" :class="{ show: megaMenuOpen }" @click.stop>
+              <div class="mega-dropdown-inner">
+                <div class="mega-dropdown-col">
+                  <h4 class="mega-dropdown-category">About</h4>
+                  <ul class="mega-dropdown-links">
+                    <li><a href="about.html">Khanka-e-Mozaddedia</a></li>
+                    <li><a href="about.html#hakim">Hakim Abdul Hakim</a></li>
+                    <li><a href="about.html#rashid">Mohammad Mamunur Rashid</a></li>
+                    <li><a href="tarika.html">Spiritual Lineage</a></li>
+                  </ul>
+                </div>
+                <div class="mega-dropdown-col">
+                  <h4 class="mega-dropdown-category">Media Hub</h4>
+                  <ul class="mega-dropdown-links">
+                    <li><a href="audio-playlist.html">Audio Playlist</a></li>
+                    <li><a href="audio-website.html">Website Audio</a></li>
+                    <li><a href="audio-gdrive.html">GDrive Audio</a></li>
+                    <li><a href="video.html">All Videos</a></li>
+                    <li><a href="playlists.html">Playlists</a></li>
+                  </ul>
+                </div>
+                <div class="mega-dropdown-col">
+                  <h4 class="mega-dropdown-category">Library</h4>
+                  <ul class="mega-dropdown-links">
+                    <li><a href="books.html">Books</a></li>
+                    <li><a href="path.html">The Path PDFs</a></li>
+                    <li><a href="gdrive-media.html">GDrive Media</a></li>
+                    <li><a href="links.html">Important Links</a></li>
+                  </ul>
+                </div>
+                <div class="mega-dropdown-col">
+                  <h4 class="mega-dropdown-category">Community</h4>
+                  <ul class="mega-dropdown-links">
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="qa.html">Q&A</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a href="events.html" class="nav-link">Events</a>
+          <a href="path.html" class="nav-link">The Path</a>
+          <a href="tarika.html" class="nav-link">Tarika</a>
+          <a href="contact.html" class="nav-link">Contact</a>
+        </nav>
+        <a href="audio-playlist.html" class="audio-icon-btn">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+        </a>
+      </div>
+    </header>
+
+    <div class="mobile-overlay" :class="{ active: mobileMenuOpen }" @click="closeMobileMenu"></div>
+    <div class="mobile-menu" :class="{ active: mobileMenuOpen }">
+      <div class="mobile-menu-header">
+        <a href="index.html" class="header-logo" @click="closeMobileMenu">
+          <img src="./assets/images/logo.png" alt="Hakimabad">
+          <div class="header-logo-text">
+            <span class="header-logo-title">Hakimabad</span>
+            <span class="header-logo-subtitle">Khankay-e-Mozaddedia</span>
+          </div>
+        </a>
+        <button @click="closeMobileMenu" class="mobile-menu-close">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <nav class="mobile-menu-nav">
+        <a href="index.html" class="mobile-nav-link" @click="closeMobileMenu">
+          <svg class="mobile-nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+          Home
+        </a>
+        <div class="mobile-nav-section-header">About</div>
+        <a href="about.html" class="mobile-nav-link" @click="closeMobileMenu">Khanka-e-Mozaddedia</a>
+        <a href="about.html#hakim" class="mobile-nav-link mobile-nav-sub-link" @click="closeMobileMenu">Hakim Abdul Hakim</a>
+        <a href="about.html#rashid" class="mobile-nav-link mobile-nav-sub-link" @click="closeMobileMenu">Mohammad Mamunur Rashid</a>
+        <a href="tarika.html" class="mobile-nav-link" @click="closeMobileMenu">Spiritual Lineage</a>
+        <div class="mobile-nav-section-header">Media Hub</div>
+        <a href="audio-playlist.html" class="mobile-nav-link" @click="closeMobileMenu">
+          <svg class="mobile-nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+          Audio Playlist
+        </a>
+        <a href="audio-website.html" class="mobile-nav-link mobile-nav-sub-link" @click="closeMobileMenu">Website Audio</a>
+        <a href="audio-gdrive.html" class="mobile-nav-link mobile-nav-sub-link" @click="closeMobileMenu">GDrive Audio</a>
+        <a href="video.html" class="mobile-nav-link" @click="closeMobileMenu">
+          <svg class="mobile-nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+          All Videos
+        </a>
+        <a href="playlists.html" class="mobile-nav-link mobile-nav-sub-link" @click="closeMobileMenu">Playlists</a>
+        <div class="mobile-nav-section-header">Library</div>
+        <a href="books.html" class="mobile-nav-link" @click="closeMobileMenu">
+          <svg class="mobile-nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+          Books
+        </a>
+        <a href="path.html" class="mobile-nav-link" @click="closeMobileMenu">The Path PDFs</a>
+        <a href="gdrive-media.html" class="mobile-nav-link mobile-nav-sub-link" @click="closeMobileMenu">GDrive Media</a>
+        <a href="links.html" class="mobile-nav-link" @click="closeMobileMenu">Important Links</a>
+        <div class="mobile-nav-section-header">Community</div>
+        <a href="events.html" class="mobile-nav-link" @click="closeMobileMenu">
+          <svg class="mobile-nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
+          Events
+        </a>
+        <a href="blog.html" class="mobile-nav-link" @click="closeMobileMenu">Blog</a>
+        <a href="qa.html" class="mobile-nav-link" @click="closeMobileMenu">Q&A</a>
+        <a href="contact.html" class="mobile-nav-link" @click="closeMobileMenu">
+          <svg class="mobile-nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          Contact
+        </a>
+      </nav>
+      <div class="mobile-menu-footer">
+        <p class="mobile-menu-footer-text">Hakimabad Khanka-e-Mozaddedia</p>
+      </div>
+    </div>
+
+    <main class="page-main">
+      <section class="relative py-16 md:py-20 px-4 bg-gradient-to-br from-[#0F4C3A] via-[#1A7A5E] to-[#2A8F6B]">
+        <div class="max-w-4xl mx-auto text-center">
+          <div class="inline-block px-4 py-1.5 bg-white/15 backdrop-blur-sm rounded-full text-white/80 text-sm font-medium mb-4 border border-white/10">Video Playlist</div>
+          <h1 class="text-4xl md:text-5xl font-amiri font-bold text-white mb-3">Video Playlist</h1>
+          <p class="text-white/80 text-lg">Watch curated playlists from {{ catalog.channelName || 'YouTube' }}</p>
+        </div>
+      </section>
+
+      <section class="py-8 md:py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+
+          <div v-if="selectedPlaylist || selectedVideo" class="mb-8">
+            <div class="bg-black rounded-2xl overflow-hidden shadow-2xl aspect-video">
+              <iframe v-if="activeEmbedUrl" :src="activeEmbedUrl" class="w-full h-full" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+              <div v-else class="w-full h-full flex items-center justify-center text-white/40 bg-gray-900">
+                <div class="text-center">
+                  <svg class="w-16 h-16 mx-auto mb-4 opacity-30" fill="currentColor" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+                  <p>Select a video to play</p>
+                </div>
+              </div>
+            </div>
+            <div class="mt-4" v-if="selectedVideo">
+              <h3 class="text-xl font-amiri font-bold text-primary">{{ selectedVideo.title || 'Untitled' }}</h3>
+              <p class="text-gray-500 text-sm mt-1">{{ selectedVideo.channelTitle || catalog.channelName }}</p>
+            </div>
+            <div class="flex gap-2 mt-3">
+              <button @click="selectedPlaylist=null; selectedVideo=null; activeEmbedUrl=''" class="px-3 py-1.5 text-xs bg-gray-200 hover:bg-gray-300 rounded-lg transition">Close Player</button>
+            </div>
+          </div>
+
+          <div class="mb-8" v-if="!selectedPlaylist && !selectedVideo">
+            <h2 class="text-2xl font-amiri font-bold text-primary mb-4">Playlists</h2>
+            <div class="grid md:grid-cols-3 gap-4">
+              <div v-for="pl in catalog.playlists" :key="pl.id" class="glass-card rounded-2xl p-5 cursor-pointer hover:shadow-lg transition" @click="selectPlaylist(pl)">
+                <div class="flex items-center gap-3 mb-3">
+                  <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+                  </div>
+                  <h3 class="font-amiri font-bold text-primary text-lg">{{ pl.name }}</h3>
+                </div>
+                <p class="text-gray-600 text-sm mb-3 line-clamp-2">{{ pl.description }}</p>
+                <div class="flex items-center justify-between">
+                  <span class="text-xs text-gray-400">{{ pl.count }} videos</span>
+                  <span class="text-primary text-sm font-medium hover:underline">Play All &rarr;</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div v-if="selectedPlaylist && !selectedVideo" class="mb-6">
+            <button @click="selectedPlaylist=null" class="text-primary hover:underline text-sm mb-4 inline-flex items-center gap-1">&larr; Back to Playlists</button>
+            <h2 class="text-2xl font-amiri font-bold text-primary mb-1">{{ selectedPlaylist.name }}</h2>
+            <p class="text-gray-500 text-sm mb-4">{{ selectedPlaylist.description }}</p>
+          </div>
+
+          <div class="grid md:grid-cols-3 sm:grid-cols-2 gap-4">
+            <template v-if="selectedPlaylist && !selectedVideo">
+              <div v-for="v in selectedPlaylist.videos" :key="v.id" class="video-card cursor-pointer" @click="playVideo(v)">
+                <div class="video-thumbnail">
+                  <img :src="v.thumbnail || `https://img.youtube.com/vi/${v.id}/hqdefault.jpg`" :alt="v.title" loading="lazy" @error="$event.target.src='./assets/images/placeholder.png'">
+                  <div class="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 hover:opacity-100 transition">
+                    <div class="w-14 h-14 bg-red-600 rounded-full flex items-center justify-center">
+                      <svg class="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                  </div>
+                </div>
+                <div class="video-info">
+                  <div class="video-title">{{ v.title || v.id }}</div>
+                  <div class="text-xs text-gray-400 mt-1">{{ v.channelTitle || catalog.channelName }}</div>
+                </div>
+              </div>
+            </template>
+            <template v-if="!selectedPlaylist && !selectedVideo">
+              <div v-for="v in catalog.videos" :key="v.id" class="video-card cursor-pointer" @click="playVideo(v)">
+                <div class="video-thumbnail">
+                  <img :src="v.thumbnail || `https://img.youtube.com/vi/${v.id}/hqdefault.jpg`" :alt="v.title" loading="lazy" @error="$event.target.src='./assets/images/placeholder.png'">
+                  <div class="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 hover:opacity-100 transition">
+                    <div class="w-14 h-14 bg-red-600 rounded-full flex items-center justify-center">
+                      <svg class="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                  </div>
+                </div>
+                <div class="video-info">
+                  <div class="video-title">{{ v.title || v.id }}</div>
+                  <div class="text-xs text-gray-400 mt-1">{{ v.channelTitle || catalog.channelName }}</div>
+                </div>
+              </div>
+            </template>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="audio-player" :class="{ active: selectedVideo || currentVideo }">
+      <div class="audio-player-track">
+        <div class="audio-player-title">{{ (selectedVideo || currentVideo) ? (selectedVideo || currentVideo).title : 'No video selected' }}</div>
+      </div>
+      <div class="audio-player-controls">
+        <button @click="prevVideo" class="audio-player-btn" :disabled="!(selectedVideo || currentVideo)">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+        </button>
+        <button @click="toggleVideoPlay" class="audio-player-btn w-10 h-10 bg-white/20 rounded-full flex items-center justify-center" :disabled="!(selectedVideo || currentVideo)">
+          <svg v-if="videoIsPlaying" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+          <svg v-else class="w-5 h-5 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <button @click="nextVideo" class="audio-player-btn" :disabled="!(selectedVideo || currentVideo)">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+        </button>
+        <button @click="closeVideo" class="audio-player-btn ml-2" :disabled="!(selectedVideo || currentVideo)">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <div class="footer-brand-logo">
+              <img src="./assets/images/logo.png" alt="Hakimabad">
+              <span class="footer-brand-name">Hakimabad</span>
+            </div>
+            <p class="footer-brand-tagline">Khanka-e-Mozaddedia</p>
+            <p class="footer-brand-desc">Islamic Spiritual Center — Following the Tarika-e-Khas Mojaddedia. Serving seekers in Bangladesh and worldwide.</p>
+          </div>
+          <div>
+            <h4 class="footer-col-title">Quick Links</h4>
+            <ul class="footer-links">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="tarika.html">Spiritual Lineage</a></li>
+              <li><a href="path.html">The Path</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="footer-col-title">Media</h4>
+            <ul class="footer-links">
+              <li><a href="audio-playlist.html">Audio Playlist</a></li>
+              <li><a href="video.html">Videos</a></li>
+              <li><a href="books.html">Books</a></li>
+              <li><a href="playlists.html">Playlists</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="footer-col-title">Connect</h4>
+            <ul class="footer-links">
+              <li><a href="events.html">Events</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="qa.html">Q&A</a></li>
+            </ul>
+            <div class="footer-social">
+              <a href="https://youtube.com/@mahfillive" target="_blank" class="footer-social-link youtube" aria-label="YouTube">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+              </a>
+              <a href="https://facebook.com" target="_blank" class="footer-social-link facebook" aria-label="Facebook">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p class="footer-copyright">&copy; 2026 Hakimabad Khanka-e-Mozaddedia. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <nav class="bottom-nav">
+      <div class="bottom-nav-inner">
+        <a href="index.html" class="bottom-nav-item">
+          <svg class="bottom-nav-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+          <span>Home</span>
+        </a>
+        <a href="audio-playlist.html" class="bottom-nav-item">
+          <svg class="bottom-nav-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+          <span>Audio</span>
+        </a>
+        <a href="video.html" class="bottom-nav-item">
+          <svg class="bottom-nav-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+          <span>Video</span>
+        </a>
+        <a href="books.html" class="bottom-nav-item">
+          <svg class="bottom-nav-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+          <span>Books</span>
+        </a>
+        <a href="#" class="bottom-nav-item" @click.prevent="moreSheetOpen = true">
+          <svg class="bottom-nav-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+          <span>More</span>
+        </a>
+      </div>
+    </nav>
+
+    <div class="more-sheet-overlay" :class="{ active: moreSheetOpen }" @click="moreSheetOpen = false"></div>
+    <div class="more-sheet" :class="{ active: moreSheetOpen }">
+      <div class="more-sheet-header">
+        <span class="more-sheet-title">More</span>
+        <button @click="moreSheetOpen = false" class="more-sheet-close">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <nav class="more-sheet-nav">
+        <a href="events.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
+          Events
+        </a>
+        <a href="path.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          The Path
+        </a>
+        <a href="tarika.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          Tarika
+        </a>
+        <a href="blog.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M19 14v3h3v2h-3v3h-2v-3h-3v-2h3v-3h2zm-7-9l-7 7h4v6h6v-6h4l-7-7z"/></svg>
+          Blog
+        </a>
+        <a href="qa.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M21 6h-2v2h-2V6h-2V4h2V2h2v2h2v2zm-10 3c0-1.66 1.34-3 3-3s3 1.34 3 3c0 2-3 5.37-3 5.37S11 11 11 9z"/></svg>
+          Q&A
+        </a>
+        <a href="contact.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          Contact
+        </a>
+        <a href="links.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+          Important Links
+        </a>
+        <a href="gdrive-media.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg>
+          GDrive Media
+        </a>
+      </nav>
+    </div>
+  </div>
+
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          mobileMenuOpen: false,
+          megaMenuOpen: false,
+          moreSheetOpen: false,
+          catalog: { videos: [], playlists: [], channelName: 'mahfil live' },
+          selectedPlaylist: null,
+          selectedVideo: null,
+          currentVideo: null,
+          videoIsPlaying: false,
+          videoCurrentIndex: -1,
+          activeEmbedUrl: ''
+        }
+      },
+      methods: {
+        toggleMobileMenu() { this.mobileMenuOpen = !this.mobileMenuOpen; },
+        closeMobileMenu() { this.mobileMenuOpen = false; },
+        toggleMegaMenu() { this.megaMenuOpen = !this.megaMenuOpen; },
+        closeMegaMenu() { this.megaMenuOpen = false; },
+        selectPlaylist(pl) { this.selectedPlaylist = pl; this.selectedVideo = null; this.activeEmbedUrl = ''; this.currentVideo = null; },
+        playVideo(v) {
+          this.selectedVideo = v;
+          this.selectedPlaylist = null;
+          this.activeEmbedUrl = v.embedUrl + '?autoplay=1&rel=0&enablejsapi=1';
+          this.currentVideo = v;
+          this.videoIsPlaying = true;
+          const list = this.currentVideosList();
+          this.videoCurrentIndex = list.findIndex(item => item.id === v.id);
+        },
+        currentVideosList() {
+          if (this.selectedPlaylist && this.selectedPlaylist.videos) return this.selectedPlaylist.videos;
+          if (this.catalog && this.catalog.videos) return this.catalog.videos;
+          return [];
+        },
+        toggleVideoPlay() {
+          if (!this.currentVideo && !this.selectedVideo) return;
+          const iframe = this.$el.querySelector('iframe');
+          if (iframe && iframe.contentWindow) {
+            if (this.videoIsPlaying) {
+              iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+              this.videoIsPlaying = false;
+            } else {
+              iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+              this.videoIsPlaying = true;
+            }
+          }
+        },
+        prevVideo() {
+          const list = this.currentVideosList();
+          if (this.videoCurrentIndex > 0) this.playVideo(list[this.videoCurrentIndex - 1]);
+        },
+        nextVideo() {
+          const list = this.currentVideosList();
+          if (this.videoCurrentIndex < list.length - 1) this.playVideo(list[this.videoCurrentIndex + 1]);
+        },
+        closeVideo() {
+          const iframe = this.$el.querySelector('iframe');
+          if (iframe && iframe.contentWindow) {
+            iframe.contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*');
+          }
+          this.selectedVideo = null;
+          this.currentVideo = null;
+          this.activeEmbedUrl = '';
+          this.videoIsPlaying = false;
+          this.videoCurrentIndex = -1;
+        },
+        formatDate(d) {
+          if (!d) return '';
+          return new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+        }
+      },
+      mounted() {
+        fetch('./data/video-catalog.json').then(r => r.json()).then(d => { this.catalog = d; }).catch(e => { console.log('Video catalog error:', e); });
+        document.addEventListener('click', (e) => {
+          if (!e.target.closest('.mega-menu-trigger') && !e.target.closest('.mega-dropdown')) { if (this.megaMenuOpen) this.closeMegaMenu(); }
+        });
+        window.addEventListener('message', (e) => {
+          if (e.data && e.data.event === 'onStateChange') {
+            if (e.data.info === 1) this.videoIsPlaying = true;
+            else if (e.data.info === 2 || e.data.info === 0) this.videoIsPlaying = false;
+          }
+        });
+      }
+    });
+    app.mount('#app');
+  </script>
+</body>
+</html>

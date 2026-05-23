@@ -1,0 +1,49 @@
+{
+  "generatedAt": "2026-05-19T00:00:00.000Z",
+  "audio": {
+    "gdrive": {
+      "folderId": "12yPt9wY2H0aEr2wRTM8bWBGgtddspysv",
+      "url": "https://drive.google.com/drive/folders/12yPt9wY2H0aEr2wRTM8bWBGgtddspysv",
+      "description": "Main audio folder with Mahfil recordings"
+    },
+    "local": {
+      "path": "./media/audios/",
+      "description": "Audio files hosted directly on the website server"
+    },
+    "website": {
+      "description": "Audio files linked from hakimabad.com"
+    }
+  },
+  "video": {
+    "youtube": {
+      "channelId": "UCXuFIrgi5aYbAm3gVNl5-3A",
+      "channelName": "mahfil live",
+      "channelUrl": "https://www.youtube.com/@mahfillive",
+      "description": "Main YouTube channel for Mahfil videos"
+    }
+  },
+  "books": {
+    "gdrive": {
+      "folderId": "1LmnqgT3uwPhPwhmbdKXps5CX_smb2KZ7",
+      "url": "https://drive.google.com/drive/folders/1LmnqgT3uwPhPwhmbdKXps5CX_smb2KZ7",
+      "description": "The Path PDFs, e-books, pictures"
+    }
+  },
+  "images": {
+    "gdrive": {
+      "folderId": "1kRaDLvS8OIprShsyNzJf0Msv7TYOgDG0",
+      "url": "https://drive.google.com/drive/folders/1kRaDLvS8OIprShsyNzJf0Msv7TYOgDG0",
+      "description": "Main app folder with images and media"
+    }
+  },
+  "contact": {
+    "name": "Mohammad Mamunur Rashid",
+    "addressCambodia": "N. R. No.-5, Village-Andoung Chrey, Commune-Andoung Fanay, District-Rorlibhiar, Kompong Chhnang, Kingdom of Cambodia",
+    "phoneCambodia": "+85512495461",
+    "addressBangladesh": "Hakimabad Khanka-e-Mozaddedia, Bhuigar, Narayangonj, Bangladesh",
+    "phoneBangladesh": "01711233670, 01726288280",
+    "email": "info@hakimabad.com",
+    "googleMapsUrl": "https://maps.google.com/?q=Hakimabad+Khanka+Sharif+Bhuiyar+Fatulla+Narayanganj+Bangladesh",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.5!2d90.5!3d23.6!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjPCsDM2JzAwLjAiTiA5MMKwMzAnMDAuMCJF!5e0!3m2!1sen!2sbd!4v1"
+  }
+}

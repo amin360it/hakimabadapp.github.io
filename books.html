@@ -1,0 +1,721 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Books - Hakimabad Online Library</title>
+  <link rel="icon" type="image/x-icon" href="./assets/images/Logo.ico">
+  <meta name="description" content="Hakimabad Islamic Online Library - Read and download eBooks including Tafsir, Biography, Tasawwuf, and more">
+  <script src="./assets/vendor/tailwindcss.js"></script>
+  <script src="./assets/vendor/vue.global.prod.js"></script>
+  <script src="./data/books-data.js"></script>
+  <link rel="stylesheet" href="./css/styles.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { primary: '#0D5C3D', 'primary-dark': '#073D28', secondary: '#C9A227', 'secondary-light': '#E5C76B', cream: '#FFFEF8' },
+          fontFamily: { amiri: ['Amiri', 'serif'], inter: ['Inter', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <style>
+    .book-cover-gradient {
+      background: linear-gradient(135deg, #0D5C3D, #1A7A5E);
+    }
+    .book-cover-gold {
+      background: linear-gradient(135deg, #C9A227, #E5C76B);
+    }
+    .book-cover-rose {
+      background: linear-gradient(135deg, #7B2D8E, #A855C6);
+    }
+    .book-cover-blue {
+      background: linear-gradient(135deg, #1E40AF, #3B82F6);
+    }
+    .book-cover-teal {
+      background: linear-gradient(135deg, #0F766E, #14B8A6);
+    }
+    .book-cover-red {
+      background: linear-gradient(135deg, #991B1B, #EF4444);
+    }
+    .book-cover-amber {
+      background: linear-gradient(135deg, #92400E, #F59E0B);
+    }
+    .language-badge {
+      font-size: 0.65rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    .search-input {
+      width: 100%;
+      padding: 0.75rem 1rem 0.75rem 2.75rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      font-size: 1rem;
+      transition: all 0.2s;
+      background: white;
+    }
+    .search-input:focus {
+      outline: none;
+      border-color: #0D5C3D;
+      box-shadow: 0 0 0 3px rgba(13,92,61,0.1);
+    }
+    .category-pill {
+      padding: 0.4rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 1.5px solid #e5e7eb;
+      background: white;
+      color: #374151;
+      white-space: nowrap;
+    }
+    .category-pill:hover {
+      border-color: #0D5C3D;
+      color: #0D5C3D;
+      background: #f0fdf4;
+    }
+    .category-pill.active {
+      background: #0D5C3D;
+      color: white;
+      border-color: #0D5C3D;
+    }
+    .pdf-reader-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.88);
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.25s ease;
+    }
+    .pdf-reader-container {
+      width: 92vw;
+      max-width: 1000px;
+      height: 90vh;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .pdf-reader-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1.25rem;
+      background: #0D5C3D;
+      color: white;
+      flex-shrink: 0;
+    }
+    .pdf-reader-header h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin: 0 1rem 0 0;
+    }
+    .pdf-reader-body {
+      flex: 1;
+      min-height: 0;
+      background: #f3f4f6;
+    }
+    .pdf-reader-body iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .pdf-reader-actions {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .pdf-reader-btn {
+      padding: 0.4rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .pdf-reader-btn-gold {
+      background: #C9A227;
+      color: #073D28;
+    }
+    .pdf-reader-btn-gold:hover {
+      background: #E5C76B;
+    }
+    .pdf-reader-btn-close {
+      background: rgba(255,255,255,0.15);
+      color: white;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      cursor: pointer;
+      font-size: 1.25rem;
+      transition: background 0.2s;
+    }
+    .pdf-reader-btn-close:hover {
+      background: rgba(255,255,255,0.3);
+    }
+    .coming-soon-badge {
+      font-size: 0.6rem;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      background: #fef3c7;
+      color: #92400e;
+      font-weight: 600;
+    }
+    .category-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    @media (max-width: 768px) {
+      .pdf-reader-container {
+        width: 100vw;
+        height: 100vh;
+        border-radius: 0;
+      }
+      .pdf-reader-header {
+        padding: 0.6rem 1rem;
+      }
+      .category-pill {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body class="bg-cream font-inter">
+  <div id="app" v-cloak>
+    <header class="site-header fixed top-0 left-0 right-0 z-[9999]">
+      <div class="header-inner">
+        <button @click="toggleMobileMenu" class="mobile-menu-btn" aria-label="Menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+        <a href="index.html" class="header-logo">
+          <img src="./assets/images/logo.png" alt="Hakimabad">
+          <div class="header-logo-text">
+            <span class="header-logo-title">Hakimabad</span>
+            <span class="header-logo-subtitle">Khankay-e-Mozaddedia</span>
+          </div>
+        </a>
+        <nav class="desktop-nav">
+          <a href="index.html" class="nav-link">
+            <svg class="nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            Home
+          </a>
+          <div class="mega-menu-trigger nav-item">
+            <a href="#" class="nav-link" @click.prevent="toggleMegaMenu" :class="{ 'active-page': megaMenuOpen }">
+              Explore <span class="arrow">&#x25BC;</span>
+            </a>
+            <div class="mega-dropdown" :class="{ show: megaMenuOpen }" @click.stop>
+              <div class="mega-dropdown-inner">
+                <div class="mega-dropdown-col">
+                  <h4 class="mega-dropdown-category">About</h4>
+                  <ul class="mega-dropdown-links">
+                    <li><a href="about.html">Khanka-e-Mozaddedia</a></li>
+                    <li><a href="about.html#hakim">Hakim Abdul Hakim</a></li>
+                    <li><a href="about.html#rashid">Mohammad Mamunur Rashid</a></li>
+                    <li><a href="tarika.html">Spiritual Lineage</a></li>
+                  </ul>
+                </div>
+                <div class="mega-dropdown-col">
+                  <h4 class="mega-dropdown-category">Media Hub</h4>
+                  <ul class="mega-dropdown-links">
+                    <li><a href="audio-playlist.html">Audio Playlist</a></li>
+                    <li><a href="audio-website.html">Website Audio</a></li>
+                    <li><a href="audio-gdrive.html">GDrive Audio</a></li>
+                    <li><a href="video.html">All Videos</a></li>
+                    <li><a href="playlists.html">Playlists</a></li>
+                  </ul>
+                </div>
+                <div class="mega-dropdown-col">
+                  <h4 class="mega-dropdown-category">Library</h4>
+                  <ul class="mega-dropdown-links">
+                    <li><a href="books.html">Books</a></li>
+                    <li><a href="path.html">The Path PDFs</a></li>
+                    <li><a href="gdrive-media.html">GDrive Media</a></li>
+                    <li><a href="links.html">Important Links</a></li>
+                  </ul>
+                </div>
+                <div class="mega-dropdown-col">
+                  <h4 class="mega-dropdown-category">Community</h4>
+                  <ul class="mega-dropdown-links">
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="qa.html">Q&A</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a href="events.html" class="nav-link">Events</a>
+          <a href="path.html" class="nav-link">The Path</a>
+          <a href="tarika.html" class="nav-link">Tarika</a>
+          <a href="books.html" class="nav-link active-page">Books</a>
+          <a href="contact.html" class="nav-link">Contact</a>
+        </nav>
+        <a href="audio-playlist.html" class="audio-icon-btn">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+        </a>
+      </div>
+    </header>
+
+    <div class="mobile-overlay" :class="{ active: mobileMenuOpen }" @click="closeMobileMenu"></div>
+    <div class="mobile-menu" :class="{ active: mobileMenuOpen }">
+      <div class="mobile-menu-header">
+        <a href="index.html" class="header-logo" @click="closeMobileMenu">
+          <img src="./assets/images/logo.png" alt="Hakimabad">
+          <div class="header-logo-text">
+            <span class="header-logo-title">Hakimabad</span>
+            <span class="header-logo-subtitle">Khankay-e-Mozaddedia</span>
+          </div>
+        </a>
+        <button @click="closeMobileMenu" class="mobile-menu-close">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <nav class="mobile-menu-nav">
+        <a href="index.html" class="mobile-nav-link" @click="closeMobileMenu">
+          <svg class="mobile-nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+          Home
+        </a>
+        <div class="mobile-nav-section-header">About</div>
+        <a href="about.html" class="mobile-nav-link" @click="closeMobileMenu">Khanka-e-Mozaddedia</a>
+        <a href="about.html#hakim" class="mobile-nav-link mobile-nav-sub-link" @click="closeMobileMenu">Hakim Abdul Hakim</a>
+        <a href="about.html#rashid" class="mobile-nav-link mobile-nav-sub-link" @click="closeMobileMenu">Mohammad Mamunur Rashid</a>
+        <a href="tarika.html" class="mobile-nav-link" @click="closeMobileMenu">Spiritual Lineage</a>
+        <div class="mobile-nav-section-header">Media Hub</div>
+        <a href="audio-playlist.html" class="mobile-nav-link" @click="closeMobileMenu">
+          <svg class="mobile-nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+          Audio Playlist
+        </a>
+        <a href="audio-website.html" class="mobile-nav-link mobile-nav-sub-link" @click="closeMobileMenu">Website Audio</a>
+        <a href="audio-gdrive.html" class="mobile-nav-link mobile-nav-sub-link" @click="closeMobileMenu">GDrive Audio</a>
+        <a href="video.html" class="mobile-nav-link" @click="closeMobileMenu">
+          <svg class="mobile-nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+          All Videos
+        </a>
+        <a href="playlists.html" class="mobile-nav-link mobile-nav-sub-link" @click="closeMobileMenu">Playlists</a>
+        <div class="mobile-nav-section-header">Library</div>
+        <a href="books.html" class="mobile-nav-link active-page" @click="closeMobileMenu">
+          <svg class="mobile-nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+          Books
+        </a>
+        <a href="path.html" class="mobile-nav-link" @click="closeMobileMenu">The Path PDFs</a>
+        <a href="gdrive-media.html" class="mobile-nav-link mobile-nav-sub-link" @click="closeMobileMenu">GDrive Media</a>
+        <a href="links.html" class="mobile-nav-link" @click="closeMobileMenu">Important Links</a>
+        <div class="mobile-nav-section-header">Community</div>
+        <a href="events.html" class="mobile-nav-link" @click="closeMobileMenu">
+          <svg class="mobile-nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
+          Events
+        </a>
+        <a href="blog.html" class="mobile-nav-link" @click="closeMobileMenu">Blog</a>
+        <a href="qa.html" class="mobile-nav-link" @click="closeMobileMenu">Q&A</a>
+        <a href="contact.html" class="mobile-nav-link" @click="closeMobileMenu">
+          <svg class="mobile-nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          Contact
+        </a>
+      </nav>
+      <div class="mobile-menu-footer">
+        <p class="mobile-menu-footer-text">Hakimabad Khanka-e-Mozaddedia</p>
+      </div>
+    </div>
+
+    <main class="page-main pt-[60px] md:pt-[70px]">
+      <!-- Hero -->
+      <section class="relative overflow-hidden bg-gradient-to-br from-[#0F4C3A] via-[#1A7A5E] to-[#2A8F6B]">
+        <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(circle at 20% 50%, #fff 1px, transparent 1px); background-size: 30px 30px;"></div>
+        <div class="relative max-w-6xl mx-auto px-4 py-14 md:py-20">
+          <div class="text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-white/15 backdrop-blur-sm rounded-full text-white/80 text-sm font-medium mb-4 border border-white/10">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+              Online Library
+            </div>
+            <h1 class="text-4xl md:text-5xl font-amiri font-bold text-white mb-3">Islamic Books &amp; Literature</h1>
+            <p class="text-white/80 text-lg max-w-2xl mx-auto">Browse our growing collection of Islamic e-books, scholarly works, and spiritual literature</p>
+          </div>
+          <!-- Stats -->
+          <div class="mt-10 grid grid-cols-3 gap-4 max-w-lg mx-auto">
+            <div class="text-center p-3 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10">
+              <div class="text-2xl font-bold text-secondary font-amiri">{{ totalBooks }}</div>
+              <div class="text-xs text-white/70 mt-0.5">Books</div>
+            </div>
+            <div class="text-center p-3 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10">
+              <div class="text-2xl font-bold text-secondary font-amiri">{{ categories.length }}</div>
+              <div class="text-xs text-white/70 mt-0.5">Categories</div>
+            </div>
+            <div class="text-center p-3 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10">
+              <div class="text-2xl font-bold text-secondary font-amiri">{{ totalLanguages }}</div>
+              <div class="text-xs text-white/70 mt-0.5">Languages</div>
+            </div>
+          </div>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-cream to-transparent"></div>
+      </section>
+
+      <!-- Search & Filter -->
+      <section class="py-6 px-4">
+        <div class="max-w-6xl mx-auto">
+          <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 md:p-6">
+            <div class="relative max-w-xl mx-auto mb-4">
+              <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              <input type="text" v-model="searchQuery" @input="activeCategory = null" placeholder="Search books by title..." class="search-input">
+            </div>
+            <div class="flex flex-wrap gap-2 justify-center">
+              <button class="category-pill" :class="{ active: activeCategory === null && searchQuery === '' }" @click="activeCategory = null; searchQuery = ''">All</button>
+              <button v-for="cat in categories" :key="cat.name" class="category-pill" :class="{ active: activeCategory === cat.name }" @click="activeCategory = activeCategory === cat.name ? null : cat.name; searchQuery = ''">
+                {{ cat.icon }} {{ cat.name }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Books Content -->
+      <section class="pb-12 px-4">
+        <div class="max-w-6xl mx-auto">
+          <div v-if="filteredCategories.length === 0" class="text-center py-16">
+            <svg class="w-16 h-16 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+            <p class="text-gray-500 text-lg font-medium">No books found</p>
+            <p class="text-gray-400 text-sm mt-1">Try a different search or category</p>
+          </div>
+
+          <div v-for="(category, catIdx) in filteredCategories" :key="category.name" class="mb-8">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="category-icon bg-primary/10 text-primary text-xl">{{ category.icon }}</div>
+              <div>
+                <h2 class="text-xl font-bold text-gray-800">{{ category.name }}</h2>
+                <p class="text-sm text-gray-500">{{ category.description }} &middot; {{ category.books.length }} {{ category.books.length === 1 ? 'book' : 'books' }}</p>
+              </div>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              <div v-for="(book, idx) in category.books" :key="category.name + '-' + idx"
+                   class="group bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden flex flex-col">
+                <!-- Cover -->
+                <div class="relative h-28 flex items-center justify-center overflow-hidden"
+                     :class="coverGradient(catIdx + idx)">
+                  <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.8) 0%, transparent 50%);"></div>
+                  <div class="relative flex flex-col items-center">
+                    <svg class="w-10 h-10 text-white/70" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+                    <span class="text-white/50 text-[10px] font-medium mt-1">PDF</span>
+                  </div>
+                </div>
+                <!-- Info -->
+                <div class="p-3.5 flex-1 flex flex-col">
+                  <div class="flex items-start justify-between gap-2">
+                    <h3 class="font-semibold text-gray-800 text-sm leading-snug line-clamp-2 flex-1">{{ book.title }}</h3>
+                    <span v-if="book.note" class="coming-soon-badge shrink-0 mt-0.5">{{ book.note }}</span>
+                  </div>
+                  <p v-if="book.author" class="text-xs text-gray-500 mt-1">{{ book.author }}</p>
+                  <div class="mt-auto pt-3 flex items-center justify-between">
+                    <span class="language-badge" :class="langBadgeClass(book.language)">
+                      <span>{{ langFlag(book.language) }}</span>
+                      {{ book.language }}
+                    </span>
+                    <div class="flex gap-1.5">
+                      <button v-if="!book.note" @click="openReader(book, category, idx)" class="text-xs px-2.5 py-1.5 rounded-lg bg-primary/10 text-primary font-medium hover:bg-primary hover:text-white transition no-underline inline-flex items-center gap-1">
+                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                        Read
+                      </button>
+                      <a v-if="!book.note" :href="book.url" target="_blank" class="text-xs px-2.5 py-1.5 rounded-lg bg-gray-100 text-gray-600 font-medium hover:bg-gray-200 transition no-underline inline-flex items-center gap-1">
+                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                        Download
+                      </a>
+                      <button v-else disabled class="text-xs px-2.5 py-1.5 rounded-lg bg-gray-100 text-gray-400 cursor-not-allowed inline-flex items-center gap-1">
+                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                        Soon
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <div class="footer-brand-logo">
+              <img src="./assets/images/logo.png" alt="Hakimabad">
+              <span class="footer-brand-name">Hakimabad</span>
+            </div>
+            <p class="footer-brand-tagline">Khanka-e-Mozaddedia</p>
+            <p class="footer-brand-desc">Islamic Spiritual Center — Following the Tarika-e-Khas Mojaddedia. Serving seekers in Bangladesh and worldwide.</p>
+          </div>
+          <div>
+            <h4 class="footer-col-title">Quick Links</h4>
+            <ul class="footer-links">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="tarika.html">Spiritual Lineage</a></li>
+              <li><a href="path.html">The Path</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="footer-col-title">Media</h4>
+            <ul class="footer-links">
+              <li><a href="audio-playlist.html">Audio Playlist</a></li>
+              <li><a href="video.html">Videos</a></li>
+              <li><a href="books.html">Books</a></li>
+              <li><a href="playlists.html">Playlists</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="footer-col-title">Connect</h4>
+            <ul class="footer-links">
+              <li><a href="events.html">Events</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="qa.html">Q&A</a></li>
+            </ul>
+            <div class="footer-social">
+              <a href="https://youtube.com/@mahfillive" target="_blank" class="footer-social-link youtube" aria-label="YouTube">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+              </a>
+              <a href="https://facebook.com" target="_blank" class="footer-social-link facebook" aria-label="Facebook">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p class="footer-copyright">&copy; 2026 Hakimabad Khanka-e-Mozaddedia. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <nav class="bottom-nav">
+      <div class="bottom-nav-inner">
+        <a href="index.html" class="bottom-nav-item">
+          <svg class="bottom-nav-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+          <span>Home</span>
+        </a>
+        <a href="audio-playlist.html" class="bottom-nav-item">
+          <svg class="bottom-nav-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+          <span>Audio</span>
+        </a>
+        <a href="video.html" class="bottom-nav-item">
+          <svg class="bottom-nav-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+          <span>Video</span>
+        </a>
+        <a href="books.html" class="bottom-nav-item active">
+          <svg class="bottom-nav-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+          <span>Books</span>
+        </a>
+        <a href="#" class="bottom-nav-item" @click.prevent="moreSheetOpen = true">
+          <svg class="bottom-nav-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+          <span>More</span>
+        </a>
+      </div>
+    </nav>
+
+    <div class="more-sheet-overlay" :class="{ active: moreSheetOpen }" @click="moreSheetOpen = false"></div>
+    <div class="more-sheet" :class="{ active: moreSheetOpen }">
+      <div class="more-sheet-header">
+        <span class="more-sheet-title">More</span>
+        <button @click="moreSheetOpen = false" class="more-sheet-close">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <nav class="more-sheet-nav">
+        <a href="events.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
+          Events
+        </a>
+        <a href="path.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          The Path
+        </a>
+        <a href="tarika.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          Tarika
+        </a>
+        <a href="blog.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M19 14v3h3v2h-3v3h-2v-3h-3v-2h3v-3h2zm-7-9l-7 7h4v6h6v-6h4l-7-7z"/></svg>
+          Blog
+        </a>
+        <a href="qa.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M21 6h-2v2h-2V6h-2V4h2V2h2v2h2v2zm-10 3c0-1.66 1.34-3 3-3s3 1.34 3 3c0 2-3 5.37-3 5.37S11 11 11 9z"/></svg>
+          Q&A
+        </a>
+        <a href="contact.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          Contact
+        </a>
+        <a href="links.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+          Important Links
+        </a>
+        <a href="gdrive-media.html" class="more-sheet-link" @click="moreSheetOpen = false">
+          <svg class="more-sheet-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg>
+          GDrive Media
+        </a>
+      </nav>
+    </div>
+
+    <div class="h-16 md:h-0"></div>
+
+    <!-- PDF Reader Modal -->
+    <div v-if="readerOpen" class="pdf-reader-overlay" @click.self="closeReader">
+      <div class="pdf-reader-container">
+        <div class="pdf-reader-header">
+          <h3>{{ currentBook.title }}</h3>
+          <div class="pdf-reader-actions">
+            <a :href="currentBook.url" target="_blank" class="pdf-reader-btn pdf-reader-btn-gold">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+              Download
+            </a>
+            <button @click="closeReader" class="pdf-reader-btn-close" aria-label="Close reader">&times;</button>
+          </div>
+        </div>
+        <div class="pdf-reader-body">
+          <iframe :src="readerUrl" allowfullscreen referrerpolicy="no-referrer"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          mobileMenuOpen: false,
+          megaMenuOpen: false,
+          moreSheetOpen: false,
+          categories: [],
+          searchQuery: '',
+          activeCategory: null,
+          readerOpen: false,
+          currentBook: null,
+          readerUrl: ''
+        }
+      },
+      computed: {
+        totalBooks() {
+          return this.categories.reduce((sum, c) => sum + c.books.length, 0)
+        },
+        totalLanguages() {
+          const langs = new Set()
+          this.categories.forEach(c => c.books.forEach(b => { if (b.language) langs.add(b.language) }))
+          return langs.size
+        },
+        filteredCategories() {
+          let cats = this.categories
+          if (this.activeCategory) {
+            cats = cats.filter(c => c.name === this.activeCategory)
+          }
+          if (this.searchQuery.trim()) {
+            const q = this.searchQuery.toLowerCase().trim()
+            cats = cats.map(c => ({
+              ...c,
+              books: c.books.filter(b => b.title.toLowerCase().includes(q))
+            })).filter(c => c.books.length > 0)
+          }
+          return cats
+        }
+      },
+      methods: {
+        toggleMobileMenu() { this.mobileMenuOpen = !this.mobileMenuOpen },
+        closeMobileMenu() { this.mobileMenuOpen = false },
+        toggleMegaMenu() { this.megaMenuOpen = !this.megaMenuOpen },
+        closeMegaMenu() { this.megaMenuOpen = false },
+        coverGradient(index) {
+          const grads = ['book-cover-gradient', 'book-cover-gold', 'book-cover-rose', 'book-cover-blue', 'book-cover-teal', 'book-cover-red', 'book-cover-amber']
+          return grads[index % grads.length]
+        },
+        langBadgeClass(lang) {
+          const map = {
+            'Bangla': 'bg-emerald-50 text-emerald-700',
+            'English': 'bg-blue-50 text-blue-700',
+            'Arabic': 'bg-amber-50 text-amber-700',
+            'Urdu': 'bg-purple-50 text-purple-700',
+            'Korean': 'bg-rose-50 text-rose-700',
+            'Chinese': 'bg-red-50 text-red-700'
+          }
+          return map[lang] || 'bg-gray-50 text-gray-700'
+        },
+        langFlag(lang) {
+          const map = {
+            'Bangla': '🇧🇩',
+            'English': '🇬🇧',
+            'Arabic': '🇸🇦',
+            'Urdu': '🇵🇰',
+            'Korean': '🇰🇷',
+            'Chinese': '🇨🇳'
+          }
+          return map[lang] || ''
+        },
+        openReader(book, category, idx) {
+          this.currentBook = book
+          if (book.url.startsWith('./') || book.url.startsWith('../') || book.url.startsWith('media/')) {
+            this.readerUrl = book.url
+          } else if (book.url.includes('drive.google.com')) {
+            const idMatch = book.url.match(/[?&]id=([^&]+)/)
+            if (idMatch) {
+              this.readerUrl = 'https://drive.google.com/file/d/' + idMatch[1] + '/preview'
+            } else {
+              this.readerUrl = book.url
+            }
+          } else {
+            this.readerUrl = book.url
+          }
+          this.readerOpen = true
+          document.body.style.overflow = 'hidden'
+        },
+        closeReader() {
+          this.readerOpen = false
+          this.currentBook = null
+          this.readerUrl = ''
+          document.body.style.overflow = ''
+        }
+      },
+      mounted() {
+        if (window.booksData) {
+          this.categories = window.booksData.categories || []
+        }
+        document.addEventListener('click', (e) => {
+          if (!e.target.closest('.mega-menu-trigger') && !e.target.closest('.mega-dropdown')) {
+            if (this.megaMenuOpen) this.closeMegaMenu()
+          }
+        })
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && this.readerOpen) this.closeReader()
+        })
+      }
+    })
+    app.mount('#app')
+  </script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+[✓] Audit all HTML pages: identify current nav styles vs index page theme
+[✓] Redesign desktop mega menu across all pages (4-column unified structure)
+[✓] Redesign mobile slide menu across all pages (unified sections)
+[✓] Redesign mobile bottom nav across all pages (5 items + More sheet)
+[✓] Redesign footer across all pages (4-column unified)
+[✓] Redesign header bar across all pages (unified gradient)
+[✓] Fix active-page highlighting on all pages (desktop nav, mobile menu, bottom-nav, more-sheet)
+[ ] Index page: remove backdrop/blur behind Bismillah in hero section
+[ ] Final verification: test all pages for styling, JS, active page highlighting

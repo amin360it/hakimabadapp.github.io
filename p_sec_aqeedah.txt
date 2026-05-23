@@ -1,0 +1,2 @@
+<ol class="list-decimal pl-5 space-y-4 mb-6 text-gray-700 leading-relaxed font-inter">
+</ol>
