@@ -6,7 +6,6 @@
   <title>Video Collection - Hakimabad</title>  <link rel="icon" type="image/x-icon" href="./assets/images/Logo.ico">
   
   <meta name="description" content="Watch Hakimabad Mahfil video recordings from YouTube">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval'; frame-src https: youtube.com www.youtube.com www.youtube-nocookie.com player.vimeo.com;">
   <script src="./assets/vendor/tailwindcss.js"></script>
   <script src="./assets/vendor/vue.global.prod.js"></script>
   <script src="./data/video-data.js"></script>
@@ -44,7 +43,7 @@
             <svg class="nav-link-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
             Home
           </a>
-          <div class="mega-menu-trigger nav-item" :class="{ 'active': megaMenuOpen }">
+          <div class="mega-menu-trigger nav-item">
             <a href="#" class="nav-link" @click.prevent="toggleMegaMenu" :class="{ 'active-page': megaMenuOpen }">
               Explore <span class="arrow">&#x25BC;</span>
             </a>
@@ -189,16 +188,7 @@
               <!-- Video Player -->
               <div v-if="currentVideo" class="bg-white rounded-2xl border border-gray-100 shadow-md overflow-hidden mb-6">
                 <div class="aspect-video bg-black relative flex items-center justify-center bg-gray-900">
-                  <iframe v-if="!isFileProtocol" :src="embedUrl(currentVideo)" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" class="w-full h-full"></iframe>
-                  <div v-else class="text-center p-6">
-                    <svg class="w-16 h-16 mx-auto mb-4 text-white/50" fill="currentColor" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
-                    <p class="text-white text-lg font-medium mb-1">Open in YouTube to watch</p>
-                    <p class="text-gray-400 text-sm mb-4">Embedded player requires an HTTP server</p>
-                    <a :href="'https://www.youtube.com/watch?v='+currentVideo.id" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 bg-red-600 text-white rounded-xl text-sm font-medium hover:bg-red-700 transition no-underline">
-                      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M21 3H3v18h18V3zM9 17V7l10 5-10 5z"/></svg>
-                      Watch on YouTube
-                    </a>
-                  </div>
+                  <iframe :src="embedUrl(currentVideo)" class="w-full h-full" frameborder="0" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe>
                 </div>
                 <div class="p-4 flex justify-between items-start">
                   <div class="min-w-0 flex-1">
@@ -261,26 +251,26 @@
       </section>
     </main>
 
-    <div class="audio-player" :class="{ active: currentVideo }">
-      <div class="audio-player-track">
-        <div class="audio-player-title">{{ currentVideo ? currentVideo.title : 'No video selected' }}</div>
+      <div class="audio-player" :class="{ active: currentVideo }" v-if="canUsePlayerApi()">
+        <div class="audio-player-track">
+          <div class="audio-player-title">{{ currentVideo ? currentVideo.title : 'No video selected' }}</div>
+        </div>
+        <div class="audio-player-controls" v-if="canUsePlayerApi()">
+          <button @click="prevVideo" class="audio-player-btn" :disabled="!currentVideo">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+          </button>
+          <button @click="toggleVideoPlay" class="audio-player-btn w-10 h-10 bg-white/20 rounded-full flex items-center justify-center" :disabled="!currentVideo">
+            <svg v-if="videoIsPlaying" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+            <svg v-else class="w-5 h-5 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          <button @click="nextVideo" class="audio-player-btn" :disabled="!currentVideo">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+          </button>
+          <button @click="closeVideo" class="audio-player-btn ml-2" :disabled="!currentVideo">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+          </button>
+        </div>
       </div>
-      <div class="audio-player-controls">
-        <button @click="prevVideo" class="audio-player-btn" :disabled="!currentVideo">
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
-        </button>
-        <button @click="toggleVideoPlay" class="audio-player-btn w-10 h-10 bg-white/20 rounded-full flex items-center justify-center" :disabled="!currentVideo">
-          <svg v-if="videoIsPlaying" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-          <svg v-else class="w-5 h-5 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-        </button>
-        <button @click="nextVideo" class="audio-player-btn" :disabled="!currentVideo">
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
-        </button>
-        <button @click="closeVideo" class="audio-player-btn ml-2" :disabled="!currentVideo">
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-        </button>
-      </div>
-    </div>
 
     <footer class="site-footer">
       <div class="footer-inner">
@@ -486,7 +476,7 @@
           window.scrollTo({top: 0, behavior: 'smooth'});
         },
         toggleVideoPlay() {
-          if (!this.currentVideo) return;
+          if (!this.currentVideo || !this.canUsePlayerApi()) return;
           const iframe = this.$el.querySelector('iframe');
           if (iframe && iframe.contentWindow) {
             if (this.videoIsPlaying) {
@@ -496,8 +486,6 @@
               iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
               this.videoIsPlaying = true;
             }
-          } else {
-            window.open('https://www.youtube.com/watch?v=' + this.currentVideo.id, '_blank');
           }
         },
         prevVideo() {
@@ -527,14 +515,11 @@
         },
         embedUrl(v) {
           if (!v) return '';
-          return 'https://www.youtube-nocookie.com/embed/' + v.id + '?rel=0&enablejsapi=1';
+          const isFile = window.location.protocol === 'file:';
+          return 'https://www.youtube-nocookie.com/embed/' + v.id + '?rel=0' + (isFile ? '' : '&enablejsapi=1');
         },
-        isFileProtocol() {
-          // Allow embedding on GitHub Pages and localhost/HTTP servers
-          const protocol = window.location.protocol;
-          const hostname = window.location.hostname;
-          // Block only file:// protocol
-          return protocol === 'file:';
+        canUsePlayerApi() {
+          return window.location.protocol !== 'file:';
         }
       },
       mounted() {
