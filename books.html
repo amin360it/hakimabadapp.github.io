@@ -684,7 +684,8 @@
           } else if (book.url.includes('drive.google.com')) {
             const idMatch = book.url.match(/[?&]id=([^&]+)/)
             if (idMatch) {
-              this.readerUrl = 'https://drive.google.com/file/d/' + idMatch[1] + '/preview'
+              const directPdf = 'https://drive.google.com/uc?export=view&id=' + idMatch[1]
+              this.readerUrl = 'https://docs.google.com/viewer?embedded=true&url=' + encodeURIComponent(directPdf)
             } else {
               this.readerUrl = book.url
             }
